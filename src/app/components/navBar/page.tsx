@@ -2,6 +2,9 @@ import React from "react";
 import styles from "@/app/components/navBar/page.module.scss";
 import homeIcon from "@/app/assets/beast.svg";
 import SearchBar from "../searchBar/page";
+import HeartIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import PersonIcon from '@mui/icons-material/PersonOutlineOutlined';
+import CartIcon from '@mui/icons-material/LocalMallOutlined';
 
 const NavBar = () => {
   return (
@@ -19,6 +22,11 @@ const NavBar = () => {
       <div className={styles.searchBarContent}>
         <SearchBar />
       </div>
+      <div className={styles.iconsContent}>
+        <HeartIcon/>
+        <PersonIcon/>
+        <CartIcon/>
+        </div>
     </div>
   );
 };

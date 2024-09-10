@@ -13,6 +13,7 @@
 
 .iconContent {
   margin-right: auto;
+  
 }
 
 .buttonContent {
@@ -28,6 +29,7 @@
 .icon {
   width: 80px;
   height: 80px;
+  
 }
 
 .headerButtons {
@@ -49,4 +51,15 @@
   align-items: center;
   margin-right: 100px;
   
+}
+
+.iconsContent {
+
+  
+  
+  display: flex;
+  transform: translateX(-50%);
+  gap: 10px;
+
+
 }
