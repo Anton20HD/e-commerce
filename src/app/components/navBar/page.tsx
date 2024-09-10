@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@/app/components/navBar/page.module.scss";
 import homeIcon from "@/app/assets/beast.svg";
+import SearchBar from "../searchBar/page";
 
 const NavBar = () => {
   return (
@@ -14,6 +15,9 @@ const NavBar = () => {
         <button className={styles.headerButtons}>Women's</button>
 
         <button className={styles.headerButtons}>Accessories</button>
+      </div>
+      <div className={styles.searchBarContent}>
+        <SearchBar />
       </div>
     </div>
   );
