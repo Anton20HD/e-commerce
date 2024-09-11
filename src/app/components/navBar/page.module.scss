@@ -9,6 +9,7 @@
   align-items: center;
   background-color: white;
   outline: auto;
+  margin-top: 40px;
 }
 
 .iconContent {
@@ -55,11 +56,15 @@
 
 .iconsContent {
 
-  
-  
+
   display: flex;
   transform: translateX(-50%);
-  gap: 10px;
+  gap: 20px;
 
+}
 
+.iconButton {
+
+    cursor: pointer;
+    
 }

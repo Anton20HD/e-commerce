@@ -31,7 +31,7 @@ const SearchBar = () => {
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="What are you looking for?.."
-        inputProps={{ "aria-label": "search google maps" }}
+        inputProps={{ "aria-label": "search clothes" }}
       />
      
     </Paper>

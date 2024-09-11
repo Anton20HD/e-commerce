@@ -23,9 +23,15 @@ const NavBar = () => {
         <SearchBar />
       </div>
       <div className={styles.iconsContent}>
+        <div className={styles.iconButton}>
         <HeartIcon/>
+        </div>
+        <div className={styles.iconButton}>
         <PersonIcon/>
+        </div>
+        <div className={styles.iconButton}>
         <CartIcon/>
+        </div>
         </div>
     </div>
   );
