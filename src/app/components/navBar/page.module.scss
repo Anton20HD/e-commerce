@@ -14,7 +14,6 @@
 
 .iconContent {
   margin-right: auto;
-  
 }
 
 .buttonContent {
@@ -30,7 +29,6 @@
 .icon {
   width: 80px;
   height: 80px;
-  
 }
 
 .headerButtons {
@@ -43,6 +41,11 @@
   background-color: white;
 }
 
+.active {
+  text-decoration: underline;
+  color: black;
+}
+
 .headerButtons:hover {
   transform: scaleX(1.1) scaleY(1.1);
 }
@@ -51,20 +54,14 @@
   display: flex;
   align-items: center;
   margin-right: 100px;
-  
 }
 
 .iconsContent {
-
-
   display: flex;
   transform: translateX(-50%);
   gap: 20px;
-
 }
 
 .iconButton {
-
-    cursor: pointer;
-    
+  cursor: pointer;
 }
