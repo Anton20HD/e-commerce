@@ -39,16 +39,24 @@
   margin: 10px;
   font-weight: bold;
   background-color: white;
+  color:black;
+  transition: color 0.5s, border-bottom;
 }
 
-.active {
-  text-decoration: underline;
-  color: black;
-}
 
 .headerButtons:hover {
-  transform: scaleX(1.1) scaleY(1.1);
-}
+    border-bottom: 2px solid black;
+    color: black;
+  }
+  
+  
+  .buttonContent:hover .headerButtons:not(:hover) {
+    color: gray;
+  }
+
+// .headerButtons:hover {
+//   transform: scaleX(1.1) scaleY(1.1);
+// }
 
 .searchBarContent {
   display: flex;

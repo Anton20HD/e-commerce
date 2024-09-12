@@ -26,11 +26,11 @@ const handleLinkClick = (link:string) => {
       </div>
 
       <div className={styles.buttonContent}>
-        <button className={`${styles.headerButtons} ${activeLink === "mens" ? styles.active : ""}`}  onClick={() => handleLinkClick("mens")}>MEN'S</button>
+        <button className={styles.headerButtons}>MEN'S</button>
 
-        <button className={`${styles.headerButtons} ${activeLink === "womens" ? styles.active : ""}`} onClick={() => handleLinkClick("womens")}>WOMEN'S</button>
+        <button className={styles.headerButtons}>WOMEN'S</button>
 
-        <button className={`${styles.headerButtons} ${activeLink === "accessories" ? styles.active : ""}`} onClick={() => handleLinkClick("accessories")}>ACCESSORIES</button>
+        <button className={styles.headerButtons}>ACCESSORIES</button>
       </div>
       <div className={styles.searchBarContent}>
         <SearchBar />
