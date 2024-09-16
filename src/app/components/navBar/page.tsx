@@ -20,7 +20,7 @@ const NavBar = () => {
       <div className={styles.iconContent}>
         <img className={styles.icon} src={homeIcon.src} alt="" />
       </div>
-
+      
       <div className={styles.buttonContent}>
         <div className={styles.dropdown}>
           <button
