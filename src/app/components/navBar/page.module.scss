@@ -73,3 +73,57 @@
 .iconButton {
   cursor: pointer;
 }
+
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownMenu {
+
+ 
+  width: 100px;
+
+  position: absolute;
+  left: 0;
+  top: calc(90% + .25rem);
+  background-color: white;
+  padding: .75rem;
+  border-radius: .25rem;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0, .1);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out; //animates in
+  transform: translateY(-10px);
+  pointer-events: none;
+  opacity: 0;
+  
+}
+
+.dropdown:hover .dropdownMenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdownLinks {
+
+  display: flex;
+  flex-direction: column;
+  gap:.50rem;
+}
+
+.link {
+
+  text-decoration: none;
+  cursor: pointer;
+  color:#777;
+}
+
+.link:hover {
+  color: black;
+}
+
+.dropdownHeading {
+
+  display: flex;
+  font-weight: bold;
+}
