@@ -7,6 +7,7 @@ import SearchBar from "../searchBar/page";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import PersonIcon from "@mui/icons-material/PersonOutlineOutlined";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
+import ButtonContent from "../buttons/page";
 
 const NavBar = () => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
@@ -21,35 +22,7 @@ const NavBar = () => {
         <img className={styles.icon} src={homeIcon.src} alt="" />
       </div>
       
-      <div className={styles.buttonContent}>
-        <div className={styles.dropdown}>
-          <button
-            className={`${styles.headerButtons} ${
-              activeLink === "mens" ? styles.active : ""
-            }`}
-            onMouseEnter={() => handleLinkClick("mens")}
-          >
-            MEN'S
-          </button>
-          <div className={styles.dropdownMenu}>
-              <div>
-                <h3 className="dropdownHeading">Clothes</h3>
-                <div className={styles.dropdownLinks}>
-                  <a className={styles.link} href="#">All</a>
-                  <a className={styles.link} href="#">T-shirts & Tops</a>
-                  <a className={styles.link} href="#">Hoodies</a>
-                  <a className={styles.link} href="#">Shorts</a>
-                  <a className={styles.link} href="#">Sweaters</a>
-
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <button className={styles.headerButtons}>WOMEN'S</button>
-
-        <button className={styles.headerButtons}>ACCESSORIES</button>
-      </div>
+      <ButtonContent/>
       <div className={styles.searchBarContent}>
         <SearchBar />
       </div>
