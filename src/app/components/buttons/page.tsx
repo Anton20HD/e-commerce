@@ -70,7 +70,7 @@ const ButtonContent = () => {
                   Hoodies
                 </a>
                 <a className={styles.link} href="#">
-                  Shorts
+                  Leggings
                 </a>
                 <a className={styles.link} href="#">
                   Sweaters
@@ -97,16 +97,16 @@ const ButtonContent = () => {
                   All
                 </a>
                 <a className={styles.link} href="#">
-                  T-shirts & Tops
+                  Equipment
                 </a>
                 <a className={styles.link} href="#">
-                  Hoodies
+                  Socks
                 </a>
                 <a className={styles.link} href="#">
-                  Shorts
+                  Caps
                 </a>
                 <a className={styles.link} href="#">
-                  Sweaters
+                  Bottles
                 </a>
               </div>
             </div>

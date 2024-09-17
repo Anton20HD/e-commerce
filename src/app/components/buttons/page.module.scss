@@ -1,4 +1,4 @@
-// @import "../../styles/_variables";
+@import "../../../styles/variables.scss";
 // @import "../../styles/_typography";
 
   
@@ -20,6 +20,7 @@
     border: 2px solid transparent;
     cursor: pointer;
     font-size: 18px;
+    font-family: $primaryfont;
     margin: 10px;
     font-weight: bold;
     background-color: white;
@@ -49,7 +50,6 @@
   
   .dropdownMenu {
   
-    width: 100px;
     position: absolute;
     left: 0;
     top: calc(90% + .25rem);
