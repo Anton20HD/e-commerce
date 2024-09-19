@@ -8,8 +8,9 @@ const StartPage = () => {
        
       <video className={styles.video} src="/videos/running.mp4" autoPlay loop muted />
       </div>
-    
-    
+      <div>
+        mjau
+      </div>
     </div>
   )
 }
