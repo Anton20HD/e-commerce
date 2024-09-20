@@ -6,7 +6,7 @@ export const products = [
         _id: 1,
         title: "White T shirt",
         price: 65,
-        image: "",
+        image: require("../assets/white-t-shirt.png"),
         category: "Men",
         sizes:["S","M","L"],
         popular: false
@@ -15,7 +15,7 @@ export const products = [
         _id: 2,
         title: "Black T shirt",
         price: 85,
-        image: "",
+        image: require("../assets/black-t-shirt.png"),
         category: "Men",
         sizes:["S","M","L"],
         popular: false

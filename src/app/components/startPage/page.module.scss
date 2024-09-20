@@ -5,14 +5,19 @@
     background-position: center;
     position: absolute;
     overflow: hidden;
-   
-  }
 
- .video {
+}
+
+.video {
     width: 100%;
-    height:600px;
+    height: 600px;
     object-fit: cover;
- }
+}
 
- 
-  
+.productSection {
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
