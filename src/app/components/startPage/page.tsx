@@ -1,35 +1,23 @@
- "use client"
+"use client";
 
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/app/components/startPage/page.module.scss";
 import blackTShirt from "@/app/assets/black-t-shirt.png";
 import whiteTShirt from "@/app/assets/white-t-shirt.png";
-
-async function getProduct() {
-  const res = await fetch("http://localhost:3000/api/route");
-  const data = await res.json();
-  data.products.forEach(
-    (item: { id: string | number }) => (item.id = "products_" + item.id)
-  );
-
-  return data;
-}
+import Products from "../products/page";
 
 const StartPage = () => {
-
+  const [products, setProducts] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getProduct();
-      } catch (error) {
-        console.error("Error fetching menu:", error);
-      }
-    };
-
-    fetchData();
+    fetch("http://localhost:3000/api/data.ts")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setProducts(data);
+      });
   }, []);
-
 
   return (
     <div className={styles.startPageContainer}>
@@ -43,7 +31,21 @@ const StartPage = () => {
         />
       </div>
       <h2>Latest Drops</h2>
-      <div className={styles.productSection}></div>
+      <div className={styles.productSection}>
+
+
+        <Products/>
+
+
+        {products.map((product) => 
+        <div>
+          <h2>{product.title}</h2>
+          <img src={product.image} alt="" />
+        </div>
+              
+        )}
+
+      </div>
     </div>
   );
 };

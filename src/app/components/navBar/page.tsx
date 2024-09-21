@@ -27,6 +27,8 @@ const NavBar = () => {
         <SearchBar />
       </div>
       <div className={styles.iconsContent}>
+
+        {/* TODO: Change the divs into a tags */}
         <div className={styles.iconButton}>
           <HeartIcon />
         </div>
