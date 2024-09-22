@@ -18,6 +18,8 @@
 .productSection {
 
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping if necessary */
+  gap: 20px; /* Adds space between cards */
+  justify-content: flex-start; /* Aligns items at the start */
 }

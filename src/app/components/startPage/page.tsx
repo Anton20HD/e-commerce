@@ -31,21 +31,12 @@ const StartPage = () => {
         />
       </div>
       <h2>Latest Drops</h2>
-      <div className={styles.productSection}>
+    
 
 
         <Products/>
 
 
-        {products.map((product) => 
-        <div>
-          <h2>{product.title}</h2>
-          <img src={product.image} alt="" />
-        </div>
-              
-        )}
-
-      </div>
     </div>
   );
 };
