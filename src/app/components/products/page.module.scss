@@ -1,26 +1,30 @@
-
-
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    gap: 20px;
 }
 
-.card { 
-    max-width: 300px; 
+.sliderWrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.card {
+    min-width: 20%;
+    flex-shrink:0;
     margin: 20px;
-    //border: 2px solid grey;
+    box-sizing: border-box;
     padding: 5px;
     cursor: pointer;
 }
 
 .productSection {
 
- 
-  display: flex;
-  flex-wrap: wrap; 
-  gap: 20px;
-  justify-content: flex-start; 
+
+    display: flex;
+    transition: transform 0.5s ease;
 }
 
 
@@ -29,11 +33,45 @@
 }
 
 
-.cardImage {
-
+.slide{
     //width: 13rem;
     margin-bottom: 1rem;
+}
+
+.slide-hidden {
+
+    display: none;
+}
+
+
+.arrowSection {
+   
     
+    margin-left: auto;
+   
+}
+
+.arrowRight:hover {
+    cursor: pointer;
+}
+
+.arrowLeft:hover {
+    cursor: pointer;
+}
+
+.arrowLeft {
+    left:1rem;
+    background-color: black;
+    color:white;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.arrowRight {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 20px;
 }
 
 .cardTitle {
@@ -42,10 +80,10 @@
 }
 
 .cardDetails {
-  display: flex;
-  flex-direction: column;
-  line-height: 1px;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    line-height: 1px;
+    margin-top: 10px;
 
 }
 
@@ -78,19 +116,19 @@
     cursor: pointer;
     border-radius: 50%;
     background-color: white;
-  
-   
+
+
 }
 
 .heartIcon {
 
-    
+
     height: 20px;
     width: 20px;
-    
-    
+
+
     display: flex;
     justify-content: center;
     align-items: center;
-   
+
 }
