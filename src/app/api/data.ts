@@ -20,7 +20,25 @@ export const products = [
         sizes:["S","M","L"],
         popular: false
 
-    }
+    }, {
+        _id: 3,
+        title: "Black T shirt",
+        price: 85,
+        image: require("../assets/black-t-shirt.png"),
+        category: "Men",
+        sizes:["S","M","L"],
+        popular: false
+
+    }, {
+        _id: 4,
+        title: "Black T shirt",
+        price: 85,
+        image: require("../assets/black-t-shirt.png"),
+        category: "Men",
+        sizes:["S","M","L"],
+        popular: false
+
+    },
    
 
 ];
