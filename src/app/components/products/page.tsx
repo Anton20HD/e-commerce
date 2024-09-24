@@ -25,8 +25,13 @@ const Products = () => {
     }
   };
 
+
+  //ContentWrapper is essential if you want to change the position of the heading aswell and just not 1 element
+
   return (
     <div className={styles.cardContainer}>
+      <div className={styles.contentWrapper}>   
+       <h1 className={styles.cardHeading}>Latest Drops</h1>
       <div className={styles.sliderWrapper}>
         <div
           className={styles.productSection}
@@ -65,7 +70,7 @@ const Products = () => {
             cursor: slide === 0 ? "default" : "pointer",
           }}
         >
-          <ArrowLeftIcon />
+          <ArrowLeftIcon className={styles.arrows} />
         </button>
         <button
           className={styles.arrowRight}
@@ -76,8 +81,9 @@ const Products = () => {
             cursor: slide === maxSlide ? "default" : "pointer"
           }}
         >
-          <ArrowRightIcon />
+          <ArrowRightIcon className={styles.arrows}  />
         </button>
+        </div>
       </div>
     </div>
   );

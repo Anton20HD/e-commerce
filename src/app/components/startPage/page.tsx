@@ -31,7 +31,7 @@ const StartPage = () => {
           muted
         />
       </div>
-      <h2>Latest Drops</h2>
+    
     
 
 

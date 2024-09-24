@@ -1,9 +1,13 @@
+@import "../../../styles/variables.scss";
+
+
 .card-container {
     display: flex;
     align-items: center;
     position: relative;
     width: 100%;
     gap: 20px;
+    flex-direction: column;
 }
 
 .sliderWrapper {
@@ -13,8 +17,9 @@
 }
 
 .card {
-   // min-width: 20%;
-    flex-shrink:0;
+
+    width: 319px;
+    flex-shrink: 0;
     //margin: 20px;
     box-sizing: border-box;
     padding: 5px;
@@ -22,11 +27,11 @@
 }
 
 .productSection {
-
-
     display: flex;
     transition: transform 0.5s ease;
+    margin-top: 10px;
 }
+
 
 
 .cardWrapper {
@@ -34,11 +39,11 @@
 }
 
 
-.cardImage{
+.cardImage {
     //width: 13rem;
     margin-bottom: 1rem;
     height: 350px;
-    width: 280px;
+    width: 310px;
 }
 
 .slide-hidden {
@@ -48,14 +53,20 @@
 
 
 .arrowSection {
-   display: flex;
-   gap:10px;
-   position: absolute; // positions it indepentently of slider
-   right: 10px;
-   top: 90%; //center it vertically
-   transform: translateY(-50%); //adjusts to vertically center
-   z-index: 10; // Stays above slider content
-   
+    display: flex;
+    gap: 10px;
+    position: absolute; // positions it indepentently of slider
+    right: 10px;
+    top: 90%; //center it vertically
+    transform: translateY(-50%); //adjusts to vertically center
+    z-index: 10; // Stays above slider content
+
+}
+
+.arrows {
+
+    height: 20px;
+
 }
 
 .arrowRight:hover {
@@ -67,18 +78,21 @@
 }
 
 .arrowLeft {
-    left:1rem;
     background-color: black;
-    color:white;
-    padding: 5px;
-    border-radius: 20px;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
 }
 
 .arrowRight {
     background-color: black;
     color: white;
-    padding: 5px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
 }
 
 .cardTitle {
@@ -91,6 +105,27 @@
     flex-direction: column;
     line-height: 1px;
     margin-top: 10px;
+
+}
+
+.contentWrapper {
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+
+}
+
+.cardHeading {
+
+    margin-bottom: 10px;
+    align-self: flex-start;
+    font-family: $primaryfont;
+    font-size: 2.4rem;
+    line-height: 3rem;
+    margin: 0;
+    margin-top: 20px;
+    text-align: left;
 
 }
 
