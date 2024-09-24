@@ -9,12 +9,13 @@
 .sliderWrapper {
     overflow: hidden;
     width: 100%;
+    position: relative;
 }
 
 .card {
-    min-width: 20%;
+   // min-width: 20%;
     flex-shrink:0;
-    margin: 20px;
+    //margin: 20px;
     box-sizing: border-box;
     padding: 5px;
     cursor: pointer;
@@ -33,9 +34,11 @@
 }
 
 
-.slide{
+.cardImage{
     //width: 13rem;
     margin-bottom: 1rem;
+    height: 350px;
+    width: 280px;
 }
 
 .slide-hidden {
@@ -45,9 +48,13 @@
 
 
 .arrowSection {
-   
-    
-    margin-left: auto;
+   display: flex;
+   gap:10px;
+   position: absolute; // positions it indepentently of slider
+   right: 10px;
+   top: 90%; //center it vertically
+   transform: translateY(-50%); //adjusts to vertically center
+   z-index: 10; // Stays above slider content
    
 }
 
@@ -125,8 +132,6 @@
 
     height: 20px;
     width: 20px;
-
-
     display: flex;
     justify-content: center;
     align-items: center;

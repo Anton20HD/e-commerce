@@ -10,6 +10,9 @@ const Products = () => {
   const [slide, setSlide] = useState(0);
   const itemsPerSlide = 4; // Number of items shown at once
 
+  // calculate maximun slide index
+  const maxSlide = Math.ceil(products.length / itemsPerSlide) - 1;
+
   const nextSlide = () => {
     if (slide < Math.ceil(products.length / itemsPerSlide) - 1) {
       setSlide(slide + 1);
@@ -24,14 +27,10 @@ const Products = () => {
 
   return (
     <div className={styles.cardContainer}>
-      <div className={styles.arrowSection}>
-        <ArrowLeftIcon className={styles.arrowLeft} onClick={prevSlide} />
-        <ArrowRightIcon className={styles.arrowRight} onClick={nextSlide} />
-      </div>
       <div className={styles.sliderWrapper}>
         <div
           className={styles.productSection}
-          style={{ transform: `translateX(-${slide * 71}%)` }}
+          style={{ transform: `translateX(-${slide * 25}%)` }} // Shifts the element horizontally along the X-axis.
         >
           {products.map((product, index) => (
             <div className={styles.card} key={index}>
@@ -40,7 +39,7 @@ const Products = () => {
                   <HeartIcon className={styles.heartIcon} />
                 </button>
                 <img
-                  className={styles.slide}
+                  className={styles.cardImage}
                   src={product.image.default.src}
                   height={290}
                   width={230}
@@ -55,6 +54,30 @@ const Products = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className={styles.arrowSection}>
+        <button
+          className={styles.arrowLeft}
+          onClick={prevSlide}
+          disabled={slide === 0}
+          style={{
+            opacity: slide === 0 ? 0.5 : 1,
+            cursor: slide === 0 ? "default" : "pointer",
+          }}
+        >
+          <ArrowLeftIcon />
+        </button>
+        <button
+          className={styles.arrowRight}
+          onClick={nextSlide}
+          disabled={slide === maxSlide}
+          style={{
+            opacity: slide === maxSlide ? 0.5 : 1,
+            cursor: slide === maxSlide ? "default" : "pointer"
+          }}
+        >
+          <ArrowRightIcon />
+        </button>
       </div>
     </div>
   );
