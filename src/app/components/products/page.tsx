@@ -35,7 +35,7 @@ const Products = () => {
       <div className={styles.sliderWrapper}>
         <div
           className={styles.productSection}
-          style={{ transform: `translateX(-${slide * 25}%)` }} // Shifts the element horizontally along the X-axis.
+          style={{ transform: `translateX(-${slide * 30}%)` }} // Shifts the element horizontally along the X-axis.
         >
           {products.map((product, index) => (
             <div className={styles.card} key={index}>
