@@ -7,9 +7,21 @@ const CategoryPage = () => {
   return (
     <div className={styles.categoryContainer}>
     <div className={styles.categorySection}>
+
+            <div className={styles.imageWrapper}>
             <img className={styles.womenImg} src={womenImg.src} alt="" />
+            <button className={styles.categoryButton}>Women</button>
+            </div>
+
+            <div className={styles.imageWrapper}>
             <img className={styles.menImg} src={menImg.src} alt="" />
+            <button className={styles.categoryButton}>Men</button>
+            </div>
     </div>
+    <div className={styles.buttonSection}>
+       
+
+        </div>
     </div>
   )
 }
