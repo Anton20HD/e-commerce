@@ -1,0 +1,28 @@
+
+.categoryContainer {
+    width: 100%;
+    background-size: cover;
+}
+
+.categorySection {
+    display: grid;
+    grid-template-columns: 1fr 1fr; //Takes 50% of width
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.menImg {
+    width:100%;
+    height: 600px;
+    object-fit: cover;
+}
+
+
+.womenImg {
+
+    width:100%;
+    height: 600px;
+    object-fit: cover;
+}

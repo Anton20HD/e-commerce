@@ -11,6 +11,9 @@ html, body {
  // position: relative;
   overflow-x: hidden;
   
+  width: 100vw; // Takes up the full viewport width
+  margin: 0; // Remove any default margin
+  padding: 0; // Remove any default padding
 }
 
 // * {
