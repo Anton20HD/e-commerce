@@ -1,0 +1,77 @@
+.footer {
+    background-color: antiquewhite;
+    color: black;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    height: 250px;
+}
+
+.footerContainer {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
+}
+
+.socialIconsSection {
+    grid-column: span 1 / -1;
+    margin-top: auto;
+   
+}
+
+.icon {
+
+    height: 80px;
+    width: 80px;
+    margin-left: 50px;
+    
+}
+
+.rightSection {}
+
+.shopSection {}
+
+
+.ul {
+    display: flex;
+}
+
+.ul li {
+    list-style: none;
+}
+
+.ul li a {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    text-align: center;
+    font-size: 20px;
+    
+    margin: 0 10px;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #fff;
+    z-index: 10;
+    color: black;
+}
+
+.ul .icon {
+    position: relative;
+    transition: transform 0.5s;
+    z-index: 3;
+}
+
+
+
+.facebookColor {
+
+    color: black;
+}
+
+.instagramColor {}
+
+.tiktokColor {}
+
+.youtubeColor {}
