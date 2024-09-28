@@ -7,7 +7,6 @@ import whiteTShirt from "@/app/assets/white-t-shirt.png";
 import Products from "../products/page";
 import { products } from "@/app/api/data";
 import CategoryPage from "../categoryPage/page";
-import NavigateImageSliderPage from "../navigateImageSliderPage/page";
 
 const StartPage = () => {
   const [products, setProducts] = useState([]);
@@ -36,7 +35,6 @@ const StartPage = () => {
 
       <Products />
       <CategoryPage />
-      <NavigateImageSliderPage/>
     </div>
   );
 };
