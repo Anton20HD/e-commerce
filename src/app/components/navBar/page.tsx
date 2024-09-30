@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "@/app/components/navBar/page.module.scss";
-import homeIcon from "@/app/assets/beast.svg";
+import homeIcon from "@/app/assets/GymBeast.svg";
 import SearchBar from "../searchBar/page";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import PersonIcon from "@mui/icons-material/PersonOutlineOutlined";

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./page.module.scss";
-import homeIcon from "@/app/assets/beast.svg";
+import homeIcon from "@/app/assets/GymBeast.svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

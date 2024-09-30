@@ -77,11 +77,24 @@
     display: flex;
     //  margin-left: -50px;
     margin-top: 40px;
+    margin-left: -10px;
 }
 
 .ul li {
     list-style: none;
 
+}
+
+
+
+.shopSection p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.accountSection p:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 
@@ -91,12 +104,12 @@
 }
 
 .socialButton {
-    width: 30px;
-    height: 30px;
+    width: 13px;
+    height: 13px;
     background-color: black;
     text-align: center;
     font-size: 10px;
-
+    padding: 8px;
     display: flex;
     margin: 0 10px;
     justify-content: center;
@@ -104,7 +117,7 @@
     border-radius: 50%;
     position: relative;
     overflow: hidden;
-    border: 3px solid #0000;
+    border: 3px solid rgba(0, 0, 0, 0);
     z-index: 10;
     color: white;
 }
