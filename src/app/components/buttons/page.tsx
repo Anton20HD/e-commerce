@@ -7,23 +7,27 @@ const ButtonContent = () => {
 
     const [activeLink, setActiveLink] = useState<string | null>(null);
 
-    const handleLinkClick = (link: string) => {
+    const handleMouseEnter = (link: string) => {
       setActiveLink(link);
     };
+
+    const handleMouseLeave = () => {
+      setActiveLink(null)
+    }
   
 
   return (
     <div className={styles.buttonContent}>
-        <div className={styles.dropdown}>
+        <div
+         className={styles.dropdown}>
           <button
             className={`${styles.headerButtons} ${
               activeLink === "mens" ? styles.active : ""
             }`}
-            onMouseEnter={() => handleLinkClick("mens")}
           >
             MEN'S
           </button>
-          <div className={styles.dropdownMenu}>
+          <div className={styles.dropdownContent}>
             <div>
               <h3 className="dropdownHeading">Clothes</h3>
               <div className={styles.dropdownLinks}>
@@ -52,13 +56,14 @@ const ButtonContent = () => {
             className={`${styles.headerButtons} ${
               activeLink === "womens" ? styles.active : ""
             }`}
-            onMouseEnter={() => handleLinkClick("womens")}
+            onMouseEnter={() => handleMouseEnter("womens")}
+            onMouseLeave={handleMouseLeave}
           >
             WOMEN'S
           </button>
-          <div className={styles.dropdownMenu}>
+          <div className={styles.dropdownContent}>
             <div>
-              <h3 className="dropdownHeading">Clothes</h3>
+              <h3 className={styles.dropdownHeading}>Clothes</h3>
               <div className={styles.dropdownLinks}>
                 <a className={styles.link} href="#">
                   All
@@ -85,11 +90,12 @@ const ButtonContent = () => {
             className={`${styles.headerButtons} ${
               activeLink === "accessories" ? styles.active : ""
             }`}
-            onMouseEnter={() => handleLinkClick("accessories")}
+            onMouseEnter={() => handleMouseEnter("accessories")}
+            onMouseLeave={handleMouseLeave}
           >
             ACCESSORIES
           </button>
-          <div className={styles.dropdownMenu}>
+          <div className={styles.dropdownContent}>
             <div>
               <h3 className="dropdownHeading">Clothes</h3>
               <div className={styles.dropdownLinks}>

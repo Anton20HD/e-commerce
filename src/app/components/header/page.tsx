@@ -1,7 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
-import styles from "@/app/components/navBar/page.module.scss";
+import React from "react";
+import styles from "@/app/components/header/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import SearchBar from "../searchBar/page";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -9,19 +7,12 @@ import PersonIcon from "@mui/icons-material/PersonOutlineOutlined";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import ButtonContent from "../buttons/page";
 
-const NavBar = () => {
-  const [activeLink, setActiveLink] = useState<string | null>(null);
-
-  const handleLinkClick = (link: string) => {
-    setActiveLink(link);
-  };
-
+const Header = () => {
   return (
     <div className={styles.headerContent}>
       <div className={styles.iconContent}>
         <img className={styles.icon} src={homeIcon.src} alt="" />
       </div>
-      
       <ButtonContent/>
       <div className={styles.searchBarContent}>
         <SearchBar />
@@ -43,4 +34,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Header;
