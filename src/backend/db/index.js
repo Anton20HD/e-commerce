@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
 // Replace the uri string with your connection string.
-const uri = "mongodb+srv://antonhaglund20:AD4ibT7SKUC2ivsR@ecommerce.xlt8q.mongodb.net/?retryWrites=true&w=majority&appName=Ecommerce";
+const uri = "mongodb+srv://antonhaglund20:zFSZKv9LEEpqV2BZ@ecommerce.xlt8q.mongodb.net/?retryWrites=true&w=majority&appName=Ecommerce";
 
 const client = new MongoClient(uri);
 
@@ -21,3 +21,5 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
+
