@@ -1,17 +1,8 @@
-// import connectDB from '@/libs/db/mongodb'
+import userModel from '@/models/userModel'; 
+import connectDB from '@/libs/db/mongodb';
 
-
-// // User login route
-// const loginUser = async (req,res) => {
-
-// }
-
-// // Register user route
-// const registerUser = async (req,res) => {
-
-// }
-
-// // Admin login route
-// const adminLogin = async (req,res) => {
-
-// }
+export const registerUser = async (name: string, email: string, password: string) => {
+  await connectDB();
+  const newUser = new userModel({ name, email, password });
+  return newUser.save();
+};
