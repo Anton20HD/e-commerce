@@ -13,12 +13,11 @@ const Header = () => {
       <div className={styles.iconContent}>
         <img className={styles.icon} src={homeIcon.src} alt="" />
       </div>
-      <ButtonContent/>
+      <ButtonContent />
       <div className={styles.searchBarContent}>
         <SearchBar />
       </div>
       <div className={styles.iconsContent}>
-
         {/* TODO: Change the divs into a tags */}
         <div className={styles.iconButton}>
           <HeartIcon />

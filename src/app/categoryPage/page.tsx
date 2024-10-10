@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/app/pages/categoryPage/page.module.scss";
+import styles from "@/app/categoryPage/page.module.scss";
 import menImg from "@/app/assets/men.jpg";
 import womenImg from "@/app/assets/women.jpg";
 import Link from "next/link";
@@ -15,7 +15,7 @@ const CategoryPage = () => {
 
         <div className={styles.imageWrapper}>
           <img className={styles.menImg} src={menImg.src} alt="" />
-          <Link href={'/men'}>
+          <Link href='/allProductsPage'>
             <button className={styles.categoryButton}>Men</button>
           </Link>
         </div>
