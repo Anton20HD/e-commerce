@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import styles from "@/app/components/startPage/page.module.scss";
+import styles from "@/app/pages/startPage/page.module.scss";
 import blackTShirt from "@/app/assets/black-t-shirt.png";
 import whiteTShirt from "@/app/assets/white-t-shirt.png";
-import Products from "../products/page";
+import Products from "@/app/components/products/page";
 import { products } from "@/app/api/data";
-import CategoryPage from "../categoryPage/page";
+import CategoryPage from "@/app/pages/categoryPage/page";
 
 const StartPage = () => {
   const [products, setProducts] = useState([]);

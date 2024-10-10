@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/app/components/categoryPage/page.module.scss";
+import styles from "@/app/pages/categoryPage/page.module.scss";
 import menImg from "@/app/assets/men.jpg";
 import womenImg from "@/app/assets/women.jpg";
 import Link from "next/link";

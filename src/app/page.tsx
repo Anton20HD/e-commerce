@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.scss";
-import StartPage from "./components/startPage/page";
+import StartPage from "./pages/startPage/page";
 
 export default function Home() {
   return (
