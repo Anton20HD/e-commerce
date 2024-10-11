@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/app/categoryPage/page.module.scss";
-import menImg from "@/app/assets/men.jpg";
-import womenImg from "@/app/assets/women.jpg";
+import clothesImg from "@/app/assets/clothes.jpg";
+import accessoriesImg from "@/app/assets/accessories.jpeg";
 import Link from "next/link";
 
 const CategoryPage = () => {
@@ -9,14 +9,14 @@ const CategoryPage = () => {
     <div className={styles.categoryContainer}>
       <div className={styles.categorySection}>
         <div className={styles.imageWrapper}>
-          <img className={styles.womenImg} src={womenImg.src} alt="" />
-          <button className={styles.categoryButton}>Women</button>
+          <img className={styles.clothesImg} src={clothesImg.src} alt="" />
+          <button className={styles.categoryButton}>Clothes</button>
         </div>
 
         <div className={styles.imageWrapper}>
-          <img className={styles.menImg} src={menImg.src} alt="" />
+          <img className={styles.accessoriesImg} src={accessoriesImg.src} alt="" />
           <Link href='/allProductsPage'>
-            <button className={styles.categoryButton}>Men</button>
+            <button className={styles.categoryButton}>Accessories</button>
           </Link>
         </div>
       </div>
