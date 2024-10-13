@@ -26,8 +26,7 @@ const Footer = () => {
 
           <div className={styles.shopSection}>
             <h2 className={styles.title}>Shop</h2>
-            <p>Mens</p>
-            <p>Womens</p>
+            <p>Products</p>
             <p>Accessories</p>
           </div>
           <div className={styles.accountSection}>
