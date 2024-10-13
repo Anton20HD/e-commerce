@@ -11,6 +11,6 @@ const productSchema = new mongoose.Schema({
     soldout: {type:Boolean}
 })
 
-const productModel = mongoose.models.product || mongoose.model('Product', productSchema)
+const productModel = mongoose.models.Product || mongoose.model('Product', productSchema)
 
 export default productModel

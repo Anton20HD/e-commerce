@@ -1,0 +1,20 @@
+
+
+.productSection {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+    gap: 20px;
+    width: 100%;
+    padding:20px;
+  
+}
+
+.productCard {
+
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
