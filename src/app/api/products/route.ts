@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createProduct } from '@/libs/api/product'; // Adjust path as needed
+import { createProduct } from '@/libs/api/product'; 
 import productModel from '@/models/productModel';
 import connectDB from '@/libs/db/mongodb';
 
