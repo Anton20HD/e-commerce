@@ -3,9 +3,9 @@ dotenv.config();
 
 import { v2 as cloudinary } from "cloudinary";
 
-console.log('CLOUDINARY_CLOUD_NAME:', process.env.CLOUDINARY_CLOUD_NAME);
-console.log('CLOUDINARY_API_KEY:', process.env.CLOUDINARY_API_KEY);
-console.log('CLOUDINARY_API_SECRET:', process.env.CLOUDINARY_API_SECRET);
+// console.log('CLOUDINARY_CLOUD_NAME:', process.env.CLOUDINARY_CLOUD_NAME);
+// console.log('CLOUDINARY_API_KEY:', process.env.CLOUDINARY_API_KEY);
+// console.log('CLOUDINARY_API_SECRET:', process.env.CLOUDINARY_API_SECRET);
 
 const connectCloudinary = async () => {
   const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } =
@@ -35,6 +35,12 @@ const connectCloudinary = async () => {
 };
 
 
+
+
+
 connectCloudinary();
+
+
+
 
 //export default connectCloudinary;
