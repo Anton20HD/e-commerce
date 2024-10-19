@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { registerUser } from '@/libs/api/auth'; // Adjust path as needed
+import { registerUser } from '@/libs/services/auth'; // Adjust path as needed
 
 export async function POST(req: Request) {
   const { name, email, password } = await req.json();
