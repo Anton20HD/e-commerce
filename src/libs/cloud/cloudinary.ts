@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { v2 as cloudinaryV2 } from 'cloudinary';
 
-// Load environment variables from .env file
+// Load env file
 dotenv.config();
 
 // Configure Cloudinary
@@ -11,7 +11,7 @@ cloudinaryV2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Define the CloudinaryResult interface
+// Define the CloudinaryResult interface because result.url was unknown
 export interface CloudinaryResult {
   url: string;
   public_id: string;

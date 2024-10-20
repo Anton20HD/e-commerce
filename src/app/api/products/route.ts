@@ -7,7 +7,6 @@ export async function POST(req: Request) {
   await connectDB();
 
   try {
-    // Parse form data
     const formData = await req.formData();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -30,7 +29,7 @@ export async function POST(req: Request) {
       name,
       description,
       price,
-      image: [result.url], // Cloudinary URL
+      image: [result.url], 
       category,
       subCategory,
       sizes: sizes.map(size => size.trim()),
@@ -57,5 +56,27 @@ export async function GET() {
     return NextResponse.json({ message: 'Error fetching products' }, { status: 500 });
   }
 }
+
+
+export async function DELETE(req: Request) {
+  await connectDB();
+
+  try {
+    const { id } = await req.json();
+
+    const deletedProduct = await productModel.findByIdAndDelete(id);
+
+    if(!deletedProduct) {
+      return NextResponse.json({ message: 'Product not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'Product deleted successfully' }, { status: 200});
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    return NextResponse.json({ message: 'Error deleting product', error}, { status: 500});
+  } 
+
+}
+
 
 
