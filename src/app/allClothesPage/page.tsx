@@ -39,6 +39,11 @@ const AllProducts = () => {
         <div key={product._id} className={styles.productCard}>
           <h2>{product.name}</h2>
           <p>{product.price}</p>
+          <div>
+            {product.image.map((imgUrl, index) => (
+              <img key={index} src={imgUrl} alt={product.name} className={styles.productImage} />
+            ))}
+          </div>
           </div>   
       ))}
     </div>
