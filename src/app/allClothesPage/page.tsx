@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import styles from "@/app/allClothesPage/page.module.scss"
+import styles from "@/app/allClothesPage/page.module.scss";
 
 interface Product {
   _id: string;
@@ -14,7 +14,6 @@ interface Product {
   sizes: string[];
   soldout: boolean;
 }
-
 
 const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,14 +36,19 @@ const AllProducts = () => {
     <div className={styles.productSection}>
       {products.map((product) => (
         <div key={product._id} className={styles.productCard}>
-          <h2>{product.name}</h2>
-          <p>{product.price}</p>
           <div>
             {product.image.map((imgUrl, index) => (
-              <img key={index} src={imgUrl} alt={product.name} className={styles.productImage} />
+              <img
+                key={index}
+                src={imgUrl}
+                alt={product.name}
+                className={styles.productImage}
+              />
             ))}
           </div>
-          </div>   
+          <h2 className={styles.productName}>{product.name}</h2>
+          <p className={styles.productPrice}>{product.price}€</p>
+        </div>
       ))}
     </div>
   );

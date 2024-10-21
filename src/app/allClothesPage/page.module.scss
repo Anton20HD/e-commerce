@@ -1,4 +1,4 @@
-
+@import "../../styles/variables.scss";
 
 .productSection {
 
@@ -12,14 +12,25 @@
 
 .productCard {
 
-  background-color: #f9f9f9;
+  //background-color: #f9f9f9;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  cursor: pointer;
 }
 
 .productImage {
 
-  height:600px;
+  height:350px;
+}
+
+.productName {
+
+  font-family: $primaryfont;
+}
+
+.productPrice {
+
+  font-family: $secondfont;
+  font-weight: bold;
 }
