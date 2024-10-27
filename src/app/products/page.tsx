@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import styles from "@/app/allClothesPage/page.module.scss";
+import { useRouter } from "next/navigation";
+import styles from "@/app/products/page.module.scss";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
@@ -19,6 +20,7 @@ interface Product {
 
 const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,10 +36,14 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
+  const handleProduct = (productId: string) => {
+    router.push(`/products/${productId}`)
+  };
+
   return (
     <div className={styles.productSection}>
       {products.map((product) => (
-        <div key={product._id} className={styles.productContainer}>
+        <div key={product._id} className={styles.productContainer} onClick={() => handleProduct(product._id)}>
           <div className={styles.productCard}>
             <div className={styles.buttonContent}>
               <button className={styles.wishList}>

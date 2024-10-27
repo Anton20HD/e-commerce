@@ -10,7 +10,7 @@ const CategoryPage = () => {
       <div className={styles.categorySection}>
         <div className={styles.imageWrapper}>
           <img className={styles.clothesImg} src={clothesImg.src} alt="" />
-          <Link href="/allClothesPage">
+          <Link href="/products">
             <button className={styles.categoryButton}>Clothes</button>
           </Link>
         </div>

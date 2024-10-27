@@ -5,7 +5,7 @@
 // import ArrowLeftIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 // import ArrowRightIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 
-// const Products = () => {
+// const ImageSlider = () => {
 //   const [slide, setSlide] = useState(0);
 //   const itemsPerSlide = 4; // Number of items shown at once
 
@@ -88,4 +88,4 @@
 //   );
 // };
 
-// export default Products;
+// export default ImageSlid½;
