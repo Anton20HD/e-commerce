@@ -53,7 +53,7 @@ const ProductPage = () => {
           />
         ))}
       </div>
-      <div className={styles.descriptionSection}>
+      <div className={styles.mainSection}>
         <h2 className={styles.productName}>{product.name}</h2>
         <div className={styles.sizeSection}>
           <p className={styles.size}>
@@ -75,9 +75,11 @@ const ProductPage = () => {
         </div>
 
         <p className={styles.productPrice}>{product.price} kr</p>
+        <button className={styles.addToCartButton}>Add to cart</button>
+        <div className={styles.descriptionSection}>
         <h3 className={styles.descriptionTitle}>Description</h3>
         <p className={styles.description}>{product.description}</p>
-        <button>Add to cart</button>
+        </div>
       </div>
     </div>
   ) : (
