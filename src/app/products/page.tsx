@@ -60,7 +60,7 @@ const AllProducts = () => {
             ))}
           </div>
           <h2 className={styles.productName}>{product.name}</h2>
-          <p className={styles.productPrice}>{product.price} €</p>
+          <p className={styles.productPrice}>{product.price} kr</p>
         </div>
       ))}
     </div>

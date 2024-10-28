@@ -17,11 +17,11 @@ interface Product {
 const ProductPage = () => {
   const { id } = useParams(); // Access to the specific id for the product
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
-  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedSize, setSelectedSize] = useState("S");
 
- const handleSizeChange = (size: string) => {
+  const handleSizeChange = (size: string) => {
     setSelectedSize(size);
- }
+  };
 
   useEffect(() => {
     if (id) {
@@ -55,25 +55,28 @@ const ProductPage = () => {
       </div>
       <div className={styles.descriptionSection}>
         <h2 className={styles.productName}>{product.name}</h2>
-        <p>Size: {selectedSize}</p>
-        <div>
-            {product.sizes.map((size,index ) =>
-            <label key={index}>
-                <input
-                type="radio"
-                name="size"
-                value={size}
-                checked={selectedSize === size}
-                onChange={() => handleSizeChange(size)}
-                />
+        <div className={styles.sizeSection}>
+          <p className={styles.size}>
+            Size <span className={styles.selectedSize}>{selectedSize}</span>
+          </p>
+          <div className={styles.buttonsContainer}>
+            {product.sizes.map((size, index) => (
+              <button
+                key={index}
+                onClick={() => handleSizeChange(size)}
+                className={`${styles.sizeButton} ${
+                  selectedSize === size ? styles.selectedSizeButton : ""
+                }`}
+              >
                 {size}
-            </label>
-            )}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <p className={styles.productPrice}>{product.price} €</p>
-        <h3>Description</h3>
-        <p>{product.description}</p>
+        <p className={styles.productPrice}>{product.price} kr</p>
+        <h3 className={styles.descriptionTitle}>Description</h3>
+        <p className={styles.description}>{product.description}</p>
         <button>Add to cart</button>
       </div>
     </div>
