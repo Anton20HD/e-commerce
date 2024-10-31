@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import styles from "@/app/products/[id]/page.module.scss";
+import RelatedProducts from "@/app/components/relatedProducts/page";
 
 interface Product {
   _id: string;
@@ -12,6 +13,8 @@ interface Product {
   image: string[];
   sizes: string[];
   soldout: boolean;
+  category: string;
+  subCategory: string;
 }
 
 const ProductPage = () => {
@@ -77,10 +80,16 @@ const ProductPage = () => {
         <p className={styles.productPrice}>{product.price} kr</p>
         <button className={styles.addToCartButton}>Add to cart</button>
         <div className={styles.descriptionSection}>
-        <h3 className={styles.descriptionTitle}>Description</h3>
-        <p className={styles.description}>{product.description}</p>
+          <h3 className={styles.descriptionTitle}>Description</h3>
+          <p className={styles.description}>{product.description}</p>
         </div>
       </div>
+
+      <RelatedProducts
+        category={product.category}
+        subCategory={product.subCategory}
+        currentProductId={product._id}
+      />
     </div>
   ) : (
     <div>Loading...</div>
