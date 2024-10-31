@@ -43,6 +43,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+
+  // const removeFromCart = (item: any) => {
+  //   const existingItemIndex = cart.findIndex(
+  //     (cartItem) => cartItem.id === item.id
+  //   );
+
+  //   if (cart[existingItemIndex].quantity > 1) {
+  //     const updatedCart = [...cart];
+  //     updatedCart[existingItemIndex].quantity -= 1;
+  //     setCart(updatedCart);
+  //     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  //   } else {
+  //     const updatedCart = [...cart];
+  //     updatedCart.splice(existingItemIndex, 1);
+  //     setCart(updatedCart);
+  //     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  //   }
+  // };
+
+
   return (
     <CartContext.Provider value={{ cart, addToCart }}>
       {children}

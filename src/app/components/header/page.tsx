@@ -1,4 +1,7 @@
-import React from "react";
+"use client"
+
+
+import React, { useState } from "react";
 import styles from "@/app/components/header/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import SearchBar from "../searchBar/page";
@@ -10,8 +13,17 @@ import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import CartIconFilled from '@mui/icons-material/LocalMall';
 import ButtonContent from "../buttons/page";
 import Link from "next/link";
+import Cart from "../cart/page";
 
 const Header = () => {
+
+  const [isCartVisible, setIsCartVisible] = useState(false);
+
+  const toggleCart = () => {
+    setIsCartVisible(prevState => !prevState);
+  };
+
+
   return (
     <div className={styles.headerContent}>
       <div className={styles.iconContent}>
@@ -30,10 +42,12 @@ const Header = () => {
         <div className={styles.iconButton}>
           <PersonIcon />
         </div>
-        <div className={styles.iconButton}>
-          <CartIcon />
+        <div className={styles.iconButton} onClick={toggleCart}>
+            <CartIcon/>
         </div>
       </div>
+      {isCartVisible && <Cart toggleMenu={toggleCart} isVisible={isCartVisible} />}
+      {isCartVisible && <div className={styles.overlay} onClick={toggleCart} />}
     </div>
   );
 };

@@ -2,42 +2,51 @@
 // @import "../../styles/_typography";
 
 
-.headerContent{
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    background-color: white;
-  }
-  
-  
+.headerContent {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+}
+
+
 .icon {
-    width: 80px;
-    height: 80px;
-    margin-left: 50px;
-    cursor: pointer;
-  }
+  width: 80px;
+  height: 80px;
+  margin-left: 50px;
+  cursor: pointer;
+}
 
-  .searchBarContent {
-    display: flex;
-    align-items: center;
-    margin-right: 100px;
-  }
+.searchBarContent {
+  display: flex;
+  align-items: center;
+  margin-right: 100px;
+}
 
-  .iconContent {
-    margin-right: auto;
-  }
-  
+.iconContent {
+  margin-right: auto;
+}
 
-  .iconsContent {
-    display: flex;
-    transform: translateX(-50%);
-    gap: 20px;
-  }
-  
-  .iconButton {
-    cursor: pointer;
-  }
-  
-  
+
+.iconsContent {
+  display: flex;
+  transform: translateX(-50%);
+  gap: 20px;
+}
+
+.iconButton {
+  cursor: pointer;
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
