@@ -52,15 +52,18 @@ const RelatedProducts = ({category,subCategory,currentProductId,}: RelatedProduc
   if (error) return <div>{error}</div>;
 
   return (
-    <div className={styles.productSection}>
-      <h3>Dont miss our other products!</h3>
+    <div className={styles.relatedProductContainer}>
+        <div>
+        <h3 className={styles.relatedProductTitle}>Dont miss our other products!</h3>
+        </div>
+    <div className={styles.relatedProductSection}>
       {relatedProducts.length === 0 ? (
         <div>No related products found</div>
       ) : (
         relatedProducts.map((relatedProduct) => (
           <div
             key={relatedProduct._id}
-            className={styles.productContainer}
+            className={styles.contentWrapper}
             onClick={() => handleProduct(relatedProduct._id)}
           >
             <div className={styles.productCard}>
@@ -78,6 +81,7 @@ const RelatedProducts = ({category,subCategory,currentProductId,}: RelatedProduc
           </div>
         ))
       )}
+    </div>
     </div>
   );
 };

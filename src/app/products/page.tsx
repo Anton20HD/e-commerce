@@ -43,7 +43,7 @@ const AllProducts = () => {
   return (
     <div className={styles.productSection}>
       {products.map((product) => (
-        <div key={product._id} className={styles.productContainer} onClick={() => handleProduct(product._id)}>
+        <div key={product._id} onClick={() => handleProduct(product._id)}>
           <div className={styles.productCard}>
             <div className={styles.buttonContent}>
               <button className={styles.wishList}>
