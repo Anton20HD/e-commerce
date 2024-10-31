@@ -1,3 +1,6 @@
+"use client";
+
+
 // Good way to manage global state(especially where you need access to multiple components)
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
@@ -47,6 +50,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+//Function to use the cart
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {

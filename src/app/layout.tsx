@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.scss";
 import Footer from "./components/footer/page";
 import Header from "./components/header/page";
-
+import { CartProvider } from "./components/cartContext/page";
 
 export const metadata: Metadata = {
   title: "Gymbeast",
@@ -17,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header/>
-        {children}
-        <Footer/>
+        <CartProvider>
+          <Header />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

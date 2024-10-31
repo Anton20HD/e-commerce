@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import styles from "@/app/products/[id]/page.module.scss";
 import RelatedProducts from "@/app/components/relatedProducts/page";
+import { useCart } from "@/app/components/cartContext/page";
 
 interface Product {
   _id: string;
@@ -21,10 +22,25 @@ const ProductPage = () => {
   const { id } = useParams(); // Access to the specific id for the product
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
   const [selectedSize, setSelectedSize] = useState("S");
+  const { addToCart } = useCart();
 
   const handleSizeChange = (size: string) => {
     setSelectedSize(size);
   };
+
+  const handleAddToCart = () => {
+    if(product) {
+      addToCart({
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize,
+        quantity:1,
+      });
+      //Alert the user that the product been added
+      alert("Product added!")
+    }
+  }
 
   useEffect(() => {
     if (id) {
@@ -79,7 +95,7 @@ const ProductPage = () => {
           </div>
 
           <p className={styles.productPrice}>{product.price} kr</p>
-          <button className={styles.addToCartButton}>Add to cart</button>
+          <button className={styles.addToCartButton} onClick={handleAddToCart}>Add to cart</button>
           <div className={styles.descriptionSection}>
             <h3 className={styles.descriptionTitle}>Description</h3>
             <p className={styles.description}>{product.description}</p>
