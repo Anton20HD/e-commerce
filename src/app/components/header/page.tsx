@@ -25,6 +25,9 @@ const Header = () => {
 
 
   return (
+    <>
+    {isCartVisible && <div className={styles.overlay} onClick={toggleCart}></div>}
+
     <div className={styles.headerContent}>
       <div className={styles.iconContent}>
         <Link href="/" passHref>
@@ -46,9 +49,9 @@ const Header = () => {
             <CartIcon/>
         </div>
       </div>
-      {isCartVisible && <Cart toggleMenu={toggleCart} isVisible={isCartVisible} />}
-      {isCartVisible && <div className={styles.overlay} onClick={toggleCart} />}
+      <Cart toggleMenu={toggleCart} isVisible={isCartVisible} />
     </div>
+    </>
   );
 };
 
