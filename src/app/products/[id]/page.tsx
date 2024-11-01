@@ -35,6 +35,7 @@ const ProductPage = () => {
         name: product.name,
         price: product.price,
         size: selectedSize,
+        image: product.image[0],
         quantity:1,
       });
       //Alert the user that the product been added

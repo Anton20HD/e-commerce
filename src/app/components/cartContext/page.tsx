@@ -7,6 +7,7 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 interface CartItem {
   _id: string;
   name: string;
+  image: string;
   price: number;
   size: string;
   quantity: number;
