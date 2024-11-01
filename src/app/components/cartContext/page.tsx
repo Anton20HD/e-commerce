@@ -2,7 +2,7 @@
 
 
 // Good way to manage global state(especially where you need access to multiple components)
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 interface CartItem {
   _id: string;
@@ -22,7 +22,26 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const ls = typeof window !== "undefined" ? window.localStorage : null;
   const [cart, setCart] = useState<CartItem[]>([]);
+
+
+  useEffect(() => {
+    if (cart?.length > 0) {
+      ls?.setItem('cartItems', JSON.stringify(cart))
+    }
+  }, [cart, ls])
+
+  useEffect(() => {
+      if(ls) {
+        const storedCart = ls.getItem('cartItems');
+        if(storedCart) {
+          setCart(JSON.parse(storedCart));
+        }
+      }
+
+  }, []);
+
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {

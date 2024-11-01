@@ -49,7 +49,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
               <div className={styles.itemDetails}>
                 <h3 className={styles.itemName}>{item.name}</h3>
                 <p>Size: {item.size}</p>
-                <p>{item.price} kr</p>
+                <p className={styles.itemPrice}>{item.price} kr</p>
                 <p>Quantity: {item.quantity}</p>
               </div>
             </div>

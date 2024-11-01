@@ -20,7 +20,7 @@
 .navCloseIcon {
   cursor: pointer;
   //padding: 10px; 
-  font-weight:lighter;
+  font-weight: lighter;
   display: flex;
   margin-right: 10px;
   justify-content: flex-end;
@@ -61,7 +61,26 @@
 }
 
 
-.itemDetails {}
+.itemDetails {
+
+  line-height: 10px;
+  font-family: $secondfont;
+  font-size: 16px;
+  color: gray;
+}
+
+.itemName {
+
+  color: black;
+  font-family: $primaryfont;
+  font-weight: 300;
+}
+
+.itemPrice {
+
+  color: black;
+  font-weight: bold;
+}
 
 .emptyCartTitle {
 
@@ -70,8 +89,7 @@
   font-size: 25px;
 }
 
-.cartInfo {
-}
+.cartInfo {}
 
 .cartTitle {
 
@@ -98,7 +116,7 @@
   cursor: pointer;
   height: 50px;
   width: 100%;
-  color:white;
+  color: white;
   border-radius: 20px;
   border: solid 1px #ccc;
   font-family: $primaryfont;
@@ -107,8 +125,4 @@
   margin: 5px;
 }
 
-.buttonSection {
-
-
-
-}
+.buttonSection {}

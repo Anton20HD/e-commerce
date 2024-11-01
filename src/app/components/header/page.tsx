@@ -14,10 +14,12 @@ import CartIconFilled from '@mui/icons-material/LocalMall';
 import ButtonContent from "../buttons/page";
 import Link from "next/link";
 import Cart from "../cart/page";
+import { useCart } from "../cartContext/page";
 
 const Header = () => {
 
   const [isCartVisible, setIsCartVisible] = useState(false);
+  const { cart } = useCart();
 
   const toggleCart = () => {
     setIsCartVisible(prevState => !prevState);
@@ -46,7 +48,7 @@ const Header = () => {
           <PersonIcon />
         </div>
         <div className={styles.iconButton} onClick={toggleCart}>
-            <CartIcon/>
+            <CartIcon/>({cart.length})
         </div>
       </div>
       <Cart toggleMenu={toggleCart} isVisible={isCartVisible} />
