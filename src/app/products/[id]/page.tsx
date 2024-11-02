@@ -39,7 +39,7 @@ const ProductPage = () => {
         quantity:1,
       });
       //Alert the user that the product been added
-      alert("Product added!")
+      //alert("Product added!")
     }
   }
 

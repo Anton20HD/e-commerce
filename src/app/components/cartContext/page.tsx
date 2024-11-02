@@ -1,8 +1,13 @@
 "use client";
 
-
 // Good way to manage global state(especially where you need access to multiple components)
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface CartItem {
   _id: string;
@@ -17,6 +22,7 @@ interface CartItem {
 interface CartContextType {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
+  removeFromCart: (itemId: string, size: string) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -25,23 +31,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
   const [cart, setCart] = useState<CartItem[]>([]);
 
-
   useEffect(() => {
     if (cart?.length > 0) {
-      ls?.setItem('cartItems', JSON.stringify(cart))
+      ls?.setItem("cartItems", JSON.stringify(cart));
     }
-  }, [cart, ls])
+  }, [cart, ls]);
 
   useEffect(() => {
-      if(ls) {
-        const storedCart = ls.getItem('cartItems');
-        if(storedCart) {
-          setCart(JSON.parse(storedCart));
-        }
+    if (ls) {
+      const storedCart = ls.getItem("cartItems");
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
       }
-
+    }
   }, []);
-
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
@@ -63,28 +66,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-
-  // const removeFromCart = (item: any) => {
-  //   const existingItemIndex = cart.findIndex(
-  //     (cartItem) => cartItem.id === item.id
-  //   );
-
-  //   if (cart[existingItemIndex].quantity > 1) {
-  //     const updatedCart = [...cart];
-  //     updatedCart[existingItemIndex].quantity -= 1;
-  //     setCart(updatedCart);
-  //     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-  //   } else {
-  //     const updatedCart = [...cart];
-  //     updatedCart.splice(existingItemIndex, 1);
-  //     setCart(updatedCart);
-  //     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-  //   }
-  // };
-
+  const removeFromCart = (itemId: string, size: string) => {
+    setCart((prevCart) =>
+      prevCart.filter(
+        (cartItem) => !(cartItem._id === itemId && cartItem.size === size)
+      )
+    );
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
