@@ -66,7 +66,8 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
         {cart.length > 0 && (
         <div className={styles.orderInfo}>
           <div className={styles.totalPriceSection}>
-          <p className={styles.totalPrice}>Total {cart.reduce((total, item) => total + calculateTotalPrice(item._id, item.price), 0)}kr</p>
+          <p className={styles.totalLabel}>Total </p>
+          <p className={styles.totalPrice}>{cart.reduce((total, item) => total + calculateTotalPrice(item._id, item.price), 0)}kr</p>
           </div>
           <button className={styles.paymentButton}>Continue to payment</button>
         </div>

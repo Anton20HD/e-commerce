@@ -156,14 +156,6 @@
 }
 
 
-.totalPrice {
-  width: 100%;
-  padding-left: 15%;
-  font-family: $secondfont;
-  font-weight: bold;
-  font-size: 16px;
-
-}
 
 .deleteButton {
   border-radius: 20px;
@@ -191,6 +183,22 @@
 
 .totalPriceSection {
 
-  display: flex;
+  display: flex;                      /* Use flexbox for layout */
+  justify-content: space-between;     /* Space between the label and the amount */
+  align-items: center;                /* Center items vertically */
+  width: 90%; 
 }
 
+.totalLabel {
+  font-weight: bold;
+  //width: 100%;
+  //padding-left: 15%;
+  font-family: $secondfont;
+  font-size: 16px;
+}
+
+.totalPrice {
+  font-family: $secondfont;
+  //text-align: right;
+  font-weight: bold;
+}
