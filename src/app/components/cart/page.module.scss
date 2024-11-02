@@ -57,7 +57,11 @@
 }
 
 .productContent {
+  display: flex;
+  flex-direction: column;
   margin-top: 30px;
+  height: calc(100vh - 120px); // Pushes other content to the bottom
+  overflow-x: hidden;
 }
 
 
@@ -107,7 +111,7 @@
   height: 100%;
   text-align: center;
   position: relative;
-  margin-top: 30vh;
+  //margin-top: 30vh;
 
 }
 
@@ -126,3 +130,37 @@
 }
 
 .buttonSection {}
+
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: auto;
+  background-color: #f9f9f9;
+}
+
+.paymentButton {
+  background-color: black;
+  cursor: pointer;
+  height: 50px;
+  width: 90%;
+  color: white;
+  border-radius: 20px;
+  border: solid 1px #ccc;
+  font-family: $primaryfont;
+  font-size: larger;
+  padding: 10px;
+  //margin: auto;
+}
+
+
+.totalPrice {
+  width: 100%;
+  padding-left: 15%;
+  font-family: $secondfont;
+  font-weight: bold;
+  font-size: 16px;
+
+}

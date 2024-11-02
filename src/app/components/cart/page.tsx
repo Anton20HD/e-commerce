@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/app/components/cart/page.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
@@ -22,22 +22,26 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
           <h2 className={styles.cartTitle}> Your cart</h2>
         </div>
         <div className={styles.navCloseIcon} onClick={toggleMenu}>
-        <CloseIcon className={styles.closeIcon}></CloseIcon>
-      </div>
+          <CloseIcon className={styles.closeIcon}></CloseIcon>
+        </div>
       </div>
       <div className={styles.productContent}>
         {cart.length === 0 ? (
-            <div className={styles.emptyCartSection}>
-             <h4 className={styles.emptyCartTitle}>Your Cart is empty</h4>
-             <div className={styles.buttonSection}>
-             <Link href="/products">
-             <button className={styles.navigateButton} onClick={toggleMenu}>Shop Products</button>
-             </Link>
-             <Link href="/allAccessoriesPage">
-             <button  className={styles.navigateButton} onClick={toggleMenu}>Shop Accessories</button>
-             </Link>
-             </div>
+          <div className={styles.emptyCartSection}>
+            <h4 className={styles.emptyCartTitle}>Your Cart is empty</h4>
+            <div className={styles.buttonSection}>
+              <Link href="/products">
+                <button className={styles.navigateButton} onClick={toggleMenu}>
+                  Shop Products
+                </button>
+              </Link>
+              <Link href="/allAccessoriesPage">
+                <button className={styles.navigateButton} onClick={toggleMenu}>
+                  Shop Accessories
+                </button>
+              </Link>
             </div>
+          </div>
         ) : (
           cart.map((item) => (
             <div key={`$item._id}-${item.size}`} className={styles.cartItem}>
@@ -54,6 +58,12 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
               </div>
             </div>
           ))
+        )}
+        {cart.length > 0 && (
+        <div className={styles.orderInfo}>
+          <p className={styles.totalPrice}>Total</p>
+          <button className={styles.paymentButton}>Continue to payment</button>
+        </div>
         )}
       </div>
     </div>
