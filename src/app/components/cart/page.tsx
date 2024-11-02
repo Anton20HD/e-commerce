@@ -6,9 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import { useCart } from "../cartContext/page";
 import Link from "next/link";
-import DeleteOutlineSharpIcon from "@mui/icons-material/DeleteOutlineSharp";
-import RemoveSharpIcon from "@mui/icons-material/RemoveSharp";
-import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface CartProps {
   toggleMenu: () => void;
@@ -16,8 +14,7 @@ interface CartProps {
 }
 
 const Cart = ({ toggleMenu, isVisible }: CartProps) => {
-  const { cart, addToCart, removeFromCart } = useCart();
-
+  const { cart, removeFromCart, calculateTotalPrice } = useCart();
 
   return (
     <div className={`${styles.cartContainer} ${isVisible ? styles.open : ""}`}>
@@ -57,36 +54,20 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
               <div className={styles.itemDetails}>
                 <h3 className={styles.itemName}>{item.name}</h3>
                 <p>Size: {item.size}</p>
-                <p className={styles.itemPrice}>{item.price} kr</p>
-
-
-                <div className={styles.shoppingCartButtons}>
-                <button
-                  className={styles.removeButton}
-                  onClick={() => removeFromCart(item._id, item.size)}
-                >
-                  {item.quantity === 1 ? (
-                    <DeleteOutlineSharpIcon />
-                  ) : (
-                    <RemoveSharpIcon />
-                  )}
-                </button>
-                <p>({item.quantity})</p>
-                <button
-                  className={styles.addButton}
-                  onClick={() => addToCart(item)}
-                >
-                  <AddIcon />
-                </button>
-              </div>
+                <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.price)} kr</p>
+                <div className={styles.removeSection}>
+                <button className={styles.deleteButton} onClick={() => removeFromCart(item._id, item.size)}><DeleteIcon style={{ fontSize: '20px' }}/></button>
+                <p>Quantity: <span className={styles.quantityNumber}>{item.quantity}</span></p> 
                 </div>
               </div>
-            
+            </div>
           ))
         )}
         {cart.length > 0 && (
         <div className={styles.orderInfo}>
-          <p className={styles.totalPrice}>Total</p>
+          <div className={styles.totalPriceSection}>
+          <p className={styles.totalPrice}>Total {cart.reduce((total, item) => total + calculateTotalPrice(item._id, item.price), 0)}kr</p>
+          </div>
           <button className={styles.paymentButton}>Continue to payment</button>
         </div>
         )}

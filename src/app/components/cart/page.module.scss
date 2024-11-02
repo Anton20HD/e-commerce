@@ -173,11 +173,24 @@
   padding: 5px;
   height: 30px;
   width: 30px;
+  cursor: pointer;
 }
 
-.f {
+.removeSection {
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+.quantityNumber {
+
+  font-weight: bold;
+  color: black;
+}
+
+.totalPriceSection {
+
+  display: flex;
+}
+
