@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { CartItem } from "../cartContext/page";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from "next/navigation";
 
 
 interface CartProps {
@@ -19,6 +20,14 @@ interface CartProps {
 
 const Cart = ({ toggleMenu, isVisible }: CartProps) => {
   const { cart, removeFromCart, calculateTotalPrice, addToCart, updateCartQuantity  } = useCart();
+  const router = useRouter();
+
+
+    const handleCheckout = () => {
+
+        router.push(`/checkout`)
+    }
+
 
   const increaseAmount = (item: CartItem) => {
 
@@ -90,7 +99,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
           <p className={styles.totalLabel}>Total </p>
           <p className={styles.totalPrice}>{cart.reduce((total, item) => total + calculateTotalPrice(item._id, item.price), 0)}kr</p>
           </div>
-          <button className={styles.paymentButton}>Continue to payment</button>
+          <button className={styles.paymentButton} onClick={handleCheckout}>Continue to payment</button>
         </div>
         )}
       </div>
