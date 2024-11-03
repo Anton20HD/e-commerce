@@ -16,16 +16,22 @@ interface CartProps {
 }
 
 const Cart = ({ toggleMenu, isVisible }: CartProps) => {
-  const { cart, removeFromCart, calculateTotalPrice, addToCart  } = useCart();
+  const { cart, removeFromCart, calculateTotalPrice, addToCart, updateCartQuantity  } = useCart();
+
+  const increaseAmount = (item: CartItem) => {
+
+    updateCartQuantity(item._id, item.size,1);
+   
+  };
 
 
-
-  function increaseAmount(item: CartItem) {
-
-    const updatedItem = { ...item, quantity: item.quantity + 1 };
-    addToCart(updatedItem);
+  const decreaseAmount = (item: CartItem) =>  {
+    if (item.quantity > 1) {
+        updateCartQuantity(item._id, item.size, -1);
+    } else {
+      removeFromCart(item._id, item.size);
+    }
   }
-
 
 
   return (
@@ -68,7 +74,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
                 <p>Size: {item.size}</p>
                 <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.price)} kr</p>
                 <div className={styles.removeSection}>
-                  <button>-</button>
+                  <button onClick={() => decreaseAmount(item)}>-</button>
                   <span className={styles.quantityNumber}>{item.quantity}</span>
                   <button onClick={() => increaseAmount(item)}>+</button>
                 </div>
