@@ -7,6 +7,8 @@ import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import { useCart } from "../cartContext/page";
 import Link from "next/link";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { CartItem } from "../cartContext/page";
+
 
 interface CartProps {
   toggleMenu: () => void;
@@ -14,7 +16,17 @@ interface CartProps {
 }
 
 const Cart = ({ toggleMenu, isVisible }: CartProps) => {
-  const { cart, removeFromCart, calculateTotalPrice } = useCart();
+  const { cart, removeFromCart, calculateTotalPrice, addToCart  } = useCart();
+
+
+
+  function increaseAmount(item: CartItem) {
+
+    const updatedItem = { ...item, quantity: item.quantity + 1 };
+    addToCart(updatedItem);
+  }
+
+
 
   return (
     <div className={`${styles.cartContainer} ${isVisible ? styles.open : ""}`}>
@@ -56,8 +68,9 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
                 <p>Size: {item.size}</p>
                 <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.price)} kr</p>
                 <div className={styles.removeSection}>
-                <button className={styles.deleteButton} onClick={() => removeFromCart(item._id, item.size)}><DeleteIcon style={{ fontSize: '20px' }}/></button>
-                <p>Quantity: <span className={styles.quantityNumber}>{item.quantity}</span></p> 
+                  <button>-</button>
+                  <span className={styles.quantityNumber}>{item.quantity}</span>
+                  <button onClick={() => increaseAmount(item)}>+</button>
                 </div>
               </div>
             </div>

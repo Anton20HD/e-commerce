@@ -9,7 +9,7 @@ import React, {
   useEffect,
 } from "react";
 
-interface CartItem {
+ export interface CartItem {
   _id: string;
   name: string;
   image: string;
@@ -57,12 +57,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         //update quantity if item is already in cart with same size
         return prevCart.map((cartItem) =>
           cartItem._id === item._id && cartItem.size === item.size
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+            ? { ...cartItem, quantity: cartItem.quantity + 1}
             : cartItem
         );
       } else {
         //add new item to cart
-        return [...prevCart, item];
+        return [...prevCart, {...item, quantity: 1}];
       }
     });
   };
