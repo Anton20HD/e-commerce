@@ -25,6 +25,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
 
     const handleCheckout = () => {
 
+        toggleMenu();
         router.push(`/checkout`)
     }
 
