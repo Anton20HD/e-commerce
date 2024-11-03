@@ -62,12 +62,13 @@
   margin-top: 30px;
   height: calc(100vh - 120px); // Pushes other content to the bottom
   overflow-x: hidden;
+  position: relative; // Make the content inside to always be in the same spot( good to have if you are using absolute somewhere)
 }
 
 
 .itemDetails {
 
-  line-height: 10px;
+  line-height: 6px;
   font-family: $secondfont;
   font-size: 16px;
   color: gray;
@@ -168,25 +169,13 @@
   cursor: pointer;
 }
 
-.removeSection {
+
+.totalPriceSection {
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.quantityNumber {
-
-  font-weight: bold;
-  color: black;
-}
-
-.totalPriceSection {
-
-  display: flex;                      
-  justify-content: space-between;     
-  align-items: center;                
-  width: 90%; 
+  width: 90%;
 }
 
 .totalLabel {
@@ -201,4 +190,50 @@
   font-family: $secondfont;
   //text-align: right;
   font-weight: bold;
+}
+
+.quantityButton {
+
+  color:  black;
+  background-color: white;
+  padding: 5px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  //border-radius: 5px;
+  border: solid 1px #ccc;
+  transition: color 0.5s;
+}
+
+.quantityButton:hover {
+
+  border: solid 1px black;
+}
+
+
+.removeSection {
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  right: 0px;
+  position: absolute;
+  margin-right: 10px;
+}
+
+.quantityNumber {
+
+  font-weight: bold;
+  color: black;
+  font-family: $secondfont;
+}
+
+.quantityIcon {
+
+    height: 20px;
+    width: 20px;
+    font-weight:normal;
 }

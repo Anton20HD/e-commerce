@@ -8,6 +8,8 @@ import { useCart } from "../cartContext/page";
 import Link from "next/link";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { CartItem } from "../cartContext/page";
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
 
 
 interface CartProps {
@@ -74,9 +76,9 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
                 <p>Size: {item.size}</p>
                 <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.price)} kr</p>
                 <div className={styles.removeSection}>
-                  <button onClick={() => decreaseAmount(item)}>-</button>
+                  <button className={styles.quantityButton} onClick={() => decreaseAmount(item)}><RemoveIcon className={styles.quantityIcon}/></button>
                   <span className={styles.quantityNumber}>{item.quantity}</span>
-                  <button onClick={() => increaseAmount(item)}>+</button>
+                  <button className={styles.quantityButton} onClick={() => increaseAmount(item)}><AddIcon className={styles.quantityIcon}/></button>
                 </div>
               </div>
             </div>
