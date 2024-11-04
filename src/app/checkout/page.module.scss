@@ -1,0 +1,59 @@
+.checkoutContainer {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(1fr));
+    grid-gap: 20px;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+}
+
+.checkoutTitleSection {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.cartItemImage {
+    height: 300px;
+    width: 300px;
+}
+
+.cartSection {
+    border-bottom: 1px solid black;
+
+}
+
+.productContent {
+    background-color: #ccc;
+    margin: auto;
+    width: 900px;
+    padding: 20px;
+
+}
+
+.orderInfo {
+
+    background-color: #ccc;
+    margin: auto;
+    width: 900px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.inputInfo {
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+}
+
+.addressLabel {
+  
+
+}

@@ -31,9 +31,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
 
 
   const increaseAmount = (item: CartItem) => {
-
     updateCartQuantity(item._id, item.size,1);
-   
   };
 
 
