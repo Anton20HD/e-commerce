@@ -12,11 +12,11 @@ const Checkout = () => {
   return (
     <div className={styles.checkoutContainer}>
       <div className={styles.checkoutTitleSection}>
-        <h1>Checkout</h1>
+        <h1 className={styles.checkoutTitle}>Checkout</h1>
       </div>
       <div className={styles.productContent}>
         <div className={styles.cartSection}>
-          <h3>Your Cart</h3>
+          <h2 className={styles.cartTitle}>Your Cart</h2>
         </div>
         {cart.map((item) => (
           <div key={`${item._id}-${item.size}`} className={styles.cartItem}>
@@ -38,14 +38,17 @@ const Checkout = () => {
       {cart.length > 0 && (
         <div className={styles.orderInfo}>
             <div className={styles.inputInfo}>
-            <input type="text" placeholder="Name" name="" id="" />
-            <input type="text" placeholder="Email" name="" id="" />
-            <input type="text" placeholder="City" name="" id="" />
+            <div className={styles.shippingSection}>
+          <h2 className={styles.shippingTitle}>Shipping address</h2>
+          </div>
+            <input className={styles.checkoutLabel} type="text" placeholder="Name" name="" id="" />
+            <input className={styles.checkoutLabel}  type="text" placeholder="Email" name="" id="" />
+            <input className={styles.checkoutLabel}  type="text" placeholder="City" name="" id="" />
             <div className={styles.addressLabel}>
-            <input type="text" placeholder="Postal Code" name="" id="" />
-            <input type="text" placeholder="Street Address" name="" id="" />
+            <input className={styles.checkoutLabel}  type="text" placeholder="Postal Code" name="" id="" />
+            <input className={styles.checkoutLabel}  type="text" placeholder="Street Address" name="" id="" />
             </div>
-            <input type="text" placeholder="Country" name="" id="" />
+            <input className={styles.checkoutLabel}  type="text" placeholder="Country" name="" id="" />
             </div>
           <div className={styles.totalPriceSection}>
             <p className={styles.totalLabel}>Total</p>
