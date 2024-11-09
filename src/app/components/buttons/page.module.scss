@@ -3,6 +3,13 @@
 
   
   .buttonContent {
+
+      display: flex;
+  }
+
+
+  .buttonContainer {
+
     position: absolute;
     align-items: center;
     width: calc(100% + 6rem);
@@ -11,6 +18,7 @@
     transform: translateX(-50%);
     justify-content: center;
     //height: 100%;
+
   }
   
 

@@ -15,7 +15,8 @@ const ButtonContent = () => {
   };
 
   return (
-    <div className={styles.buttonContent}>
+    <div className={styles.buttonContainer}>
+      <div className={styles.buttonContent}>
       <button
         className={`${styles.headerButtons} ${
           activeLink === "products" ? styles.active : ""
@@ -34,6 +35,7 @@ const ButtonContent = () => {
       >
         ACCESSORIES
       </button>
+      </div>
     </div>
   );
 };
