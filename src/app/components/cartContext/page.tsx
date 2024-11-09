@@ -23,7 +23,7 @@ interface CartContextType {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (itemId: string, size: string) => void;
-  calculateTotalPrice: (itemId: string, itemPrice: number) => number;
+  calculateTotalPrice: (itemId: string, itemSize:string, itemPrice: number) => number;
   updateCartQuantity: (itemId: string, size:string, quantity: number) => void
 }
 
@@ -87,8 +87,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const calculateTotalPrice = (itemId: string, itemPrice:number) => {
-    const totalQuantity = cart.filter(item => item._id === itemId).reduce((acc, item) => acc + item.quantity, 0);
+  const calculateTotalPrice = (itemId: string, itemSize:string, itemPrice:number) => {
+    const totalQuantity = cart
+    .filter(item => item._id === itemId && item.size === itemSize)
+    .reduce((acc, item) => acc + item.quantity, 0);
     return totalQuantity * itemPrice; 
   };
 
