@@ -29,7 +29,7 @@ const Checkout = () => {
               <h3 className={styles.itemName}>{item.name}</h3>
               <p>Size: {item.size}</p>
               <p className={styles.itemPrice}>
-                {calculateTotalPrice(item._id, item.price)} kr
+                {calculateTotalPrice(item._id, item.size, item.price)} kr
               </p>
             </div>
           </div>
@@ -55,7 +55,7 @@ const Checkout = () => {
             <p className={styles.totalPrice}>
               {cart.reduce(
                 (total, item) =>
-                  total + calculateTotalPrice(item._id, item.price),
+                  total + calculateTotalPrice(item._id, item.size, item.price),
                 0
               )}{" "}
               kr
