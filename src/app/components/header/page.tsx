@@ -32,7 +32,9 @@ const Header = () => {
       <div className={styles.headerContent}>
         <div className={styles.iconContent}>
           <Link href="/" passHref>
+          <div className={styles.iconWrapper}>
             <img className={styles.icon} src={homeIcon.src} alt="Home" />
+          </div>
           </Link>
         </div>
         <ButtonContent />

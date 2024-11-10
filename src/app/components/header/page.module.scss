@@ -18,7 +18,10 @@
   height: 80px;
   margin-left: 50px;
   cursor: pointer;
+  //z-index: 3;
 }
+
+
 
 .searchBarContent {
   display: flex;
@@ -28,6 +31,7 @@
 
 .iconContent {
   margin-right: auto;
+  z-index: 2;
 }
 
 

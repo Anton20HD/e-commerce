@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
+import Link from "next/link";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,13 +22,19 @@ const Footer = () => {
       <section className={styles.footerContainer}>
         <div className={styles.contentWrapper}>
           <div className={styles.homeIcon}>
+            <Link href="/">
             <img className={styles.icon} src={homeIcon.src} alt="" />
+            </Link>
           </div>
 
           <div className={styles.shopSection}>
             <h2 className={styles.title}>Shop</h2>
+            <Link className={styles.footerText} href="/products">
             <p>Products</p>
+            </Link>
+            <Link className={styles.footerText} href="/accessories">
             <p>Accessories</p>
+            </Link>
           </div>
           <div className={styles.accountSection}>
             <h2 className={styles.title}>My account</h2>

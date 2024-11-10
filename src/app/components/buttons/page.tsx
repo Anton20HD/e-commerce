@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "@/app/components/buttons/page.module.scss";
+import Link from "next/link";
 
 const ButtonContent = () => {
   const [activeLink, setActiveLink] = useState<string | null>(null);
@@ -17,6 +18,8 @@ const ButtonContent = () => {
   return (
     <div className={styles.buttonContainer}>
       <div className={styles.buttonContent}>
+
+      <Link href="/products">
       <button
         className={`${styles.headerButtons} ${
           activeLink === "products" ? styles.active : ""
@@ -26,15 +29,19 @@ const ButtonContent = () => {
       >
         Products
       </button>
+      </Link>
+
+      <Link href="/accessories">
       <button
         className={`${styles.headerButtons} ${
           activeLink === "accessories" ? styles.active : ""
         }`}
         onMouseEnter={() => handleMouseEnter("accessories")}
         onMouseLeave={handleMouseLeave}
-      >
+        >
         ACCESSORIES
       </button>
+        </Link>
       </div>
     </div>
   );
