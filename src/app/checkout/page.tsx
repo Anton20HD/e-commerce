@@ -8,6 +8,12 @@ import { useCart } from "@/app/components/cartContext/page";
 
 const Checkout = () => {
   const { cart, calculateTotalPrice } = useCart();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [country, setCountry] = useState("");
 
   return (
     <div className={styles.checkoutContainer}>
@@ -36,20 +42,63 @@ const Checkout = () => {
         ))}
       </div>
       {cart.length > 0 && (
-        <div className={styles.orderInfo}>
-            <div className={styles.inputInfo}>
+        <form method="post" action={""} className={styles.orderInfo}>
+          <div className={styles.inputInfo}>
             <div className={styles.shippingSection}>
-          <h2 className={styles.shippingTitle}>Shipping address</h2>
-          </div>
-            <input className={styles.checkoutLabel} type="text" placeholder="Name" name="" id="" />
-            <input className={styles.checkoutLabel}  type="text" placeholder="Email" name="" id="" />
-            <input className={styles.checkoutLabel}  type="text" placeholder="City" name="" id="" />
+              <h2 className={styles.shippingTitle}>Shipping address</h2>
+            </div>
+
+            <input
+              className={styles.checkoutLabel}
+              type="text"
+              placeholder="Name"
+              value={name}
+              name="name"
+              onChange={(ev) => setName(ev.target.value)}
+            />
+            <input
+              className={styles.checkoutLabel}
+              type="text"
+              placeholder="Email"
+              value={email}
+              name="email"
+              onChange={(ev) => setEmail(ev.target.value)}
+            />
+            <input
+              className={styles.checkoutLabel}
+              type="text"
+              placeholder="City"
+              value={city}
+              name="city"
+              onChange={(ev) => setCity(ev.target.value)}
+            />
             <div className={styles.addressLabel}>
-            <input className={styles.checkoutLabel}  type="text" placeholder="Postal Code" name="" id="" />
-            <input className={styles.checkoutLabel}  type="text" placeholder="Street Address" name="" id="" />
+              <input
+                className={styles.checkoutLabel}
+                type="text"
+                placeholder="Postal Code"
+                value={postalCode}
+                name="postalCode"
+                onChange={(ev) => setPostalCode(ev.target.value)}
+              />
+              <input
+                className={styles.checkoutLabel}
+                type="text"
+                placeholder="Street Address"
+                value={streetAddress}
+                name="streetAddress"
+                onChange={(ev) => setStreetAddress(ev.target.value)}
+              />
             </div>
-            <input className={styles.checkoutLabel}  type="text" placeholder="Country" name="" id="" />
-            </div>
+            <input
+              className={styles.checkoutLabel}
+              type="text"
+              placeholder="Country"
+              value={country}
+              name="country"
+              onChange={(ev) => setCountry(ev.target.value)}
+            />
+          </div>
           <div className={styles.totalPriceSection}>
             <p className={styles.totalLabel}>Total</p>
             <p className={styles.totalPrice}>
@@ -61,8 +110,8 @@ const Checkout = () => {
               kr
             </p>
           </div>
-          <button className={styles.paymentButton}>Pay now</button>
-        </div>
+          <button type="submit" className={styles.paymentButton}>Pay now</button>
+        </form>
       )}
     </div>
   );
