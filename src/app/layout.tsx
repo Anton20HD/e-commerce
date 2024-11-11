@@ -3,6 +3,7 @@ import "../styles/globals.scss";
 import Footer from "./components/footer/page";
 import Header from "./components/header/page";
 import { CartProvider } from "./components/cartContext/page";
+import { SearchProvider } from "./components/searchContext/page";
 
 export const metadata: Metadata = {
   title: "Gymbeast",
@@ -18,9 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
+       <SearchProvider>
           <Header />
           {children}
           <Footer />
+       </SearchProvider>
         </CartProvider>
       </body>
     </html>

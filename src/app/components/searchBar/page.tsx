@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { useRouter } from "next/navigation";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import { useSearch } from "../searchContext/page";
 
-const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const router = useRouter();
+interface SearchBarProps {
+  onSearch: (term: string) => void;
+}
+
+const SearchBar = ({ onSearch}: SearchBarProps) => {
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    onSearch(search);
+  }, [search, setSearch]);
 
   return (
     <Paper
@@ -29,6 +37,7 @@ const SearchBar = () => {
         <SearchIcon />
       </IconButton>
       <InputBase
+        value={search} onChange={(e) => setSearch(e.target.value)}
         sx={{ ml: 1, flex: 1 }}
         placeholder="What are you looking for?.."
         inputProps={{ "aria-label": "search clothes" }}

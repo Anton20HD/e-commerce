@@ -14,10 +14,12 @@ import ButtonContent from "../buttons/page";
 import Link from "next/link";
 import Cart from "../cart/page";
 import { useCart } from "../cartContext/page";
+import { useSearch } from "../searchContext/page";
 
 const Header = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const { cart } = useCart();
+  const { setSearchTerm } = useSearch();
 
   const toggleCart = () => {
     setIsCartVisible((prevState) => !prevState);
@@ -39,7 +41,7 @@ const Header = () => {
         </div>
         <ButtonContent />
         <div className={styles.searchBarContent}>
-          <SearchBar />
+          <SearchBar onSearch={setSearchTerm} />
         </div>
         <div className={styles.iconsContent}>
           <div className={styles.iconButton}>
