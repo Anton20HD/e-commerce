@@ -8,42 +8,50 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSearch } from "../searchContext/page";
+import ProductSearchDropdown from "../searchDropdown/page";
 
-interface SearchBarProps {
-  onSearch: (term: string) => void;
-}
-
-const SearchBar = ({ onSearch}: SearchBarProps) => {
+const SearchBar = () => {
   const [search, setSearch] = useState<string>("");
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
-  useEffect(() => {
-    onSearch(search);
-  }, [search, setSearch]);
+  const openDropdown = () => {
+    setDropdownVisible(true);
+  };
+
+  const closeDropdown = () => {
+    setDropdownVisible(false);
+  };
 
   return (
-    <Paper
-      component="form"
-      sx={{
-        p: "2px 4px",
-        display: "flex",
-        alignItems: "center",
-        width: 260,
-        backgroundColor: "#f4f4f4",
-        boxShadow: "none",
-        borderRadius: "5px"
-      }}
-    >
-      <IconButton sx={{ p: "10px" }} aria-label="menu">
-        <SearchIcon />
-      </IconButton>
-      <InputBase
-        value={search} onChange={(e) => setSearch(e.target.value)}
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="What are you looking for?.."
-        inputProps={{ "aria-label": "search clothes" }}
-      />
-     
-    </Paper>
+    <div className={styles.searchBarContainer}>
+      <Paper
+        component="form"
+        onClick={openDropdown}
+        sx={{
+          p: "2px 4px",
+          display: "flex",
+          alignItems: "center",
+          width: 260,
+          backgroundColor: "#f4f4f4",
+          boxShadow: "none",
+          borderRadius: "5px",
+        }}
+      >
+        <IconButton sx={{ p: "10px" }} aria-label="menu">
+          <SearchIcon />
+        </IconButton>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="What are you looking for?.."
+          inputProps={{ "aria-label": "search clothes" }}
+        />
+      </Paper>
+      {dropdownVisible && (
+        <div className={styles.dropdown} onClick={closeDropdown}>
+          <ProductSearchDropdown />
+        </div>
+      )}
+    </div>
   );
 };
 

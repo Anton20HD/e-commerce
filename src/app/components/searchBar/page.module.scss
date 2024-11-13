@@ -5,3 +5,22 @@
     
 
 }
+
+.dropdown {
+
+    position: absolute;
+    top: 0; // Aligns with the top of the header
+    left: 0;
+    width: 100%; // Full viewport width to match the header
+    background-color: white;
+    z-index: 1000; // Ensures it covers other elements
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 80vh; 
+}
+
+.searchBarContainer {
+
+    position: relative;
+    width: 100%;
+}

@@ -1,0 +1,13 @@
+.searchBar {
+        display: flex;
+        align-items: center;
+        width: 100%;
+}
+
+.searchDropdownContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px; // Space around dropdown content
+    max-width: 1200px; // Keeps content centered if desired
+    margin: 0 auto;
+}
