@@ -26,17 +26,21 @@ const ProductSearchDropdown = ({toggleDropdown, isVisible}: SearchDropdownProps)
   };
 
   return (
-        <div className={`${styles.searchDropdownContainer} ${isVisible ? styles.open : ""}`}>
-        <div className={styles.dropdownContent}>
+    <div className={`${styles.searchDropdownContainer} ${isVisible ? styles.open : ""}`}>
+      <div className={styles.searchBar}>
+        <IconButton sx={{ p: "10px" }} aria-label="menu">
+          <SearchIcon />
+        </IconButton>
+        <InputBase
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ ml: 1, flex: 1 }}
+          placeholder="What are you looking for?.."
+          inputProps={{ "aria-label": "search clothes" }}
+        />
+      </div>
 
-            <p>mJUa</p>
-
-
-          <div className={styles.searchBar}>
-            <SearchBar/>
-          </div>
-
-          {/* <div className={styles.productSection}>
+      {/* <div className={styles.productSection}>
       {filteredProducts.map((product) => (
         <div key={product._id} onClick={() => handleProduct(product._id)}>
           <div className={styles.productCard}>
@@ -59,10 +63,7 @@ const ProductSearchDropdown = ({toggleDropdown, isVisible}: SearchDropdownProps)
         </div>
       ))}
     </div> */}
-        </div>
-      </div>
-
-      
+    </div>
   );
 };
 

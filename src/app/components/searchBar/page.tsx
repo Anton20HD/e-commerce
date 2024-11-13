@@ -44,7 +44,6 @@ const SearchBar = () => {
         />
       </Paper>
       <ProductSearchDropdown toggleDropdown={toggleDropdown} isVisible={isDropdownVisible}/>
-      
     </div>
   );
 };
