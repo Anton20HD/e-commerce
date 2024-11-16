@@ -12,21 +12,18 @@ import ProductSearchDropdown from "../searchDropdown/page";
 
 const SearchBar = () => {
   const [search, setSearch] = useState<string>("");
-  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const openDropdown = () => {
-    setDropdownVisible(true);
+  const toggleDropdown = () => {
+    setIsDropdownVisible((prevState) => !prevState);
   };
 
-  const closeDropdown = () => {
-    setDropdownVisible(false);
-  };
 
   return (
     <div className={styles.searchBarContainer}>
       <Paper
         component="form"
-        onClick={openDropdown}
+        onClick={toggleDropdown}
         sx={{
           p: "2px 4px",
           display: "flex",
@@ -46,11 +43,8 @@ const SearchBar = () => {
           inputProps={{ "aria-label": "search clothes" }}
         />
       </Paper>
-      {dropdownVisible && (
-        <div className={styles.dropdown} onClick={closeDropdown}>
-          <ProductSearchDropdown />
-        </div>
-      )}
+      <ProductSearchDropdown toggleDropdown={toggleDropdown} isVisible={isDropdownVisible}/>
+      
     </div>
   );
 };
