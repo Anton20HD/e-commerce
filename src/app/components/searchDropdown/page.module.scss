@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .searchBarContent {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -12,17 +14,18 @@
     top: 0; // Align to the top of the viewport 
     left: 0; // Align to the left of the viewport 
     width: 100vw; //Cover the full viewport width
-    height: 300px;
+    max-height: 300px;
     background: white;
     opacity: 0;
     z-index: 2; // Ensure its above other elements
     padding: 20px;
     transform: translateY(-100%);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
 
 }
 
 .open {
+    max-height: 700px;
     transform: translateY(0);
     opacity: 1;
 }
@@ -85,3 +88,78 @@
     display: block;
     font-weight: lighter;
 }
+
+.wishList {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: .6rem;
+    margin: .2rem;
+    border: 0;
+    margin-left: auto;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #d2caca;
+  
+  
+  }
+  
+  .heartIcon {
+  
+  
+    height: 15px;
+    width: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  .productCard {
+  
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .productImage {
+  
+    height: 350px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .productImage:hover {
+  
+    transform: scale(1.1);
+  }
+  
+  .productName {
+  
+    font-family: $secondfont;
+    font-size: medium;
+    font-weight: normal;
+  }
+  
+  .productPrice {
+  
+    font-family: $secondfont;
+    font-weight: bold;
+  }
+
+
+  .productSection {
+
+    
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+
+  }
