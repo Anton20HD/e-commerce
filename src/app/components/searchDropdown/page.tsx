@@ -10,6 +10,8 @@ import { useSearch } from "../searchContext/page";
 import styles from "@/app/components/searchDropdown/page.module.scss";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SearchBar from "../searchBar/page";
+import homeIcon from "@/app/assets/GymBeast.svg"
+import CloseIcon from "@mui/icons-material/Close";
 
 
 interface SearchDropdownProps {
@@ -27,17 +29,39 @@ const ProductSearchDropdown = ({toggleDropdown, isVisible}: SearchDropdownProps)
 
   return (
     <div className={`${styles.searchDropdownContainer} ${isVisible ? styles.open : ""}`}>
-      <div className={styles.searchBar}>
+      <div className={styles.searchBarContent}>
+    <div className={styles.iconContent}>
+            <img className={styles.icon} src={homeIcon.src} alt="Home" />
+      </div>
+      <Paper
+        component="form"
+        className={styles.searchBar}
+        sx={{
+          p: "2px 4px",
+          display: "flex",
+          alignItems: "center",
+          width: 400,
+          backgroundColor: "#f4f4f4",
+          boxShadow: "none",
+          borderRadius: "5px",
+        }}
+      >
         <IconButton sx={{ p: "10px" }} aria-label="menu">
           <SearchIcon />
         </IconButton>
         <InputBase
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
           sx={{ ml: 1, flex: 1 }}
           placeholder="What are you looking for?.."
           inputProps={{ "aria-label": "search clothes" }}
         />
+      </Paper>
+    
+      <div className={styles.navCloseIconContent} >
+      <div className={styles.iconWrapper} onClick={toggleDropdown}>
+
+          <CloseIcon className={styles.closeIcon}></CloseIcon>
+        </div>
+      </div>
       </div>
 
       {/* <div className={styles.productSection}>

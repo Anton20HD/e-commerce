@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "@/app/products/page.module.scss";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { useSearch } from "../components/searchContext/page";
+//import { useSearch } from "../components/searchContext/page";
 
 interface Product {
   _id: string;
@@ -21,7 +21,7 @@ interface Product {
 
 const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const { searchTerm } = useSearch();
+ // const { searchTerm } = useSearch();
   const router = useRouter();
 
   useEffect(() => {
@@ -42,11 +42,11 @@ const AllProducts = () => {
     router.push(`/products/${productId}`)
   };
 
-  const filteredProducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
+  //const filteredProducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
 
   return (
     <div className={styles.productSection}>
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <div key={product._id} onClick={() => handleProduct(product._id)}>
           <div className={styles.productCard}>
             <div className={styles.buttonContent}>

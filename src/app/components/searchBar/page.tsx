@@ -20,6 +20,10 @@ const SearchBar = () => {
 
 
   return (
+    <>
+    {isDropdownVisible && (
+      <div className={styles.overlay} onClick={toggleDropdown}></div>
+    )}
     <div className={styles.searchBarContainer}>
       <Paper
         component="form"
@@ -45,6 +49,7 @@ const SearchBar = () => {
       </Paper>
       <ProductSearchDropdown toggleDropdown={toggleDropdown} isVisible={isDropdownVisible}/>
     </div>
+    </>
   );
 };
 
