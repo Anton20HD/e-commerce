@@ -24,6 +24,23 @@ const ProductSearchDropdown = ({
 }: SearchDropdownProps) => {
   const { searchTerm, setSearchTerm, filteredProducts } = useSearch();
   const router = useRouter();
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+
+  useEffect(() => {
+    const storedSearches = JSON.parse(
+      localStorage.getItem("recentSearches") || "[]"
+    );
+    setRecentSearches(storedSearches);
+  }, []);
+
+  const handleSearch = (searchQuery: string) => {
+    if (!searchQuery.trim()) return;
+
+    setSearchTerm(searchQuery);
+    const updatedSearches = [searchQuery, ...recentSearches].slice(0, 3); //stores last 3 searches
+    localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
+    setRecentSearches(updatedSearches);
+  };
 
   const handleProduct = (productId: string) => {
     toggleDropdown();
@@ -31,12 +48,16 @@ const ProductSearchDropdown = ({
     router.push(`/products/${productId}`);
   };
 
-
   const handlecloseDropdown = () => {
+    toggleDropdown();
+    setSearchTerm("");
+  };
 
-      toggleDropdown();
-      setSearchTerm("");
-  }
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch(searchTerm);
+    }
+  };
 
   return (
     <div
@@ -69,6 +90,7 @@ const ProductSearchDropdown = ({
             placeholder="What are you looking for?.."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
             inputProps={{ "aria-label": "search clothes" }}
           />
         </Paper>
@@ -82,6 +104,7 @@ const ProductSearchDropdown = ({
 
       <div className={styles.productSection}>
         {searchTerm && filteredProducts.length === 0 && <p> </p>}
+
         {searchTerm &&
           filteredProducts.map((product) => (
             <div key={product._id} onClick={() => handleProduct(product._id)}>
@@ -104,6 +127,23 @@ const ProductSearchDropdown = ({
               <p className={styles.productPrice}>{product.price} kr</p>
             </div>
           ))}
+
+        {!searchTerm && recentSearches.length > 0 && (
+          <div className={styles.recentSearches}>
+            <p>Recent Searches:</p>
+            <ul>
+              {recentSearches.map((search, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSearch(search)}
+                  className={styles.recentSearchItem}
+                >
+                  {search}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
