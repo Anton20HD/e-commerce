@@ -55,6 +55,17 @@ const ProductSearchDropdown = ({
   const handleSearch = (searchQuery: string) => {
     if (!searchQuery.trim()) return;
 
+    const hasResults = filteredProducts.some((product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    toggleDropdown(); // Close the dropdown
+
+    if (!hasResults) {
+      //Navigates to the no results page if word does not exist
+      router.push(`/search/${searchQuery}`);
+    }
+
     setSearchTerm(searchQuery);
     const updatedSearches = [searchQuery, ...recentSearches].slice(0, 3); //stores last 3 searches
     localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
