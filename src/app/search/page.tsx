@@ -11,7 +11,7 @@ const SearchPage = () => {
     <div>
       <h1>No Results Found</h1>
       <p>
-        Sorry, We couldn't find any results for "<strong>{query}</strong>"
+        Sorry, we couldn't find any results for "<strong>{query}</strong>"
       </p>
       <p>Please try searching with a different term.</p>
     </div>

@@ -61,11 +61,16 @@ const ProductSearchDropdown = ({
 
     toggleDropdown(); // Close the dropdown
 
-    if (!hasResults) {
-      //Navigates to the no results page if word does not exist
-      router.push(`/search/${searchQuery}`);
-    }
+    if (hasResults) {
 
+      //router.push(`/products/${searchQuery}`);
+      
+    } else {
+      // Navigate to search page if no searchword is matching
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+
+      }
+    
     setSearchTerm(searchQuery);
     const updatedSearches = [searchQuery, ...recentSearches].slice(0, 3); //stores last 3 searches
     localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
@@ -85,6 +90,7 @@ const ProductSearchDropdown = ({
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
+      e.preventDefault(); // Prevent page from reloading
       handleSearch(searchTerm);
     }
   };
