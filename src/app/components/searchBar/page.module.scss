@@ -16,6 +16,7 @@
     flex-direction: row;
     align-items: center;
     background-color: white;
+    //z-index: 0;
 }
 
 
@@ -30,3 +31,12 @@
     opacity: 0;
     animation: fadeIn 0.3s forwards;
   }
+
+  @keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
