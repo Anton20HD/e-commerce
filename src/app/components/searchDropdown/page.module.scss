@@ -74,7 +74,7 @@
 }
 
 
-.iconWrapper {
+.closeIconWrapper {
 
     display: flex;
     cursor: pointer;
@@ -165,7 +165,51 @@
   }
 
 
-  .recentSearches {
+  .recentSearchesSection {
 
-    
+    margin-left: 50px;
+    flex-direction: column;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .recentSearchesTitle {
+
+    font-family: $primaryfont;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .recentSearchItem {
+
+    list-style-type: none;
+    font-family: $secondfont;
+    line-height: 35px;
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+    gap: 8px;   
+  }
+
+
+  .noResultsTitle {
+
+    font-family: $primaryfont;
+    font-size: 20px;
+
+  
+  }
+
+  .noResultsSection {
+    margin-left: 50px;
+
+  }
+ 
+
+  .noResultsText {
+
+    font-family: $secondfont;
+    font-size: 15px;
+
+
   }

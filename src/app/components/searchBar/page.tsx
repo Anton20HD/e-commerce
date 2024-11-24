@@ -35,7 +35,7 @@ const SearchBar = () => {
           width: 260,
           backgroundColor: "#f4f4f4",
           boxShadow: "none",
-          borderRadius: "5px",
+          borderRadius: "20px",
         }}
       >
         <IconButton sx={{ p: "10px" }} aria-label="menu">

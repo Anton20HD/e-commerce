@@ -25,6 +25,8 @@ const ProductSearchDropdown = ({
   const { searchTerm, setSearchTerm, filteredProducts } = useSearch();
   const router = useRouter();
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [showNoResults, setShowNoResults] = useState(false);
+
 
   useEffect(() => {
     const storedSearches = JSON.parse(
@@ -32,6 +34,23 @@ const ProductSearchDropdown = ({
     );
     setRecentSearches(storedSearches);
   }, []);
+
+
+  useEffect(() => {
+    if(!searchTerm.trim()) {
+      setShowNoResults(false); // reset no results when search is cleared
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      if(filteredProducts.length === 0) {
+        setShowNoResults(true);
+      }
+    }, 500); //(500ms)
+
+    return () => clearTimeout(timeoutId);
+  }, [searchTerm, filteredProducts]);
+
 
   const handleSearch = (searchQuery: string) => {
     if (!searchQuery.trim()) return;
@@ -79,7 +98,7 @@ const ProductSearchDropdown = ({
             width: 400,
             backgroundColor: "#f4f4f4",
             boxShadow: "none",
-            borderRadius: "5px",
+            borderRadius: "20px",
           }}
         >
           <IconButton sx={{ p: "10px" }} aria-label="menu">
@@ -87,7 +106,7 @@ const ProductSearchDropdown = ({
           </IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="What are you looking for?.."
+            placeholder="What are you looking for?"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -96,14 +115,22 @@ const ProductSearchDropdown = ({
         </Paper>
 
         <div className={styles.navCloseIconContent}>
-          <div className={styles.iconWrapper} onClick={handlecloseDropdown}>
+          <div
+            className={styles.closeIconWrapper}
+            onClick={handlecloseDropdown}
+          >
             <CloseIcon className={styles.closeIcon}></CloseIcon>
           </div>
         </div>
       </div>
 
       <div className={styles.productSection}>
-        {searchTerm && filteredProducts.length === 0 && <p> </p>}
+        {searchTerm && filteredProducts.length === 0 && showNoResults && (
+          <div className={styles.noResultsSection}>
+            <h2 className={styles.noResultsTitle}>No results found</h2>
+            <p className={styles.noResultsText}>We didnt find anything for "{searchTerm}" </p>
+          </div>
+        )}
 
         {searchTerm &&
           filteredProducts.map((product) => (
@@ -129,19 +156,18 @@ const ProductSearchDropdown = ({
           ))}
 
         {!searchTerm && recentSearches.length > 0 && (
-          <div className={styles.recentSearches}>
-            <p>Recent Searches:</p>
-            <ul>
-              {recentSearches.map((search, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleSearch(search)}
-                  className={styles.recentSearchItem}
-                >
-                  {search}
-                </li>
-              ))}
-            </ul>
+          <div className={styles.recentSearchesSection}>
+            <p className={styles.recentSearchesTitle}>Recent Searches:</p>
+            {recentSearches.map((search, index) => (
+              <li
+                key={index}
+                onClick={() => handleSearch(search)}
+                className={styles.recentSearchItem}
+              >
+                <SearchIcon />
+                {search}
+              </li>
+            ))}
           </div>
         )}
       </div>
