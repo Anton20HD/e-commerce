@@ -1,0 +1,75 @@
+@import "../../styles/variables.scss";
+
+.searchPageContainer {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+}
+
+.contentWrapper {
+
+    margin-top: -90px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.searchPageContent {
+
+    line-height: 5px;
+    //display: flex;
+    font-family: $secondfont;
+    margin-top: -20px;
+
+
+}
+
+.searchPageTitle {
+
+    font-family: $primaryfont;
+    font-weight: 300;
+}
+
+.noResultsText {
+
+
+    color: grey;
+}
+
+
+.searchQueryWord {
+
+    color: black;
+    font-weight: bold;
+}
+
+.searchPageButton {
+
+    background-color: black;
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+    color: white;
+    border-radius: 20px;
+    border: solid 1px #ccc;
+    font-family: $primaryfont;
+    font-size: larger;
+    padding: 10px;
+}
+
+.buttonContent {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 100px;
+    align-items: stretch;
+    flex-direction: column;
+}
