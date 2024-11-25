@@ -21,7 +21,7 @@ export interface WishlistItem {
 interface WishlistContextType {
   wishlist: WishlistItem[];
   addToWishlist: (item: WishlistItem) => void;
-  removeFromWishlist: (itemId: string, size: string) => void;
+  removeFromWishlist: (itemId: string) => void;
 }
 
 const WishlistContext = createContext<WishlistContextType | undefined>(
@@ -70,11 +70,11 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-//Function to use the cart
+//Function to use the wishlist
 export const useWishlist = () => {
   const context = useContext(WishlistContext);
   if (!context) {
-    throw new Error();
+    throw new Error("useWishlist must be used within a WishlistProvider");
   }
   return context;
 };

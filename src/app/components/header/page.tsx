@@ -32,18 +32,20 @@ const Header = () => {
       <div className={styles.headerContent}>
         <div className={styles.iconContent}>
           <Link href="/" passHref>
-          <div className={styles.iconWrapper}>
-            <img className={styles.icon} src={homeIcon.src} alt="Home" />
-          </div>
+            <div className={styles.iconWrapper}>
+              <img className={styles.icon} src={homeIcon.src} alt="Home" />
+            </div>
           </Link>
         </div>
         <ButtonContent />
         <div className={styles.searchBarContent}>
-          <SearchBar/>
+          <SearchBar />
         </div>
         <div className={styles.iconsContent}>
           <div className={styles.iconButton}>
-            <HeartIcon />
+            <Link href={"/wishlist"}>
+              <HeartIcon className={styles.heartIcon} />
+            </Link>
           </div>
           <div className={styles.iconButton}>
             <PersonIcon />

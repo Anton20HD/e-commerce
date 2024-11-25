@@ -4,6 +4,7 @@ import Footer from "./components/footer/page";
 import Header from "./components/header/page";
 import { CartProvider } from "./components/cartContext/page";
 import { SearchProvider } from "./components/searchContext/page";
+import { WishlistProvider } from "./components/wishlistContext/page";
 
 export const metadata: Metadata = {
   title: "Gymbeast",
@@ -19,11 +20,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <CartProvider>
-       <SearchProvider>
-          <Header />
-          {children}
-          <Footer />
-       </SearchProvider>
+          <SearchProvider>
+            <WishlistProvider>
+              <Header />
+              {children}
+              <Footer />
+            </WishlistProvider>
+          </SearchProvider>
         </CartProvider>
       </body>
     </html>
