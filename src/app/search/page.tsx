@@ -12,7 +12,7 @@ const SearchPage = () => {
 
   return (
     <div className={styles.searchPageContainer}>
-      <img src={noResultsImage.src} alt="" />
+      <img src={noResultsImage.src} className={styles.noResultsImage} alt="" />
       <div className={styles.contentWrapper}>
         <h1 className={styles.searchPageTitle}>No Results Found</h1>
         <div className={styles.searchPageContent}>

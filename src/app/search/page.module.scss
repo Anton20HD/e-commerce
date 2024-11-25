@@ -12,7 +12,7 @@
 
 .contentWrapper {
 
-    margin-top: -90px;
+    margin-top: -10px;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -72,4 +72,10 @@
     margin-bottom: 100px;
     align-items: stretch;
     flex-direction: column;
+}
+
+.noResultsImage {
+
+    height: 300px;
+    width: 300px;
 }
