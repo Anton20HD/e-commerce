@@ -50,6 +50,29 @@
   display: flex;
 }
 
+.wishlistButton {
+  cursor: pointer;
+  display: flex;
+}
+
+.wishlistCounter {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+  background: black;
+  border-radius: 10px;
+  justify-content: center;
+  color: white;
+  font-family: $secondfont;
+  font-size: 10px;
+  font-weight: bold;
+  align-items: center;
+  margin-left: 12px;
+  bottom: 10px;
+  position: absolute;
+}
+
 .cartCounter {
   display: flex;
   width: 15px;

@@ -1,3 +1,6 @@
+@import "../../styles/variables.scss";
+
+
 .wishlistContainer {
 
     display: flex;
@@ -8,7 +11,11 @@
 
 .wishlistContent {
 
-    //margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    height: calc(100vh - 120px); // Pushes other content to the bottom
+    position: relative; // Make the content inside to always be in the same spot( good to have if you are using absolute somewhere)z
 }
 
 .wishlistTitleContent {
@@ -16,3 +23,38 @@
     border-bottom: 1px solid rgb(230, 230, 230);
     border-bottom: 1px solid black;
 }
+
+.wishlistItem {
+
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-top: 10px;
+  }
+
+  .itemDetails {
+
+    line-height: 10px;
+    font-family: $secondfont;
+    font-size: 16px;
+    color: gray;
+  }
+  
+  .itemName {
+  
+    color: black;
+    font-family: $primaryfont;
+    font-weight: 300;
+  }
+  
+  .itemPrice {
+  
+    color: black;
+    font-weight: bold;
+  }
+   
+
+  .wishlistItemImage {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+  }

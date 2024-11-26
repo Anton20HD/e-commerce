@@ -14,10 +14,13 @@ import ButtonContent from "../buttons/page";
 import Link from "next/link";
 import Cart from "../cart/page";
 import { useCart } from "../cartContext/page";
+import { useWishlist } from "../wishlistContext/page";
+
 
 const Header = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const { cart } = useCart();
+  const { wishlist } = useWishlist();
 
   const toggleCart = () => {
     setIsCartVisible((prevState) => !prevState);
@@ -42,10 +45,13 @@ const Header = () => {
           <SearchBar />
         </div>
         <div className={styles.iconsContent}>
-          <div className={styles.iconButton}>
+          <div className={styles.wishlistButton}>
             <Link href={"/wishlist"}>
               <HeartIcon className={styles.heartIcon} />
             </Link>
+            {wishlist.length > 0 && (
+              <div className={styles.wishlistCounter}>{wishlist.length}</div>
+            )}
           </div>
           <div className={styles.iconButton}>
             <PersonIcon />
