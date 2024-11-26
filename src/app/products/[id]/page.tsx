@@ -5,6 +5,8 @@ import { useParams, useRouter } from "next/navigation";
 import styles from "@/app/products/[id]/page.module.scss";
 import RelatedProducts from "@/app/components/relatedProducts/page";
 import { useCart } from "@/app/components/cartContext/page";
+import { useWishlist } from "@/app/components/wishlistContext/page";
+import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 interface Product {
   _id: string;
@@ -23,6 +25,7 @@ const ProductPage = () => {
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
   const [selectedSize, setSelectedSize] = useState("S");
   const { addToCart } = useCart();
+  const { addToWishlist} = useWishlist();
 
   const handleSizeChange = (size: string) => {
     setSelectedSize(size);
@@ -41,6 +44,19 @@ const ProductPage = () => {
       //Alert the user that the product been added
       //alert("Product added!")
     }
+  }
+
+  const handleAddToWishlist = () => {
+    if(product) {
+      addToWishlist({
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize,
+        image: product.image[0],
+      });
+    }
+
   }
 
   useEffect(() => {
@@ -96,7 +112,13 @@ const ProductPage = () => {
           </div>
 
           <p className={styles.productPrice}>{product.price} kr</p>
+
+          <div className={styles.buttonSection}>
           <button className={styles.addToCartButton} onClick={handleAddToCart}>Add to cart</button>
+          <button className={styles.wishListButton} onClick={handleAddToWishlist}>
+                <HeartIcon className={styles.heartIcon} />
+              </button>
+          </div>
           <div className={styles.descriptionSection}>
             <h3 className={styles.descriptionTitle}>Description</h3>
             <p className={styles.description}>{product.description}</p>

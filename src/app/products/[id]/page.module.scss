@@ -4,7 +4,7 @@
 .productSection {
     display: grid;
     grid-template-columns: 1fr 1fr; //Takes 50% of width
-    gap:5px;
+    gap: 5px;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -16,7 +16,7 @@
     font-family: $primaryfont;
     font-size: 30px;
     font-weight: 300;
-   
+
 }
 
 .productPrice {
@@ -58,7 +58,7 @@
 .selectedSize {
 
     font-weight: normal;
-    color:#c0bfbf;
+    color: #c0bfbf;
     font-weight: bold;
     margin-left: 10px;
 }
@@ -68,7 +68,7 @@
     cursor: pointer;
     height: 40px;
     width: 50px;
-    color:black;
+    color: black;
     border-radius: 15px;
     border: solid 1px #ccc;
     font-family: $primaryfont;
@@ -79,8 +79,8 @@
     background-color: black;
     cursor: pointer;
     height: 50px;
-    width: 70%;
-    color:white;
+    width:50%;
+    color: white;
     border-radius: 15px;
     border: solid 1px #ccc;
     font-family: $primaryfont;
@@ -112,4 +112,39 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
+}
+
+.wishListButton {
+
+    width:40px;
+    height: 40px;
+    padding: .6rem;
+    margin: .2rem;
+    border: 0;
+    //margin-left: auto;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #d2caca;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.heartIcon {
+
+
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.buttonSection {
+
+    display: flex;
+    align-items: center;
 }
