@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
 import React from "react";
 import styles from "@/app/wishlist/page.module.scss";
-
+import CloseIcon from "@mui/icons-material/Close";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useWishlist } from "@/app/components/wishlistContext/page";
+import { useCart } from "../components/cartContext/page";
 
 const WishListPage = () => {
-
-  console.log("useWishlist:", useWishlist);
   const { wishlist, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart();
 
   return (
     <div className={styles.wishlistContainer}>
@@ -17,7 +17,7 @@ const WishListPage = () => {
         <h1>Wishlist</h1>
       </div>
       <div className={styles.wishlistContent}>
-      {wishlist.length === 0 ? (
+        {wishlist.length === 0 ? (
           <div className={styles.emptyWishlistSection}>
             <h4 className={styles.emptyWishlistTitle}>
               Your Wishlist is empty
@@ -29,24 +29,38 @@ const WishListPage = () => {
               key={`$item._id}-${item.size}`}
               className={styles.wishlistItem}
             >
-              <img
-                src={item.image}
-                alt={item.name}
-                className={styles.wishlistItemImage}
-              />
-              <div className={styles.itemDetails}>
-                <h3 className={styles.itemName}>{item.name}</h3>
-                <p>Size: {item.size}</p>
-                <p className={styles.itemPrice}>{item.price} kr</p>
-                <div className={styles.removeSection}>
-                  <button
-                    className={styles.quantityButton}
-                    onClick={() => removeFromWishlist(item._id)}
-                  >
-                    <RemoveIcon className={styles.quantityIcon} />
-                  </button>
+              <div className={styles.wishlistWrapper}>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className={styles.wishlistItemImage}
+                />
+                <div className={styles.itemDetails}>
+                  <h3 className={styles.itemName}>{item.name}</h3>
+                  <p>Size: {item.size}</p>
+                  <p className={styles.itemPrice}>{item.price} kr</p>
+                  <div className={styles.removeSection}>
+                    <button
+                      className={styles.quantityButton}
+                      onClick={() => 
+                        addToCart({
+                          _id: item._id,
+                          name: item.name,
+                          image: item.image,
+                          price: item.price,
+                          size: item.size,
+                          quantity: 1,
+                        })
+                      }
+                    >
+                     Add to cart 
+                    </button>
+                  </div>
                 </div>
               </div>
+              <div className={styles.navCloseIcon}>
+                <CloseIcon onClick={() => removeFromWishlist(item._id)} className={styles.closeIcon}></CloseIcon>
+              </div>                                  
             </div>
           ))
         )}
