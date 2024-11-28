@@ -36,13 +36,15 @@ const WishListPage = () => {
                   className={styles.wishlistItemImage}
                 />
                 <div className={styles.itemDetails}>
+                  <div className={styles.c}>
                   <h3 className={styles.itemName}>{item.name}</h3>
-                  <p>Size: {item.size}</p>
                   <p className={styles.itemPrice}>{item.price} kr</p>
-                  <div className={styles.removeSection}>
+                  </div>
+                  <div className={styles.f}>
+                  <p>Size: {item.size}</p>
                     <button
-                      className={styles.quantityButton}
-                      onClick={() => 
+                      className={styles.addToCartButton}
+                      onClick={() =>
                         addToCart({
                           _id: item._id,
                           name: item.name,
@@ -53,14 +55,17 @@ const WishListPage = () => {
                         })
                       }
                     >
-                     Add to cart 
+                      Add to cart
                     </button>
                   </div>
                 </div>
               </div>
               <div className={styles.navCloseIcon}>
-                <CloseIcon onClick={() => removeFromWishlist(item._id)} className={styles.closeIcon}></CloseIcon>
-              </div>                                  
+                <CloseIcon
+                  onClick={() => removeFromWishlist(item._id)}
+                  className={styles.closeIcon}
+                ></CloseIcon>
+              </div>
             </div>
           ))
         )}
