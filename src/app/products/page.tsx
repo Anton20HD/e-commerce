@@ -6,6 +6,7 @@ import styles from "@/app/products/page.module.scss";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 //import { useSearch } from "../components/searchContext/page";
+import { useWishlist } from "../components/wishlistContext/page";
 
 interface Product {
   _id: string;
@@ -13,16 +14,18 @@ interface Product {
   price: number;
   description: string;
   image: string[];
-  category: string;
-  subCategory: string;
   sizes: string[];
   soldout: boolean;
+  category: string;
+  subCategory: string;
 }
 
 const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
- // const { searchTerm } = useSearch();
+  // const { searchTerm } = useSearch();
   const router = useRouter();
+  const { addToWishlist } = useWishlist();
+  const [selectedSize, setSelectedSize] = useState("S");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,7 +42,19 @@ const AllProducts = () => {
   }, []);
 
   const handleProduct = (productId: string) => {
-    router.push(`/products/${productId}`)
+    router.push(`/products/${productId}`);
+  };
+
+  const handleAddToWishlist = (product: Product) => {
+    if (products) {
+      addToWishlist({
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize,
+        image: product.image[0],
+      });
+    }
   };
 
   //const filteredProducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -50,7 +65,15 @@ const AllProducts = () => {
         <div key={product._id} onClick={() => handleProduct(product._id)}>
           <div className={styles.productCard}>
             <div className={styles.buttonContent}>
-              <button className={styles.wishList}>
+              <button 
+              className={styles.wishList} 
+              onClick={(e) => {
+
+                e.stopPropagation(); // Prevent navigation to single product page when clicking
+                handleAddToWishlist(product);
+
+              }}
+              >
                 <HeartIcon className={styles.heartIcon} />
               </button>
             </div>

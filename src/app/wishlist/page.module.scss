@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 30px;
-   // height: calc(100vh - 120px); // Pushes other content to the bottom
+    // height: calc(100vh - 120px); // Pushes other content to the bottom
     position: relative; // Make the content inside to always be in the same spot( good to have if you are using absolute somewhere)z
 }
 
@@ -30,9 +30,9 @@
     grid-gap: 50px;
     border-bottom: 1px solid #ddd;
     margin-top: 10px;
-  }
+}
 
-  .itemDetails {
+.itemDetails {
 
     line-height: 15px;
     font-family: $secondfont;
@@ -42,76 +42,80 @@
     flex-direction: column;
     margin-top: 30px;
     position: relative;
-  }
+}
 
-  .f {
+.f {
 
     margin-top: auto;
-  }
+}
 
-  .c {
+.c {
 
     line-height: 10px;
 
-  }
-  
-  .itemName {
-  
+}
+
+.itemName {
+
     color: black;
     font-family: $primaryfont;
     font-weight: 300;
-  }
-  
-  .itemPrice {
-  
+}
+
+.itemPrice {
+
     color: black;
     font-weight: 400;
     font-family: $secondfont;
 
-  }
-   
+}
 
-  .wishlistItemImage {
+.wishlistTitle {
+    font-family: $primaryfont;
+    font-weight: 300;
+}
+
+.wishlistItemImage {
     width: 300px;
     height: 300px;
     object-fit: cover;
-  }
+}
 
-  .navCloseIcon {
+.navCloseIcon {
     //padding: 10px; 
     font-weight: lighter;
     display: flex;
     margin-right: 10px;
     justify-content: flex-end;
-  }
-  
-  .closeIcon {
+}
+
+.closeIcon {
     height: 30px;
     width: 30px;
     cursor: pointer;
-  }
-  
+}
 
-  .wishlistWrapper {
+
+.wishlistWrapper {
 
     display: grid;
     grid-template-columns: 300px auto; // Reserve space for the image and make the rest flexible
     gap: 20px;
-   
-  }
 
-  .addToCartButton {
+}
+
+.addToCartButton {
 
 
     background-color: black;
     cursor: pointer;
     height: 50px;
-    width:300px;
+    width: 300px;
     align-self: stretch;
     max-width: 100%;
     color: white;
     border-radius: 15px;
     border: solid 1px #ccc;
     font-family: "Bebas Neue", sans-serif;
-    font-size: larger;  
-  }
+    font-size: larger;
+}

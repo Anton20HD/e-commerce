@@ -14,7 +14,7 @@ const WishListPage = () => {
   return (
     <div className={styles.wishlistContainer}>
       <div className={styles.wishlistTitleContent}>
-        <h1>Wishlist</h1>
+        <h1 className={styles.wishlistTitle}>Wishlist</h1>
       </div>
       <div className={styles.wishlistContent}>
         {wishlist.length === 0 ? (
