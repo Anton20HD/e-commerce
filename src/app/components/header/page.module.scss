@@ -41,8 +41,9 @@
   gap: 20px;
 }
 
-.iconButton {
+.profileButton {
   cursor: pointer;
+  display: flex;
 }
 
 .cartButton {
@@ -112,5 +113,9 @@
 
 .heartIcon {
 
+  color: black;
+}
+
+.personIcon {
   color: black;
 }

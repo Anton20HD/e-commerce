@@ -16,7 +16,6 @@ import Cart from "../cart/page";
 import { useCart } from "../cartContext/page";
 import { useWishlist } from "../wishlistContext/page";
 
-
 const Header = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const { cart } = useCart();
@@ -53,8 +52,10 @@ const Header = () => {
               <div className={styles.wishlistCounter}>{wishlist.length}</div>
             )}
           </div>
-          <div className={styles.iconButton}>
-            <PersonIcon />
+          <div className={styles.profileButton}>
+            <Link href={"/login"}>
+              <PersonIcon className={styles.personIcon} />
+            </Link>
           </div>
           <div className={styles.cartButton} onClick={toggleCart}>
             <CartIcon />
