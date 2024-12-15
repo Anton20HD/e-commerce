@@ -1,19 +1,45 @@
-import React from 'react'
-import styles from '@/app/login/page.module.scss'
-import homeIcon from '@/app/assets/GymBeast.svg'
-
+import React from "react";
+import styles from "@/app/login/page.module.scss";
+import homeIcon from "@/app/assets/GymBeast.svg";
 
 const LoginPage = () => {
   return (
     <div className={styles.loginContainer}>
-        <div className={styles.loginContent}>
-            
-            <img className={styles.icon} src={homeIcon.src} alt="" />
-            <h1>Gymbeast Login</h1>
-
+      <div className={styles.loginContent}>
+        <div className={styles.iconWrapper}>
+          <img className={styles.icon} src={homeIcon.src} alt="Home" />
         </div>
-    </div>
-  )
-}
+        <h1 className={styles.loginTitle}>Gymbeast Login</h1>
+        <form method="post" action={""} className={styles.orderInfo}>
+          <div className={styles.inputInfo}>
+            <div className={styles.shippingSection}>
+              <h2 className={styles.shippingTitle}></h2>
+            </div>
 
-export default LoginPage
+            <input
+              className={styles.loginLabel}
+              type="text"
+              placeholder="Email"
+              name="email"
+            />
+            <input
+              className={styles.loginLabel}
+              type="text"
+              placeholder="Password"
+              name="password"
+            />
+            <button type="submit" className={styles.loginButton}>
+              Login
+            </button>
+            <div className={styles.registrationSection}>
+            <h3 className={styles.registrationText}>Don't have an account? <span className={styles.registrationSpanText}>Sign up here!</span></h3>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default LoginPage;
