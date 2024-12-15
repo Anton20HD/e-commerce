@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@/app/login/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
+import Link from "next/link";
 
 const LoginPage = () => {
   return (
@@ -32,7 +33,7 @@ const LoginPage = () => {
               Login
             </button>
             <div className={styles.registrationSection}>
-            <h3 className={styles.registrationText}>Don't have an account? <span className={styles.registrationSpanText}>Sign up here!</span></h3>
+            <h3 className={styles.registrationText}>Don't have an account? <Link href={"/register"}><span className={styles.registrationSpanText}>Sign up here!</span></Link></h3>
 
             </div>
           </div>

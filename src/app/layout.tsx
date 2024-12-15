@@ -9,6 +9,7 @@ import Header from "./components/header/page";
 import { CartProvider } from "./components/cartContext/page";
 import { SearchProvider } from "./components/searchContext/page";
 import { WishlistProvider } from "./components/wishlistContext/page";
+import RegisterPage from './register/page';
 
 //  export const metadata: Metadata = {
 //   title: "Gymbeast",
@@ -24,6 +25,8 @@ export default function RootLayout({
   const pathname = usePathname();
 
   const isLoginPage = pathname === '/login'
+  const isRegisterPage = pathname === '/register'
+
 
   return (
     <html lang="en">
@@ -31,9 +34,9 @@ export default function RootLayout({
         <CartProvider>
           <SearchProvider>
             <WishlistProvider>
-              {!isLoginPage && <Header />}
+              {!isLoginPage && !isRegisterPage && <Header />}
               {children}
-              {!isLoginPage && <Footer />}
+              {!isLoginPage && !isRegisterPage && <Footer />}
             </WishlistProvider>
           </SearchProvider>
         </CartProvider>
