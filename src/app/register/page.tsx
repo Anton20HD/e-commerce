@@ -26,14 +26,29 @@ const RegisterPage = () => {
             <input
               className={styles.registerLabel}
               type="text"
+              placeholder="First Name"
+              name="firstName"
+            />   <input
+              className={styles.registerLabel}
+              type="text"
+              placeholder="Last Name"
+              name="lastName"
+            />   <input
+              className={styles.registerLabel}
+              type="text"
               placeholder="Password"
               name="password"
+            /><input
+              className={styles.registerLabel}
+              type="text"
+              placeholder="Confirm Password"
+              name="confirmPassword"
             />
             <button type="submit" className={styles.registerButton}>
               Register
             </button>
             <div className={styles.loginSection}>
-            <h3 className={styles.loginText}>Already have an account? <Link href={"/login"}><span className={styles.loginSpanText}>Login here!</span></Link></h3>
+            <h3 className={styles.loginText}>Already have an account? <Link href={"/login"}><span className={styles.loginSpanText}>Login!</span></Link></h3>
 
             </div>
           </div>
