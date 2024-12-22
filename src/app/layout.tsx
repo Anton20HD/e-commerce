@@ -10,6 +10,7 @@ import { CartProvider } from "./components/cartContext/page";
 import { SearchProvider } from "./components/searchContext/page";
 import { WishlistProvider } from "./components/wishlistContext/page";
 import RegisterPage from './register/page';
+import { SessionProvider } from "next-auth/react";
 
 //  export const metadata: Metadata = {
 //   title: "Gymbeast",
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <SessionProvider>
         <CartProvider>
           <SearchProvider>
             <WishlistProvider>
@@ -40,6 +42,7 @@ export default function RootLayout({
             </WishlistProvider>
           </SearchProvider>
         </CartProvider>
+        </SessionProvider>
       </body>
     </html>
   );
