@@ -13,8 +13,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", async function (next) { // Middleware that runs before a document is saved to db
 if(!this.isModified("password")) return next(); // Checks if the password hasnt been modified and moves on to save
-const salt = await bcrypt.genSalt(10); // Generates a salt, is a random string added to password before hashing
-this.password = await bcrypt.hash(this.password, salt);
+this.password = await bcrypt.hash(this.password, 10);
 next();
 })
 
