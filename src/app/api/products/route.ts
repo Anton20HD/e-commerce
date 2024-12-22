@@ -4,9 +4,9 @@ import connectDB from '@/libs/db/mongodb';
 import { uploadToCloudinary, CloudinaryResult } from '@/libs/cloud/cloudinary';
 
 export async function POST(req: Request) {
-  await connectDB();
 
   try {
+    await connectDB();
     const formData = await req.formData();
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
