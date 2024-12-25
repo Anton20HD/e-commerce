@@ -1,7 +1,7 @@
 
 "use client"
 
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "@/app/login/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import Link from "next/link";
@@ -13,8 +13,24 @@ const LoginPage = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  useEffect(() => {
+
+    //Redirect to dashboard if already logged in
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/dashboard")
+    }
+  }, [router])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      return;
+    }
+
+    setError(""); //Clear previous errors if inputs are valid
 
   try {
     const response = await fetch("/api/auth/login", {
@@ -34,14 +50,14 @@ const LoginPage = () => {
     console.log("Login successful!")
 
     //Redirect user to homepage after login
-    router.push("/")
+    router.push("/dashboard")
     } else {
 
       setError(data.message || "Invalid credentials. Please try again");
     }
   } catch(err) {
     console.error("Error during login:", err);
-    setError("An error occured. Please try again later")
+    setError("An error occured. Please try again")
   }
   
 }

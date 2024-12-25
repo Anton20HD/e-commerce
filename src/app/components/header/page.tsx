@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/app/components/header/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import SearchBar from "../searchBar/page";
@@ -15,14 +15,31 @@ import Link from "next/link";
 import Cart from "../cart/page";
 import { useCart } from "../cartContext/page";
 import { useWishlist } from "../wishlistContext/page";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const { cart } = useCart();
   const { wishlist } = useWishlist();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
 
   const toggleCart = () => {
     setIsCartVisible((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    //check if token exists
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleProfileClick = () => {
+    if (isLoggedIn) {
+      router.push("/dashboard"); //Navigate to dashboard if logged in
+    } else {
+      router.push("/login"); // Navigate to login if not logged in
+    }
   };
 
   return (
@@ -52,10 +69,8 @@ const Header = () => {
               <div className={styles.wishlistCounter}>{wishlist.length}</div>
             )}
           </div>
-          <div className={styles.profileButton}>
-            <Link href={"/login"}>
-              <PersonIcon className={styles.personIcon} />
-            </Link>
+          <div className={styles.profileButton} onClick={handleProfileClick}>
+            <PersonIcon className={styles.personIcon} />
           </div>
           <div className={styles.cartButton} onClick={toggleCart}>
             <CartIcon />
