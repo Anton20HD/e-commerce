@@ -25,12 +25,6 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      setError("Please enter both email and password");
-      return;
-    }
-
-    setError(""); //Clear previous errors if inputs are valid
 
   try {
     const response = await fetch("/api/auth/login", {
