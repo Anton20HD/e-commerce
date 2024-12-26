@@ -1,63 +1,88 @@
+"use client";
 
-"use client"
-
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/app/login/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import Link from "next/link";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const [email,setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-
     //Redirect to dashboard if already logged in
     const token = localStorage.getItem("token");
     if (token) {
-      router.push("/dashboard")
+      router.push("/dashboard");
     }
-  }, [router])
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    //Clear previous errors
+    setEmailError(null);
+    setPasswordError(null);
+    setError(null);
 
-  try {
-    const response = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: {
-    "Content-Type": "application/json",
-    },
-    body: JSON.stringify({email, password}),
-    })
+    let isValid = true;
 
-    const data = await response.json();
-
-    if(response.ok) {
-      //store token in localstorage
-      localStorage.setItem("token", data.token);
-      setError(null);
-    console.log("Login successful!")
-
-    //Redirect user to homepage after login
-    router.push("/dashboard")
-    } else {
-
-      setError(data.message || "Invalid credentials. Please try again");
+    if (!email) {
+      setEmailError("Email is required");
+      isValid = false;
+    } else if(!/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
+      setEmailError("Email must be valid");
+      isValid = false;
     }
-  } catch(err) {
-    console.error("Error during login:", err);
-    setError("An error occured. Please try again")
-  }
+
+    if (!password) {
+      setPasswordError("Password is required");
+      isValid = false
+    }
+
+    // If validation fails, stop execution
+    if (!isValid) return;
   
-}
-  
-  
-  
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        //store token in localstorage
+        localStorage.setItem("token", data.token);
+
+        console.log("Login successful!");
+
+        //Redirect user to homepage after login
+        router.push("/dashboard");
+      } else {
+        if (data.code === "INVALID_EMAIL") {
+          setEmailError(data.message);
+        } else if (data.code === "INVALID_PASSWORD") {
+          setPasswordError(data.message);
+        } else {
+          setError( data.message || "Invalid credentials. Please try again");
+        }
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+      setError("An error occured. Please try again");
+    }
+  };
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginContent}>
@@ -65,7 +90,7 @@ const LoginPage = () => {
           <img className={styles.icon} src={homeIcon.src} alt="Home" />
         </div>
         <h1 className={styles.loginTitle}>Gymbeast Login</h1>
-        <form  onSubmit={handleSubmit}className={styles.orderInfo}>
+        <form onSubmit={handleSubmit} className={styles.orderInfo}>
           <div className={styles.inputInfo}>
             <div className={styles.shippingSection}>
               <h2 className={styles.shippingTitle}></h2>
@@ -79,6 +104,7 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {emailError && <p className={styles.errorText}>{emailError}</p>}
             <input
               className={styles.loginLabel}
               type="text"
@@ -87,10 +113,14 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {passwordError && (
+              <p className={styles.errorText}>{passwordError}</p>
+            )}
+
+            {error && <p className={styles.errorText}>{error}</p>}
             <button type="submit" className={styles.loginButton}>
               Login
             </button>
-            {error && <p className={styles.errorText}>{error}</p>}
             <div className={styles.registrationSection}>
               <h3 className={styles.registrationText}>
                 Don't have an account?{" "}

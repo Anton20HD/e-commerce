@@ -11,9 +11,16 @@ export async function POST(req: Request) {
   
 
     // Handle error if user only submits with no data
-    if (!email || !password) {
+    if (!email) {
       return NextResponse.json(
-        { message: "email and password are required" },
+        { message: "Email is required" },
+        { status: 400 }
+      );
+    }
+    
+    if (!password) {
+      return NextResponse.json(
+        { message: "Password is required" },
         { status: 400 }
       );
     }
@@ -21,23 +28,22 @@ export async function POST(req: Request) {
     //Email validation
     if(!/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
       return NextResponse.json(
-        { message: "Email must be valid" },
+        { code: "INVALID_EMAIL", message: "Email must be valid" },
         { status: 400 }
       );
 
     }
 
+
+    //Email not found 
     const user = await User.findOne({ email });
     console.log("Fetched user:", user);
     if (!user) {
       return NextResponse.json(
-        { message: "No account found with this email" },
-        { status: 401 }
+        { code: "EMAIL_NOT_FOUND", message: "No account found with this email" },
+        { status: 404 }
       );
     }
-    
-
-
 
     //Password validation
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -48,7 +54,7 @@ export async function POST(req: Request) {
 
     if (!isPasswordValid) {
       return NextResponse.json(
-        { message: "Invalid email or password" },
+        {  code: "INVALID_PASSWORD",   message: "Invalid Password" },
         { status: 401 }
       );
     }
