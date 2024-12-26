@@ -5,6 +5,7 @@ import styles from "@/app/login/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import ErrorIcon from '@mui/icons-material/Error';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -104,7 +105,9 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {emailError && <p className={styles.errorText}>{emailError}</p>}
+            <div className={styles.errorSection}>
+            {emailError && <p className={styles.errorText}><ErrorIcon/>{emailError}</p>}
+            </div>
             <input
               className={styles.loginLabel}
               type="text"
@@ -113,11 +116,11 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {passwordError && (
-              <p className={styles.errorText}>{passwordError}</p>
-            )}
 
-            {error && <p className={styles.errorText}>{error}</p>}
+            <div className={styles.errorSection}>
+            {passwordError && <p className={styles.errorText}><ErrorIcon/>{passwordError}</p>}
+            {error && <p className={styles.errorText}><ErrorIcon/>{error}</p>}
+              </div>
             <button type="submit" className={styles.loginButton}>
               Login
             </button>
