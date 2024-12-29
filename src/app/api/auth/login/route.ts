@@ -48,9 +48,9 @@ export async function POST(req: Request) {
     //Password validation
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    // console.log("Password", password)
-    // console.log("Hashed Password", user.password)
-    // console.log("Password match result", isPasswordValid)
+    //  console.log("Password", password)
+    //  console.log("Hashed Password", user.password)
+    //  console.log("Password match result", isPasswordValid)
 
     if (!isPasswordValid) {
       return NextResponse.json(
@@ -72,6 +72,6 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error("Login error: ", error);
-    return NextResponse.json({ message: "Internal Server" }, { status: 500 });
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

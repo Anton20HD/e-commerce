@@ -110,9 +110,9 @@ const LoginPage = () => {
             </div>
             <input
               className={styles.loginLabel}
-              type="text"
+              type="password" 
               placeholder="Password"
-              name="password"
+              name="password" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
