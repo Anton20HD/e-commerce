@@ -66,6 +66,7 @@ const LoginPage = () => {
         localStorage.setItem("token", data.token);
 
         console.log("Login successful!");
+        //console.log(localStorage.getItem("token"))
 
         //Redirect user to homepage after login
         router.push("/dashboard");
