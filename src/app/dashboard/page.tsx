@@ -49,7 +49,7 @@ const DashboardPage = () => {
               onClick={() => setActiveLink("orders")}
             >
               <ReceiptIcon />
-              Orders
+              <span className={styles.itemName}>Orders</span>
             </div>
           </div>
           <div className={styles.wishlistSection}>
@@ -60,7 +60,7 @@ const DashboardPage = () => {
               onClick={() => setActiveLink("wishlist")}
             >
               <HeartIcon />
-              Wishlist
+              <span className={styles.itemName}>Wishlist</span>
             </div>
           </div>
           <div className={styles.signOutSection}>
@@ -71,14 +71,15 @@ const DashboardPage = () => {
               onClick={() => setActiveLink("signout")}
             >
               <ExitToAppIcon />
-              Signout
+              <span className={styles.itemName}>Signout</span>
             </div>
           </div>
         </div>
         <div className={styles.accountContent}>
         {activeLink === 'orders' && 
         <div>
-          Orders Content
+          <h2>My orders</h2>
+          
           
           </div>}
         {activeLink === 'wishlist' && 
@@ -89,7 +90,7 @@ const DashboardPage = () => {
           </div>}
         {activeLink === 'signout' && 
         <div>
-          
+
           Sign Out Content
           </div>}
         </div>

@@ -7,6 +7,22 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     cartData: { type: Object, default: {} },
+    orders: {
+      type: [
+        {
+          orderId: { type: String, required: true },
+          items: [
+            {
+              productId: { type: String, required: true },
+              quantity: { type: Number, required: true },
+            },
+          ],
+          totalAmount: { type: Number, required: true },
+          date: { type: Date, default: Date.now },
+        },
+      ],
+      default: [], 
+    },
   },
   { minimize: false }
 ); //Prevents mongoose from removing empty data

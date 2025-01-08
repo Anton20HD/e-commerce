@@ -59,9 +59,11 @@
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    cursor: pointer;
 }
 
-.itemWrapper:hover {
+
+
+.itemName:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
