@@ -3,12 +3,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/app/dashboard/page.module.scss";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 
 const DashboardPage = () => {
   const router = useRouter();
+  const { data: session, status} = useSession();
   const [activeLink, setActiveLink] = useState<"orders" | "wishlist" | "signout">("orders");
 
   // const renderContent = () => {
@@ -25,19 +27,20 @@ const DashboardPage = () => {
   // };
 
   useEffect(() => {
-    //Check user authentication
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      //Redirect user to login if not authenticated
+    if (!session && status !== "loading") {
       router.push("/login");
     }
-  }, [router]);
+  }, [session, status, router]);
+
+  
+  if (!session) {
+    return null; // Avoid rendering anything until redirect is handled
+  }
 
   return (
     <div className={styles.dashboardContainer}>
       <div className={styles.dashboardTitleContent}>
-        <h1 className={styles.dashboardTitle}>Hello Username!</h1>
+        <h1 className={styles.dashboardTitle}>Hello {session.user.name}!</h1>
       </div>
       <div className={styles.dashboardSection}>
         <div className={styles.profileOverviewSection}>
@@ -79,7 +82,7 @@ const DashboardPage = () => {
         {activeLink === 'orders' && 
         <div>
           <h2>My orders</h2>
-          
+
           
           </div>}
         {activeLink === 'wishlist' && 

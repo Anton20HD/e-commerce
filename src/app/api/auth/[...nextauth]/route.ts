@@ -5,7 +5,7 @@ import connectDB from "@/libs/db/mongodb";
 import bcrypt from "bcrypt";
 import { User as NextAuthUser } from "next-auth";
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -21,13 +21,17 @@ export default NextAuth({
         // Retrieve the email and password from the credentials
         const { email, password } = credentials || {}; // Use empty object if credentials is undefined
 
-    if(!password) {
-        throw new Error("Password is required")
-    }
+        if (!email || !password) {
+          throw new Error("Email and password is required");
+        }
 
         const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("No user found with this email");
+        }
 
-        if (!user || !(await bcrypt.compare(password, user.password))) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
           throw new Error("Invalid email or password");
         }
 
@@ -35,30 +39,38 @@ export default NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+
   session: {
     strategy: "jwt", // (JSON Web token for session handling)
+    maxAge: 30 * 24 * 60 * 60,
   },
 
   // Allow customization of the session and JWt behavior
   callbacks: {
     async jwt({ token, user }) {
-        // If user is logged in and user data is availablem add the user id to the token
+      // If user is logged in and user data is availablem add the user id to the token
       if (user) {
-
-    token.id = (user as NextAuthUser).id; // Ensures user has an "id" property
+        token.id = user.id; // Ensures user has an "id" property
       }
-    
+
       return token;
     },
 
     async session({ session, token }) {
-        // If session and session.user exist, add the user id to the session object
-      if(session?.user) {
+      // If session and session.user exist, add the user id to the session object
+      if (session?.user) {
         session.user.id = token.id as string; // ENsures id is treated as a string
       }
-    
+
       return session;
     },
   },
   secret: process.env.JWT_SECRET,
 });
+
+
+export { handler as GET, handler as POST }

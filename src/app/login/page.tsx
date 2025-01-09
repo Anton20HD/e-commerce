@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import styles from "@/app/login/page.module.scss";
 import homeIcon from "@/app/assets/GymBeast.svg";
 import Link from "next/link";
@@ -14,14 +15,13 @@ const LoginPage = () => {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { data: session } = useSession();
 
-  useEffect(() => {
-    //Redirect to dashboard if already logged in
-    const token = localStorage.getItem("token");
-    if (token) {
-      router.push("/dashboard");
-    }
-  }, [router]);
+
+  if(session) {
+    router.push("/dashboard");
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,42 +48,28 @@ const LoginPage = () => {
 
     // If validation fails, stop execution
     if (!isValid) return;
-  
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        //store token in localstorage
-        localStorage.setItem("token", data.token);
-
-        console.log("Login successful!");
-        //console.log(localStorage.getItem("token"))
-
-        //Redirect user to homepage after login
-        router.push("/dashboard");
+      const result = await signIn("credentials", {
+        callbackUrl: "/dashboard",
+        redirect: true, // prevents nextauth from redirecting automatically
+        email,
+        password,
+      })
+      
+      if(result?.error) {
+        setError(result.error)
       } else {
-        if (data.code === "INVALID_EMAIL") {
-          setEmailError(data.message);
-        } else if (data.code === "INVALID_PASSWORD") {
-          setPasswordError(data.message);
-        } else {
-          setError( data.message || "Invalid credentials. Please try again");
-        }
+        console.log("Login succesful!");
+        router.push("/dashboard")
       }
     } catch (err) {
       console.error("Error during login:", err);
-      setError("An error occured. Please try again");
+      setError("An error occurred. Please try again")
     }
-  };
+
+  }
+  
 
   return (
     <div className={styles.loginContainer}>
