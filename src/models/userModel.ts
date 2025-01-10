@@ -6,7 +6,15 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    cartData: { type: Object, default: {} },
+    cartData: {
+      type: [
+        {
+          productId: { type: String, required: true },
+          quantity: { type: Number, required: true },
+        },
+      ],
+      default: [],
+    },
     orders: {
       type: [
         {
@@ -24,7 +32,7 @@ const userSchema = new mongoose.Schema(
       default: [], 
     },
   },
-  { minimize: false }
+  { minimize: false, timestamps: true }
 ); //Prevents mongoose from removing empty data
 
 userSchema.pre("save", async function (next) { // Middleware that runs before a document is saved to db

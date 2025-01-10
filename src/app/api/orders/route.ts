@@ -1,11 +1,22 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { User } from "@/models/userModel";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 
 
 export async function POST(req: Request) {
-    const userId = req.headers.get("userId"); // Get users id(from token)
+    const session = await getServerSession(authOptions);
+    console.log("Session:", session);
+
+
+    if(!session || !session.user?.id ) {
+
+        return NextResponse.json({ message: "Unauthorized"}, { status: 401})
+    }
+
+    const userId = session.user.id;
     const { totalAmount } = await req.json();
 
     try {
@@ -25,7 +36,7 @@ export async function POST(req: Request) {
         user.orders.push(newOrder);
 
 
-        // Clear the cart
+        // Clear the cart to avoid duplication
         user.cartData = [];
 
         await user.save();
