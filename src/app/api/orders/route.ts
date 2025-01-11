@@ -2,12 +2,19 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { User } from "@/models/userModel";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 
-
+interface SessionUser {
+    id: string;  
+  }
+  
+  interface Session {
+    user: SessionUser;
+    expires: string;
+  }
 
 export async function POST(req: Request) {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions) as Session;
     console.log("Session:", session);
 
 
@@ -21,8 +28,10 @@ export async function POST(req: Request) {
 
     try {
         const user = await User.findById(userId)
+        console.log("Fetched User:", user);
 
         if(!user || user.cartData.length === 0 ) {
+            console.log("Cart Data:", user?.cartData);
             return NextResponse.json({message: 'Cart is empty or user not found'}, { status: 404 });
         }
 
@@ -33,6 +42,7 @@ export async function POST(req: Request) {
             date: new Date(),
         }
 
+        user.orders = user.orders || [];
         user.orders.push(newOrder);
 
 
@@ -49,7 +59,13 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-    const userId = req.headers.get("userId");
+    const session = (await getServerSession(authOptions)) as Session;
+
+    if (!session || !session.user?.id) {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+      }
+    
+      const userId = session.user.id;
 
     try {
         const user = await User.findById(userId);
