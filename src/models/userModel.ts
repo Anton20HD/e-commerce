@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema(
       type: [
         {
           productId: { type: String, required: true },
+          name: { type: String, required: true },  // Add the name field
+          price: { type: Number, required: true }, // Add the price field
           quantity: { type: Number, required: true },
+          size: { type: String, required: true },  // Add the size field
+          image: { type: String, required: true },
         },
       ],
       default: [],
