@@ -34,7 +34,7 @@ const DashboardPage = () => {
 
   const handleSignOut = () => {
 
-    signOut({ callbackUrl: "/login"})
+    signOut({ callbackUrl: "/"})
   }
 
   
