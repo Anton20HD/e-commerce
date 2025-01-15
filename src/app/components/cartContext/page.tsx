@@ -8,6 +8,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import { useSession } from "next-auth/react";
 
  export interface CartItem {
   _id: string;
@@ -24,29 +25,65 @@ interface CartContextType {
   addToCart: (item: CartItem) => void;
   removeFromCart: (itemId: string, size: string) => void;
   calculateTotalPrice: (itemId: string, itemSize:string, itemPrice: number) => number;
-  updateCartQuantity: (itemId: string, size:string, quantity: number) => void
+  updateCartQuantity: (itemId: string, size:string, quantity: number) => void;
+  syncCartWithBackend: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const ls = typeof window !== "undefined" ? window.localStorage : null;
+  //const ls = typeof window !== "undefined" ? window.localStorage : null;
+  const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);
+  const localStoragekey = "cartItems"
 
   useEffect(() => {
-    if (cart?.length > 0) {
-      ls?.setItem("cartItems", JSON.stringify(cart));
-    }
-  }, [cart, ls]);
+    const fetchCart = async () => {
+      if(status === "authenticated") {
+        try {
+            const response = await fetch("/api/cart", {method: "GET"});
+            if(response.ok) {
+              const data = await response.json();
+              setCart(data.cart);
+              syncCartWithBackend();
+            } else {
+              console.error("Failed to fetch cart from backend:", response.status)
+            }
+        } catch (error) {
+          console.error("Failed to fetch cart from backend:", error)
+        }
+      } else {
+        const storedCart = localStorage.getItem(localStoragekey);
+        if (storedCart) {
+          setCart(JSON.parse(storedCart));
+        }
+      }
+      }
+      fetchCart();
+    }, [status,session]);
 
-  useEffect(() => {
-    if (ls) {
-      const storedCart = ls.getItem("cartItems");
-      if (storedCart) {
-        setCart(JSON.parse(storedCart));
+    useEffect(() => {
+      if(status === "authenticated") {
+        localStorage.setItem(localStoragekey, JSON.stringify(cart));
+      }
+    }, [cart, status]);
+
+    const syncCartWithBackend = async () => {
+      if(status === "authenticated" && session?.user?.id) {
+        try {
+          const response = await fetch("/api/cart", {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({ cart }),
+          })
+          if(!response.ok) {
+            console.error("Failed to sync cart with backend:", response.status);
+          }
+        } catch (error) {
+          console.error("Error syncing cart:", error);
+        }
       }
     }
-  }, []);
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
@@ -66,6 +103,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return [...prevCart, {...item, quantity: 1}];
       }
     });
+    syncCartWithBackend();
   };
 
   const removeFromCart = (itemId: string, size: string) => {
@@ -74,6 +112,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         (cartItem) => !(cartItem._id === itemId && cartItem.size === size)
       )
     );
+    syncCartWithBackend();
   };
 
 
@@ -85,6 +124,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       : cartItem
     ).filter((cartItem) => cartItem.quantity > 0)
     );
+
+    syncCartWithBackend();
   };
 
   const calculateTotalPrice = (itemId: string, itemSize:string, itemPrice:number) => {
@@ -95,7 +136,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, calculateTotalPrice, updateCartQuantity}}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, calculateTotalPrice, updateCartQuantity, syncCartWithBackend}}>
       {children}
     </CartContext.Provider>
   );

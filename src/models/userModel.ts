@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+
+
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -9,11 +11,11 @@ const userSchema = new mongoose.Schema(
     cartData: {
       type: [
         {
-          productId: { type: String, required: true },
-          name: { type: String, required: true },  // Add the name field
-          price: { type: Number, required: true }, // Add the price field
+          _id: { type: String, required: true },
+          name: { type: String, required: true },  
+          price: { type: Number, required: true }, 
           quantity: { type: Number, required: true },
-          size: { type: String, required: true },  // Add the size field
+          size: { type: String, required: true },  
           image: { type: String, required: true },
         },
       ],

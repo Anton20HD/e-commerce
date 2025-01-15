@@ -7,6 +7,9 @@ import RelatedProducts from "@/app/components/relatedProducts/page";
 import { useCart } from "@/app/components/cartContext/page";
 import { useWishlist } from "@/app/components/wishlistContext/page";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { useSession } from "next-auth/react";
+import { CartItem } from "@/app/components/cartContext/page";
+
 
 interface Product {
   _id: string;
@@ -24,25 +27,60 @@ const ProductPage = () => {
   const { id } = useParams(); // Access to the specific id for the product
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
   const [selectedSize, setSelectedSize] = useState("S");
-  const { addToCart } = useCart();
+  const { addToCart, cart} = useCart();
   const { addToWishlist} = useWishlist();
+  const {data: session} = useSession();
+  const userId = session?.user?.id;
+
 
   const handleSizeChange = (size: string) => {
     setSelectedSize(size);
   };
 
-  const handleAddToCart = () => {
-    if(product) {
-      addToCart({
+  const handleAddToCart = async () => {
+    if(product && userId) {
+
+       // Check if the product is already in the cart (with the same size)
+    const existingItem = cart.find(
+      (item: CartItem) => item._id === product._id && item.size === selectedSize
+    );
+
+
+      const newCartItem = {
         _id: product._id,
         name: product.name,
         price: product.price,
         size: selectedSize,
         image: product.image[0],
-        quantity:1,
-      });
-      //Alert the user that the product been added
-      //alert("Product added!")
+        quantity: existingItem ? existingItem.quantity + 1 : 1,
+      };
+
+
+      addToCart(newCartItem);
+
+      try {
+          const response = await fetch("/api/cart", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                userId,
+                _id: product._id,
+                price: product.price,
+                name: product.name,
+                size: selectedSize,
+                image: product.image[0],
+                quantity: newCartItem.quantity,
+            }),
+          })
+
+          const data = await response.json();
+          if(!response.ok) {
+            console.error("Error adding to cart:", data.message);
+          }
+      } catch (error) {
+        console.error("Network error adding to cart:", error)
+      }
+      
     }
   }
 

@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { User } from "@/models/userModel"
+import { CartItem } from "@/app/components/cartContext/page";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
-    const { userId, productId, quantity, price, name} = await req.json()
+   
+    const { userId, cartItems } = await req.json()
 
     try {
         const user = await User.findById(userId);
@@ -10,15 +14,68 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "User not found"}, { status: 404})
         }
 
-        const newCartItem = { productId, quantity, price, name}
 
-        user.cartData.push(newCartItem)
+        cartItems.forEach((localItem: CartItem) => {
+            const existingItem = user.cartData.find(
+                (dbItem: CartItem) =>
+                    dbItem._id === localItem._id && dbItem.size === localItem.size
+            );
+
+            if(existingItem) {
+                // update quantity if item already exists
+                existingItem.quantity += localItem.quantity;
+            } else {
+    
+                // Add new item to the cart
+                user.cartData.push({localItem})
+            }
+        });
+
         await user.save()
-
         return NextResponse.json({ message: "Item added to cart", cart: user.cartData})
     } catch(error) {
         console.error(error)
         return NextResponse.json({ message: "Error adding item to cart"}, { status: 500 })
     }
 
+}
+
+export async function GET(req:Request) {
+    try {
+
+        const session = await getServerSession(authOptions);
+
+        if(!session) {
+            return NextResponse.json(
+                { message: "Unauthorized. Please login"},
+                { status: 401 }
+            )
+        }
+
+        const userEmail = session.user?.email;
+
+        if(!userEmail) {
+            return NextResponse.json(
+                {message: "Invalid session. User email not found"},
+                { status: 400 }
+            )
+        }
+
+        const user = await User.findOne({ email: userEmail});
+
+        if (!user) {
+            return NextResponse.json(
+                {message: "User not found"},
+                { status: 404}
+            );
+        }
+
+        return NextResponse.json({ cart: user.cartData})
+    } catch (error) {
+        console.error("Error fetching cart:", error);
+        return NextResponse.json(
+            { message: "Error fetching cart"},
+            { status: 500}
+        )
+    }
 }

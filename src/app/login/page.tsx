@@ -16,6 +16,7 @@ const LoginPage = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { data: session } = useSession();
+  const userId = session?.user?.id;
 
 
   if(session) {
@@ -61,7 +62,25 @@ const LoginPage = () => {
         setError(result.error)
       } else {
         console.log("Login succesful!");
-        router.push("/dashboard")
+
+
+        const storedCart = localStorage.getItem("cartItems");
+        if (storedCart) {
+          const cartItems = JSON.parse(storedCart);
+
+          await fetch("/api/cart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId, cartItems})
+          })
+
+          localStorage.removeItem("cartItems")
+        }
+
+        router.push("/dashboard");
+
       }
     } catch (err) {
       console.error("Error during login:", err);
