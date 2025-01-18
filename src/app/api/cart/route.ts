@@ -6,9 +6,20 @@ import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
    
-    const { userId, cartItems } = await req.json()
 
     try {
+        const body = await req.json();
+        console.log("Request Body:", body)
+        const { userId, cartItems } = body;
+
+        if(!userId || !cartItems) {
+            return NextResponse.json(
+                {message: "Missing userid or cartitems"},
+                { status: 400}
+            )
+
+        }
+
         const user = await User.findById(userId);
         if(!user) {
             return NextResponse.json({ message: "User not found"}, { status: 404})
@@ -27,7 +38,7 @@ export async function POST(req: Request) {
             } else {
     
                 // Add new item to the cart
-                user.cartData.push({localItem})
+                user.cartData.push(localItem)
             }
         });
 

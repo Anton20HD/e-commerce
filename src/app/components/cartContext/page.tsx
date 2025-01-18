@@ -76,8 +76,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           const response = await fetch("/api/cart", {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({ cart }),
+            body: JSON.stringify({ userId: session.user.id, cartItems: cart }),
           })
+
+          const data = await response.json();
+          console.log("API Response:", data)
+
           if(!response.ok) {
             console.error("Failed to sync cart with backend:", response.status);
           }
@@ -106,12 +110,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
     });
 
-    if (status !== "authenticated") {
-      localStorage.setItem(localStoragekey, JSON.stringify(cart));
-    }
+  }
 
-    syncCartWithBackend();
-  };
+  // sync after cart is updated 
+  useEffect(() => {
+    if (status === "unauthenticated" && ls) {
+      ls.setItem(localStoragekey, JSON.stringify(cart));
+    } else if(status === "authenticated") {
+      syncCartWithBackend();
+    }
+  }, [cart, status])
+
 
   const removeFromCart = (itemId: string, size: string) => {
     setCart((prevCart) =>
@@ -122,7 +131,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     syncCartWithBackend();
   };
 
-
+   
   const updateCartQuantity = (itemId: string, size: string, quantity: number) => {
     setCart((prevCart) => 
     prevCart.map((cartItem) => 

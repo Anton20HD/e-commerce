@@ -38,7 +38,13 @@ const ProductPage = () => {
   };
 
   const handleAddToCart = async () => {
-    if(product && userId) {
+    
+    console.log("Session in handleaddtocart:", session);
+
+    
+    
+    if(product) {
+      console.log("Adding product to cart:", {product})
 
        // Check if the product is already in the cart (with the same size)
     const existingItem = cart.find(
@@ -55,10 +61,14 @@ const ProductPage = () => {
         quantity: existingItem ? existingItem.quantity + 1 : 1,
       };
 
+      if(session?.user?.id) {
+        try {
+          addToCart(newCartItem)
+        
 
       addToCart(newCartItem);
 
-      try {
+      
           const response = await fetch("/api/cart", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -80,8 +90,12 @@ const ProductPage = () => {
       } catch (error) {
         console.error("Network error adding to cart:", error)
       }
+      } else {
+
+        addToCart(newCartItem)
+      }
       
-    }
+    } 
   }
 
   const handleAddToWishlist = () => {
