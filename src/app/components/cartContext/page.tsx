@@ -32,7 +32,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  //const ls = typeof window !== "undefined" ? window.localStorage : null;
+  const ls = typeof window !== "undefined" ? window.localStorage : null;
   const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);
   const localStoragekey = "cartItems"
@@ -53,20 +53,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           console.error("Failed to fetch cart from backend:", error)
         }
       } else {
-        const storedCart = localStorage.getItem(localStoragekey);
+        if(ls) {
+        const storedCart = ls.getItem(localStoragekey);
         if (storedCart) {
           setCart(JSON.parse(storedCart));
         }
       }
       }
+    }
       fetchCart();
     }, [status,session]);
 
     useEffect(() => {
-      if(status === "authenticated") {
-        localStorage.setItem(localStoragekey, JSON.stringify(cart));
+      if(status === "authenticated" && ls ) {
+        ls.setItem(localStoragekey, JSON.stringify(cart));
       }
-    }, [cart, status]);
+    }, [cart, status, ls]);
 
     const syncCartWithBackend = async () => {
       if(status === "authenticated" && session?.user?.id) {
@@ -103,6 +105,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return [...prevCart, {...item, quantity: 1}];
       }
     });
+
+    if (status !== "authenticated") {
+      localStorage.setItem(localStoragekey, JSON.stringify(cart));
+    }
+
     syncCartWithBackend();
   };
 

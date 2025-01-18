@@ -68,7 +68,8 @@ const LoginPage = () => {
         if (storedCart) {
           const cartItems = JSON.parse(storedCart);
 
-          await fetch("/api/cart", {
+          if (cartItems > 0) {
+          const response = await fetch("/api/cart", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -76,7 +77,16 @@ const LoginPage = () => {
             body: JSON.stringify({ userId, cartItems})
           })
 
-          localStorage.removeItem("cartItems")
+          if(!response.ok) {
+            setError("Failed to sync cart with the server");
+            return;
+          } else {
+              localStorage.removeItem("cartItems"); // Clear data after successful syncing
+              console.log("Cart synced with backend")
+            
+          }
+
+        }
         }
 
         router.push("/dashboard");
