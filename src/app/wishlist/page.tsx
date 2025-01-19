@@ -26,7 +26,7 @@ const WishListPage = () => {
         ) : (
           wishlist.map((item) => (
             <div
-              key={`$item._id}-${item.size}`}
+              key={`${item._id}-${item.size}`}
               className={styles.wishlistItem}
             >
               <div className={styles.wishlistWrapper}>
