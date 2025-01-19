@@ -1,0 +1,142 @@
+@import "../../styles/variables.scss";
+
+.loginContainer {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.loginContent {
+
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.icon {
+
+    height: 120px;
+    width: 120px;
+}
+
+
+.loginLayout {
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.inputInfo {
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    //width: 400px;
+}
+
+.loginButton {
+
+    background-color: black;
+    cursor: pointer;
+    height: 50px;
+    width: 90%;
+    color: white;
+    border-radius: 20px;
+    border: solid 1px #ccc;
+    font-family: "Bebas Neue", sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.orderInfo {
+
+    background-color: white;
+
+    width: 400px;
+    padding: 20px;
+
+    //margin-bottom: 80px;
+
+
+}
+
+
+
+.loginLabel {
+    font-family: $secondfont;
+    padding: 18px;
+    border-radius: 5px;
+    width: 320px;
+    border: 1px solid rgb(230, 230, 230);
+    font-family: $secondfont;
+
+
+
+    &::placeholder {
+        font-size: 15px;
+        color: #6f7780;
+        font-family: $secondfont;
+        font-weight: 300;
+    }
+}
+
+.registrationSection {
+
+
+    display: flex;
+    flex-direction: row;
+}
+
+.registrationText {
+
+    font-family: $secondfont;
+    font-weight: 400;
+    font-size: 15px;
+    color: #6f7780;
+}
+.registrationSpanText {
+
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.loginTitle {
+
+    font-family: $primaryfont;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.errorSection {
+
+    display: flex;
+   
+}
+
+.errorText {
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    color: darkred;
+    font-family: $secondfont;
+    gap: 10px;
+    font-size: 13px;
+}
+

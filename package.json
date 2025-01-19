@@ -1,6 +1,7 @@
 {
   "name": "e-commerce",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,17 +10,41 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.8",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mui/icons-material": "^6.0.2",
+    "@mui/material": "^6.0.2",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "6.9",
+    "mongoose": "^8.7.0",
+    "multer": "^1.4.5-lts.1",
+    "next": "^14.2.12",
+    "next-auth": "^4.24.11",
+    "next-connect": "^1.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-router-dom": "^6.26.2",
     "sass": "^1.78.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
-    "typescript": "^5"
+    "file-loader": "^6.2.0",
+    "typescript": "^5",
+    "url-loader": "^4.1.1"
   }
 }

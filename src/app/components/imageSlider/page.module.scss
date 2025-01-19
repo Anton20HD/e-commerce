@@ -1,0 +1,186 @@
+@import "../../../styles/variables.scss";
+
+
+.card-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.sliderWrapper {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.card {
+
+    width: 319px;
+    flex-shrink: 0;
+    //margin: 20px;
+    box-sizing: border-box;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.productSection {
+    display: flex;
+    transition: transform 0.5s ease;
+    margin-top: 20px;
+}
+
+
+
+.cardWrapper {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding:15px;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.cardWrapper:hover {
+    transform:translateY(-5px);
+}
+
+.cardImage {
+    //width: 13rem;
+    margin-bottom: 1rem;
+    height: 350px;
+    width: 310px;
+}
+
+.slide-hidden {
+
+    display: none;
+}
+
+
+.arrowSection {
+    display: flex;
+    gap: 10px;
+    position: absolute; // positions it indepentently of slider
+    right: 50px;
+    top: 95%; //center it vertically
+    transform: translateY(-50%); //adjusts to vertically center
+    z-index: 10; // Stays above slider content
+
+}
+
+.arrows {
+
+    height: 20px;
+
+}
+
+.arrowRight:hover {
+    cursor: pointer;
+}
+
+.arrowLeft:hover {
+    cursor: pointer;
+}
+
+.arrowLeft {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.arrowRight {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+}
+
+.cardTitle {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.cardDetails {
+    display: flex;
+    flex-direction: column;
+    line-height: 1px;
+    margin-top: 10px;
+
+}
+
+.contentWrapper {
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+
+}
+
+.cardHeading {
+
+    margin-bottom: 10px;
+    align-self: flex-start;
+    font-family: $primaryfont;
+    font-size: 2.4rem;
+    line-height: 3rem;
+    margin: 0;
+    margin-top: 70px;
+    text-align: left;
+
+}
+
+
+
+.cardTitle {
+    margin-top: 10px;
+    margin-left: 1rem;
+    font-weight: normal;
+    font-size: 14px;
+    font-family: $secondfont;
+    color:#1E1E1E;
+}
+
+.cardPrice {
+
+    margin-top: 10px;
+    margin-left: 1rem;
+    font-family: $secondfont;
+    font-size: 14px;
+    color:#1E1E1E
+}
+
+.wishList {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    padding: .6rem;
+    margin: .2rem;
+    border: 0;
+    margin-left: auto;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: white;
+
+
+}
+
+.heartIcon {
+
+
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}

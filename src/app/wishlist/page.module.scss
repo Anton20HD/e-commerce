@@ -1,0 +1,121 @@
+@import "../../styles/variables.scss";
+
+
+.wishlistContainer {
+
+    display: flex;
+    flex-direction: column;
+    width: 120vh;
+    margin-left: 50px;
+}
+
+.wishlistContent {
+
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    // height: calc(100vh - 120px); // Pushes other content to the bottom
+    position: relative; // Make the content inside to always be in the same spot( good to have if you are using absolute somewhere)z
+}
+
+.wishlistTitleContent {
+
+    border-bottom: 1px solid #ddd;
+}
+
+.wishlistItem {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+    border-bottom: 1px solid #ddd;
+    margin-top: 10px;
+}
+
+.itemDetails {
+
+    line-height: 15px;
+    font-family: $secondfont;
+    font-size: 16px;
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    position: relative;
+}
+
+.f {
+
+    margin-top: auto;
+}
+
+.c {
+
+    line-height: 10px;
+
+}
+
+.itemName {
+
+    color: black;
+    font-family: $primaryfont;
+    font-weight: 300;
+}
+
+.itemPrice {
+
+    color: black;
+    font-weight: 400;
+    font-family: $secondfont;
+
+}
+
+.wishlistTitle {
+    font-family: $primaryfont;
+    font-weight: 300;
+}
+
+.wishlistItemImage {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.navCloseIcon {
+    //padding: 10px; 
+    font-weight: lighter;
+    display: flex;
+    margin-right: 10px;
+    justify-content: flex-end;
+}
+
+.closeIcon {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+
+.wishlistWrapper {
+
+    display: grid;
+    grid-template-columns: 300px auto; // Reserve space for the image and make the rest flexible
+    gap: 20px;
+
+}
+
+.addToCartButton {
+
+
+    background-color: black;
+    cursor: pointer;
+    height: 50px;
+    width: 300px;
+    align-self: stretch;
+    max-width: 100%;
+    color: white;
+    border-radius: 15px;
+    border: solid 1px #ccc;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: larger;
+}

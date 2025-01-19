@@ -1,0 +1,21 @@
+@import "../styles/variables.scss";
+
+
+html, body {
+  //height: 100%;
+  background-color: white;
+  scroll-behavior: smooth;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+ // position: relative;
+  overflow-x: hidden;
+  
+  width: 100vw; // Takes up the full viewport width
+  margin: 0; // Remove any default margin
+  padding: 0; // Remove any default padding
+}
+
+// * {
+//   outline: 1px solid red; /* Helps you visualize overflowing elements */
+// } 

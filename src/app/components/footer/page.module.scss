@@ -1,0 +1,136 @@
+@import "../../../styles/variables.scss";
+
+.footer {
+    background-color: white;
+    font-family: $secondfont;
+    color: black;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    height: 250px;
+    padding-top: 20px;  
+}
+
+
+.contentWrapper {
+
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 50px;
+    //margin-right: auto;
+  
+
+}
+
+
+.copyrightSection {
+
+    position: absolute;
+    bottom: 1px;
+    left: 100px;
+
+
+}
+
+
+
+.footerContainer {
+    display: flex;
+    justify-content: space-around;
+    // display: grid;
+    // grid-template-columns: repeat(4, 1fr);
+   
+
+}
+
+.socialIconsSection {
+    grid-column: span 1 / -1;
+    margin-top: auto;
+
+}
+
+.icon {
+
+    height: 80px;
+    width: 80px;
+    //margin-left: 50px;
+
+}
+
+.newsLetterSection {}
+
+.shopSection {}
+
+.icon {
+    font-size: 50px;
+}
+
+.shopSection p {
+    line-height: 0.7;
+}
+
+.accountSection p {
+    line-height: 0.7;
+}
+
+.ul {
+    display: flex;
+    //  margin-left: -50px;
+    margin-top: 40px;
+    margin-left: -10px;
+}
+
+.ul li {
+    list-style: none;
+
+}
+
+
+
+.shopSection p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.accountSection p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.title {
+
+    font-family: $primaryfont;
+}
+
+.footerText {
+
+    text-decoration: none;
+    color: black;
+
+}
+
+.socialButton {
+    width: 13px;
+    height: 13px;
+    background-color: black;
+    text-align: center;
+    font-size: 10px;
+    padding: 8px;
+    display: flex;
+    margin: 0 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid rgba(0, 0, 0, 0);
+    z-index: 1;
+    color: white;
+}
+
+.ul .icon {
+    position: relative;
+    transition: transform 0.5s;
+    z-index: 3;
+}

@@ -1,0 +1,64 @@
+@import "../../../styles/variables.scss";
+
+
+.relatedProductContainer {
+
+    margin-bottom: 100px;
+    margin-left: 50px;
+}
+
+.relatedProductSection {
+
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    gap: 20px;
+    flex-direction: row;
+    //margin-top: 50px;
+}
+
+.productName {
+
+    font-family: $secondfont;
+    font-size: medium;
+    font-weight: normal;
+}
+
+.productPrice {
+
+    font-family: $secondfont;
+    font-weight: bold;
+}
+
+.contentWrapper {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.productCard {
+
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.productImage {
+
+    height: 350px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.productImage:hover {
+
+    transform: scale(1.1);
+}
+
+.relatedProductTitle {
+    font-family: $primaryfont;
+    font-size: 35px;
+    font-weight: 300;
+}

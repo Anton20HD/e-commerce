@@ -1,0 +1,69 @@
+.dashboardContainer {
+
+    width: 100%;
+    background-size: cover;
+    padding: 10px;
+    margin-left: 50px;
+}
+
+.dashboardSection {
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+
+}
+
+
+
+.orderInfoSection {
+   border-bottom: 1px solid black;
+   border-top: 1px solid black;
+}
+
+.wishlistSection {
+    border-bottom: 1px solid black;
+ }
+
+ .signOutSection {
+    border-bottom: 1px solid black;
+ }
+
+.profileOverviewSection {
+    //border: 1px solid black;
+}
+
+
+.dashboardTitleContent {}
+
+.accountContent {
+    //border: 1px solid black;
+}
+
+.profileOverviewSection,
+.accountContent {
+    height: 100%; // Ensure they take up equal height
+   // border: 1px solid black; // Debugging or for design purposes
+
+    //box-sizing: border-box; // To include padding in size calculations
+}
+
+.itemWrapper {
+
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+.itemName:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
