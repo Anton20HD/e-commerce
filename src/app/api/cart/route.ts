@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
             if(existingItem) {
                 // update quantity if item already exists
-                existingItem.quantity += localItem.quantity;
+                existingItem.quantity = Math.max(1, existingItem.quantity + localItem.quantity);
             } else {
     
                 // Add new item to the cart

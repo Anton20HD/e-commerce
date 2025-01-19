@@ -24,11 +24,7 @@ interface CartContextType {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (itemId: string, size: string) => void;
-  calculateTotalPrice: (
-    itemId: string,
-    itemSize: string,
-    itemPrice: number
-  ) => number;
+  calculateTotalPrice: (itemId: string, itemSize: string, itemPrice: number) => number;
   updateCartQuantity: (itemId: string, size: string, quantity: number) => void;
   syncCartWithBackend: () => Promise<void>;
 }
@@ -48,13 +44,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           const response = await fetch("/api/cart", { method: "GET" });
           if (response.ok) {
             const data = await response.json();
-            setCart(data.cart);
+            //setCart(data.cart);
             //syncCartWithBackend();
+            if(JSON.stringify(data.cart) !== JSON.stringify(cart))
+            setCart((prevCart) => {
+              const mergedCart = [...prevCart];
+              data.cart.forEach((item: CartItem) => {
+                const existingItem = mergedCart.find(
+                  (cartItem) => cartItem._id === item._id && cartItem.size === item.size
+                );
+                if (existingItem) {
+                    // update quantity if item exist in cart
+                  existingItem.quantity += item.quantity;
+                } else {
+
+                  mergedCart.push(item);
+                }
+              });
+              return mergedCart;
+            });
           } else {
-            console.error(
-              "Failed to fetch cart from backend:",
-              response.status
-            );
+            console.error("Failed to fetch cart from backend:",response.status );
           }
         } catch (error) {
           console.error("Failed to fetch cart from backend:", error);
@@ -67,8 +77,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
     };
 
+    if (status === "authenticated" || status === "unauthenticated") {
     fetchCart();
-  }, [status, session]);
+    }
+  }, [status]);
 
   // sync after cart is updated
   useEffect(() => {
@@ -84,8 +96,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Automatically sync with backend with useeffect and we dont need to call the method in every function
   useEffect(() => {
+    let isSyncing = false;
+
+
     const syncCartWithBackend = async () => {
-      if (status === "authenticated" && session?.user?.id) {
+      if (status === "authenticated" && session?.user?.id && !isSyncing) {
+        isSyncing = true;
         try {
           const response = await fetch("/api/cart", {
             method: "POST",
@@ -98,11 +114,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           }
         } catch (error) {
           console.error("Error syncing cart:", error);
+        } finally {
+          isSyncing = false;
         }
       }
     };
 
-    syncCartWithBackend();
+    if(status === "authenticated") {
+      syncCartWithBackend();
+    }
   }, [cart, status, session]);
 
   const addToCart = (item: CartItem) => {
@@ -115,7 +135,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         //update quantity if item is already in cart with same size
         return prevCart.map((cartItem) =>
           cartItem._id === item._id && cartItem.size === item.size
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? { ...cartItem, quantity: Math.max(1,cartItem.quantity + 1) } // prevent quantity being below 1
             : cartItem
         );
       } else {
