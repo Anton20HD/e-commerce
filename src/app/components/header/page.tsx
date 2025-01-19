@@ -14,7 +14,7 @@ import ButtonContent from "../buttons/page";
 import Link from "next/link";
 import Cart from "../cart/page";
 import { useCart } from "../cartContext/page";
-import { useWishlist } from "../wishlistContext/page";¨
+import { useWishlist } from "../wishlistContext/page";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
