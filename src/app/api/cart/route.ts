@@ -10,11 +10,30 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
         console.log("Request Body:", body)
-        const { userId, cartItems } = body;
+        const { cartItems } = body;
 
-        if(!userId || !cartItems) {
+
+        const session = await getServerSession(authOptions);
+        console.log("Session:", session);  // Log the session
+
+        if(!session) {
             return NextResponse.json(
-                {message: "Missing userid or cartitems"},
+                { message: "Unauthorized. Please login"},
+                { status: 401 }
+            )
+        }
+
+        const userId = session.user?.id;
+
+        if(!userId) {
+            return NextResponse.json(
+                {message: "Missing userid in session "},
+                { status: 400}
+            )
+
+        }if(!cartItems) {
+            return NextResponse.json(
+                {message: "Missing cartitems"},
                 { status: 400}
             )
 

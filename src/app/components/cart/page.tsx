@@ -64,7 +64,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
                   Shop Products
                 </button>
               </Link>
-              <Link href="/allAccessoriesPage">
+              <Link href="/accessories">
                 <button className={styles.navigateButton} onClick={toggleMenu}>
                   Shop Accessories
                 </button>

@@ -14,28 +14,24 @@ import ButtonContent from "../buttons/page";
 import Link from "next/link";
 import Cart from "../cart/page";
 import { useCart } from "../cartContext/page";
-import { useWishlist } from "../wishlistContext/page";
+import { useWishlist } from "../wishlistContext/page";¨
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const { cart } = useCart();
   const { wishlist } = useWishlist();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {data: session } = useSession();
   const router = useRouter();
 
   const toggleCart = () => {
     setIsCartVisible((prevState) => !prevState);
   };
 
-  useEffect(() => {
-    //check if token exists
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-  }, []);
 
   const handleProfileClick = () => {
-    if (isLoggedIn) {
+    if (session) {
       router.push("/dashboard"); //Navigate to dashboard if logged in
     } else {
       router.push("/login"); // Navigate to login if not logged in
