@@ -7,6 +7,8 @@ import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 //import { useSearch } from "../components/searchContext/page";
 import { useWishlist } from "../components/wishlistContext/page";
+import HeartOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import HeartFilledIcon from "@mui/icons-material/Favorite";
 
 interface Product {
   _id: string;
@@ -24,7 +26,7 @@ const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   // const { searchTerm } = useSearch();
   const router = useRouter();
-  const { addToWishlist } = useWishlist();
+  const { addToWishlist, wishlist, removeFromWishlist } = useWishlist();
   const [selectedSize, setSelectedSize] = useState("S");
 
   useEffect(() => {
@@ -45,8 +47,12 @@ const AllProducts = () => {
     router.push(`/products/${productId}`);
   };
 
-  const handleAddToWishlist = (product: Product) => {
-    if (products) {
+  const handleWishlistToggle = (product: Product) => {
+    const isAlreadyInWishlist = wishlist.some((item) => item._id === product._id);
+
+    if (isAlreadyInWishlist) {
+      removeFromWishlist(product._id);
+    } else {
       addToWishlist({
         _id: product._id,
         name: product.name,
@@ -57,11 +63,15 @@ const AllProducts = () => {
     }
   };
 
+
   //const filteredProducts = products.filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
 
   return (
     <div className={styles.productSection}>
-      {products.map((product) => (
+      {products.map((product: Product) => {
+       const isWishlisted = wishlist.some((item) => item._id === product._id);
+
+       return (
         <div key={product._id} onClick={() => handleProduct(product._id)}>
           <div className={styles.productCard}>
             <div className={styles.buttonContent}>
@@ -70,11 +80,15 @@ const AllProducts = () => {
               onClick={(e) => {
 
                 e.stopPropagation(); // Prevent navigation to single product page when clicking
-                handleAddToWishlist(product);
+                handleWishlistToggle(product);
 
               }}
               >
-                <HeartIcon className={styles.heartIcon} />
+                {isWishlisted ? (
+                <HeartFilledIcon sx={{ color: "black" }} />
+              ) : (
+                <HeartOutlinedIcon />
+              )}
               </button>
             </div>
             {product.image.map((imgUrl, index) => (
@@ -89,7 +103,8 @@ const AllProducts = () => {
           <h2 className={styles.productName}>{product.name}</h2>
           <p className={styles.productPrice}>{product.price} kr</p>
         </div>
-      ))}
+       )
+     })}
     </div>
   );
 };

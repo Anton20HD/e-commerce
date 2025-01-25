@@ -30,7 +30,7 @@ const ProductPage = () => {
   const { addToCart, cart } = useCart();
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const { data: session } = useSession();
-  const userId = session?.user?.id;
+  //const userId = session?.user?.id;
   const [iswishlisted, setIsWishlisted] = useState(false);
 
   const handleSizeChange = (size: string) => {
