@@ -44,12 +44,13 @@
     position: relative;
 }
 
-.f {
+.sizeDetails {
 
-    margin-top: auto;
+    
+    position: relative;
 }
 
-.c {
+.productInfo {
 
     line-height: 10px;
 
@@ -118,4 +119,89 @@
     border: solid 1px #ccc;
     font-family: "Bebas Neue", sans-serif;
     font-size: larger;
+}
+
+.sizeAndAddProductSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    margin-top: auto;
+  }
+
+.dropdownButton {
+
+    color: black;
+}
+
+.dropdownMenu {
+
+    background-color: #fff;
+    position: absolute; // Relative to its container
+    top: 100%; // Positioning below the button
+    left: 0;
+    width: 150px;
+    border-radius: 5px;
+    z-index: 20; // Prevent to hide behind other content
+    margin-bottom: 10px;
+
+
+
+    &.active {
+
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    &.inactive {
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+}
+
+
+.dropdownMenu ul li {
+
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    list-style: none;
+    line-height: 50px;
+}
+
+.dropdownMenu ul li:hover a {
+
+    cursor: pointer;
+}
+
+.dropdownItem {
+    display: flex;
+
+}
+
+.chooseSizeSection {
+
+    cursor: pointer;
+    border: 2px solid black;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    color: black;
+    font-family: $secondfont;
+    font-size: 15px;
+}
+
+.chooseSize {
+
+    margin-left: 10px;
+}
+
+.dropdownItem a {
+
+    max-width: 100px;
 }

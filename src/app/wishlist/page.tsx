@@ -1,15 +1,18 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/app/wishlist/page.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useWishlist } from "@/app/components/wishlistContext/page";
 import { useCart } from "../components/cartContext/page";
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const WishListPage = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
+  const [open, setOpen] = useState(false);
 
   return (
     <div className={styles.wishlistContainer}>
@@ -36,12 +39,31 @@ const WishListPage = () => {
                   className={styles.wishlistItemImage}
                 />
                 <div className={styles.itemDetails}>
-                  <div className={styles.c}>
-                  <h3 className={styles.itemName}>{item.name}</h3>
-                  <p className={styles.itemPrice}>{item.price} kr</p>
+                  <div className={styles.productInfo}>
+                    <h3 className={styles.itemName}>{item.name}</h3>
+                    <p className={styles.itemPrice}>{item.price} kr</p>
                   </div>
-                  <div className={styles.f}>
-                  <p>Size: {item.size}</p>
+                  <div className={styles.sizeAndAddProductSection}>
+                    <div className={styles.sizeDetails}>
+                    <div
+                      className={styles.chooseSizeSection}
+                      onClick={() => {
+                        setOpen(!open);
+                      }}
+                    >
+                    <span className={styles.chooseSize}>Choose size</span><ArrowUpwardIcon/>
+                    </div>
+
+                    <div
+                      className={`${styles.dropdownMenu} ${open ? styles.active : styles.inactive}`}
+                    >
+                      <ul>
+                        <DropdownItem size="S" />
+                        <DropdownItem size="M" />
+                        <DropdownItem size="L" />
+                      </ul>
+                    </div>
+                    </div>
                     <button
                       className={styles.addToCartButton}
                       onClick={() =>
@@ -73,5 +95,13 @@ const WishListPage = () => {
     </div>
   );
 };
+
+function DropdownItem({ size }: { size: string }) {
+  return (
+    <li>
+      <a>{size}</a>
+    </li>
+  );
+}
 
 export default WishListPage;

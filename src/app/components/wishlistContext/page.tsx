@@ -30,8 +30,8 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
 
 export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
-  const [wishlist, setWishlist] = useState<WishlistItem[]>(JSON.parse(localStorage.getItem("wishlist") || "[]")
-  );
+  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+  
 
   useEffect(() => {
     if (wishlist?.length > 0) {
