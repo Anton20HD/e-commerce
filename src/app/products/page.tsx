@@ -85,9 +85,9 @@ const AllProducts = () => {
               }}
               >
                 {isWishlisted ? (
-                <HeartFilledIcon sx={{ color: "black" }} />
+                <HeartFilledIcon sx={{ color: "black", fontSize: 20 }} />
               ) : (
-                <HeartOutlinedIcon />
+                <HeartOutlinedIcon sx={{fontSize: 20}} />
               )}
               </button>
             </div>
