@@ -12,7 +12,16 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 const WishListPage = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<string | null>(null);
+
+  // Record provides a clean way to define an object type with key-value pairs,especially a dynamic structure like sizes.
+  const [selectedSizes, setSelectedSizes] =  useState<Record<string, string>>({});
+
+  const handleSizeSelect = (itemId: string, size: string) => {
+    setSelectedSizes((prev)=> ({ ...prev, [itemId]:size}));
+    setOpen(null);
+
+  }
 
   return (
     <div className={styles.wishlistContainer}>
@@ -48,21 +57,30 @@ const WishListPage = () => {
                     <div
                       className={styles.chooseSizeSection}
                       onClick={() => {
-                        setOpen(!open);
+                        setOpen(open === item._id ? null : item._id);
                       }}
                     >
-                    <span className={styles.chooseSize}>Choose size</span><ArrowUpwardIcon/>
+                    <span className={styles.chooseSize}>{selectedSizes[item._id] || "Choose size"}</span>{open === item._id ? (
+                          <ArrowUpwardIcon />
+                        ) : (
+                          <ArrowDownwardIcon />
+                        )}
                     </div>
 
+                    {open === item._id && (
                     <div
-                      className={`${styles.dropdownMenu} ${open ? styles.active : styles.inactive}`}
-                    >
+                      className={styles.dropdownMenu}>
                       <ul>
-                        <DropdownItem size="S" />
-                        <DropdownItem size="M" />
-                        <DropdownItem size="L" />
+                      {["S", "M", "L"].map((size) => (
+                              <DropdownItem
+                                key={size}
+                                size={size}
+                                onClick={() => handleSizeSelect(item._id, size)}
+                              />
+                            ))}
                       </ul>
                     </div>
+                    )}
                     </div>
                     <button
                       className={styles.addToCartButton}
@@ -72,10 +90,11 @@ const WishListPage = () => {
                           name: item.name,
                           image: item.image,
                           price: item.price,
-                          size: item.size,
+                          size: selectedSizes[item._id],
                           quantity: 1,
                         })
                       }
+                      disabled={!selectedSizes[item._id]}
                     >
                       Add to cart
                     </button>
@@ -96,9 +115,15 @@ const WishListPage = () => {
   );
 };
 
-function DropdownItem({ size }: { size: string }) {
+interface DropdownItemProps {
+  size: string;
+  onClick: () => void;
+}
+
+
+function DropdownItem({ size, onClick }: DropdownItemProps) {
   return (
-    <li>
+    <li onClick={onClick}>
       <a>{size}</a>
     </li>
   );
