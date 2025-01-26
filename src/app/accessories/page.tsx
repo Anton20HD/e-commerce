@@ -39,7 +39,7 @@ const allAccessories = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/api/products");
+        const response = await fetch("/api/products?category=accessories");
         const data = await response.json();
         setProducts(data);
       } catch (error) {

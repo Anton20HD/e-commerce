@@ -6,9 +6,9 @@ const productSchema = new mongoose.Schema({
     price: {type:Number, required:true},
     image: {type:Array, required:true},
     category: {type:String, required:true},
-    subCategory: {type: String, required:true},
-    sizes: {type:Array, required:true},
-    soldout: {type:Boolean}
+    subCategory: {type: String, required:false},
+    sizes: {type:Array, required:false},
+    soldout: {type:Boolean, required: false}
 })
 
 const productModel = mongoose.models.Product || mongoose.model('Product', productSchema)

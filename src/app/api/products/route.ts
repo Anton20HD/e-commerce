@@ -13,7 +13,11 @@ export async function POST(req: Request) {
     const price = formData.get('price') as string;
     const category = formData.get('category') as string;
     const subCategory = formData.get('subCategory') as string;
-    const sizes = (formData.get('sizes') as string).split(',');
+
+
+
+    const sizesField = formData.get('sizes') as string | null;
+    const sizes = sizesField ? sizesField.split(',') : [];
     const soldout = formData.get('soldout') !== undefined;
 
     // Get the file from form data
@@ -38,7 +42,7 @@ export async function POST(req: Request) {
 
     await newProduct.save();
     return NextResponse.json(
-      { message: 'Product created successfully', product: newProduct },
+      { message: `${category.charAt(0).toUpperCase() + category.slice(1)} created successfully`, product: newProduct },
       { status: 201 }
     );
   } catch (error) {
@@ -47,10 +51,16 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+
+export async function GET(req: Request) {
   await connectDB();
   try {
-    const products = await productModel.find({});
+
+      const url = new URL(req.url);
+      const category  = url.searchParams.get('category');
+
+    const query = category ? { category } : {};
+    const products = await productModel.find(query);
     return NextResponse.json(products, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: 'Error fetching products' }, { status: 500 });
