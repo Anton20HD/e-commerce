@@ -6,8 +6,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useWishlist } from "@/app/components/wishlistContext/page";
 import { useCart } from "../components/cartContext/page";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const WishListPage = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
@@ -61,9 +61,9 @@ const WishListPage = () => {
                       }}
                     >
                     <span className={styles.chooseSize}>{selectedSizes[item._id] || "Choose size"}</span>{open === item._id ? (
-                          <ArrowUpwardIcon />
+                          <ExpandMoreIcon />
                         ) : (
-                          <ArrowDownwardIcon />
+                          <ExpandLessIcon />
                         )}
                     </div>
 
@@ -124,7 +124,7 @@ interface DropdownItemProps {
 function DropdownItem({ size, onClick }: DropdownItemProps) {
   return (
     <li onClick={onClick}>
-      <a>{size}</a>
+      <a className={styles.sizeInfo}>{size}</a>
     </li>
   );
 }

@@ -32,6 +32,13 @@
     margin-top: 10px;
 }
 
+.emptyWishlistTitle {
+
+    font-family: $primaryfont;
+    font-weight: 300;
+    font-size: 20px;
+}
+
 .itemDetails {
 
     line-height: 15px;
@@ -46,7 +53,7 @@
 
 .sizeDetails {
 
-    
+
     position: relative;
 }
 
@@ -124,9 +131,9 @@
 .sizeAndAddProductSection {
     display: flex;
     flex-direction: column;
-    gap: 10px; 
+    gap: 10px;
     margin-top: auto;
-  }
+}
 
 .dropdownButton {
 
@@ -136,31 +143,20 @@
 .dropdownMenu {
 
     background-color: #fff;
+    color: black;
+    font-family: $secondfont;
+    font-weight: lighter;
+    font-size: 15px;
+    transition: transform 0.3s ease;
     position: absolute; // Relative to its container
     top: 100%; // Positioning below the button
     left: 0;
-    width: 150px;
+    width: 300px;
     border-radius: 5px;
     z-index: 20; // Prevent to hide behind other content
     margin-bottom: 10px;
-
-
-
-    &.active {
-
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    &.inactive {
-
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-20px);
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    //border: 1px solid black;
 
 }
 
@@ -168,8 +164,23 @@
 .dropdownMenu ul li {
 
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     list-style: none;
     line-height: 50px;
+    width: 100%;
+}
+
+
+.dropdownMenu ul {
+
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.sizeInfo {
+
+    margin-left: 10px;
 }
 
 .dropdownMenu ul li:hover a {
@@ -177,15 +188,10 @@
     cursor: pointer;
 }
 
-.dropdownItem {
-    display: flex;
-
-}
 
 .chooseSizeSection {
 
-    cursor: pointer;
-    border: 2px solid black;
+    border: 1px solid black;
     height: 50px;
     width: 300px;
     display: flex;
@@ -194,6 +200,8 @@
     color: black;
     font-family: $secondfont;
     font-size: 15px;
+    justify-content: space-between;
+    cursor:pointer;
 }
 
 .chooseSize {
