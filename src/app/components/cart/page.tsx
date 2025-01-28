@@ -73,7 +73,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
           </div>
         ) : (
           cart.map((item) => (
-            <div key={`${item._id}-${item.size}`} className={styles.cartItem}>
+            <div key={`${item._id}-${item.size}-${item.quantity}`}className={styles.cartItem}>
               <img
                 src={item.image}
                 alt={item.name}

@@ -31,6 +31,7 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
 export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+  
 
   useEffect(() => {
     if (wishlist?.length > 0) {
@@ -45,21 +46,24 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
         setWishlist(JSON.parse(storedWishList));
       }
     }
-  }, []);
+  }, [ls]);
 
   const addToWishlist = (item: WishlistItem) => {
     setWishlist((prevWishlist) => {
       if (!prevWishlist.find((wishlistItem) => wishlistItem._id === item._id)) {
-        return [...prevWishlist, item];
+        const updatedWishlist = [...prevWishlist, item];
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); 
+        return updatedWishlist;
       }
       return prevWishlist;
     });
   };
-
   const removeFromWishlist = (itemId: string) => {
-    setWishlist((prevWishlist) =>
-      prevWishlist.filter((wishlistItem) => wishlistItem._id !== itemId)
-    );
+    setWishlist((prevWishlist) => {
+      const updatedWishlist = prevWishlist.filter((item) => item._id !== itemId);
+      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist)); 
+      return updatedWishlist;
+    });
   };
 
   return (
