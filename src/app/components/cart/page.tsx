@@ -81,7 +81,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
               />
               <div className={styles.itemDetails}>
                 <h3 className={styles.itemName}>{item.name}</h3>
-                <p>Size: {item.size}</p>
+                {item.size && <p>Size: {item.size}</p>}
                 <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.size, item.price)} kr</p>
                 <div className={styles.removeSection}>
                   <button className={styles.quantityButton} onClick={() => decreaseAmount(item)}><RemoveIcon className={styles.quantityIcon}/></button>

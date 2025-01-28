@@ -17,16 +17,16 @@ interface Product {
   price: number;
   description: string;
   image: string[];
-  sizes: string[];
+  sizes?: string[];
   soldout: boolean;
   category: string;
   subCategory: string;
 }
 
-const ApparelPage = () => {
+const AccessoryPage = () => {
   const { id } = useParams(); // Access to the specific id for the product
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
-  const [selectedSize, setSelectedSize] = useState("S");
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const { addToCart, cart } = useCart();
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const { data: session } = useSession();
@@ -43,24 +43,22 @@ const ApparelPage = () => {
     if (product) {
       console.log("Adding product to cart:", { product });
 
-      // Check if the product is already in the cart (with the same size)
+      const newCartItem: CartItem = {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        size: selectedSize || undefined,
+        image: product.image[0],
+        quantity: 1,
+      };
+
       const existingItem = cart.find(
-        (item: CartItem) =>
-          item._id === product._id && item.size === selectedSize
-      );
+        (item) =>
+          item._id === product._id && item.size === selectedSize || undefined);
 
       if (existingItem) {
         return;
       }
-
-      const newCartItem = {
-        _id: product._id,
-        name: product.name,
-        price: product.price,
-        size: selectedSize,
-        image: product.image[0],
-        quantity: 1,
-      };
 
       try {
         addToCart(newCartItem);
@@ -95,7 +93,7 @@ const ApparelPage = () => {
           _id: product._id,
           name: product.name,
           price: product.price,
-          size: selectedSize,
+          size: selectedSize || undefined,
           image: product.image[0],
         });
         setIsWishlisted(true);
@@ -113,6 +111,15 @@ const ApparelPage = () => {
           }
           const data = await response.json();
           setProduct(data);
+
+          //set default size if product has sizes
+          if (data.sizes && data.sizes.length > 0) {
+            setSelectedSize(data.sizes[0]);
+          } else {
+            setSelectedSize(null);
+          }
+
+
 
           // check if the product is already in the wishlist
           if (wishlist.some((item) => item._id === id)) {
@@ -141,6 +148,8 @@ const ApparelPage = () => {
         </div>
         <div className={styles.mainSection}>
           <h2 className={styles.productName}>{product.name}</h2>
+
+          {product.sizes && product.sizes.length > 0 && (
           <div className={styles.sizeSection}>
             <p className={styles.size}>
               Size <span className={styles.selectedSize}>{selectedSize}</span>
@@ -159,6 +168,7 @@ const ApparelPage = () => {
               ))}
             </div>
           </div>
+          )}
 
           <p className={styles.productPrice}>{product.price} kr</p>
 
@@ -198,4 +208,4 @@ const ApparelPage = () => {
   );
 };
 
-export default ApparelPage;
+export default AccessoryPage;
