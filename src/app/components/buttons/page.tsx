@@ -19,15 +19,15 @@ const ButtonContent = () => {
     <div className={styles.buttonContainer}>
       <div className={styles.buttonContent}>
 
-      <Link href="/products">
+      <Link href="/apparel">
       <button
         className={`${styles.headerButtons} ${
-          activeLink === "products" ? styles.active : ""
+          activeLink === "apparel" ? styles.active : ""
         }`}
-        onMouseEnter={() => handleMouseEnter("products")}
+        onMouseEnter={() => handleMouseEnter("apparel")}
         onMouseLeave={handleMouseLeave}
       >
-        Products
+        APPAREL
       </button>
       </Link>
 

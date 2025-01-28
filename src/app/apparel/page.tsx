@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "@/app/products/page.module.scss";
+import styles from "@/app/apparel/page.module.scss";
 import CartIcon from "@mui/icons-material/LocalMallOutlined";
 import HeartIcon from "@mui/icons-material/FavoriteBorderOutlined";
 //import { useSearch } from "../components/searchContext/page";
@@ -22,7 +22,7 @@ interface Product {
   subCategory: string;
 }
 
-const AllProducts = () => {
+const AllApparel = () => {
   const [products, setProducts] = useState<Product[]>([]);
   // const { searchTerm } = useSearch();
   const router = useRouter();
@@ -44,7 +44,7 @@ const AllProducts = () => {
   }, []);
 
   const handleProduct = (productId: string) => {
-    router.push(`/products/${productId}`);
+    router.push(`/apparel/${productId}`);
   };
 
   const handleWishlistToggle = (product: Product) => {
@@ -109,4 +109,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default AllApparel;

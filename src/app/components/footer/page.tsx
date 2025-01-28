@@ -29,8 +29,8 @@ const Footer = () => {
 
           <div className={styles.shopSection}>
             <h2 className={styles.title}>Shop</h2>
-            <Link className={styles.footerText} href="/products">
-            <p>Products</p>
+            <Link className={styles.footerText} href="/apparel">
+            <p>Apparel</p>
             </Link>
             <Link className={styles.footerText} href="/accessories">
             <p>Accessories</p>

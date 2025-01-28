@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import styles from "@/app/products/[id]/page.module.scss";
+import styles from "@/app/apparel/[id]/page.module.scss";
 import RelatedProducts from "@/app/components/relatedProducts/page";
 import { useCart } from "@/app/components/cartContext/page";
 import { useWishlist } from "@/app/components/wishlistContext/page";
@@ -23,7 +23,7 @@ interface Product {
   subCategory: string;
 }
 
-const ProductPage = () => {
+const ApparelPage = () => {
   const { id } = useParams(); // Access to the specific id for the product
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
   const [selectedSize, setSelectedSize] = useState("S");
@@ -198,4 +198,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ApparelPage;
