@@ -27,7 +27,6 @@ const ProductSearchDropdown = ({
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [showNoResults, setShowNoResults] = useState(false);
 
-
   useEffect(() => {
     const storedSearches = JSON.parse(
       localStorage.getItem("recentSearches") || "[]"
@@ -35,15 +34,14 @@ const ProductSearchDropdown = ({
     setRecentSearches(storedSearches);
   }, []);
 
-
   useEffect(() => {
-    if(!searchTerm.trim()) {
+    if (!searchTerm.trim()) {
       setShowNoResults(false); // reset no results when search is cleared
       return;
     }
 
     const timeoutId = setTimeout(() => {
-      if(filteredProducts.length === 0) {
+      if (filteredProducts.length === 0) {
         setShowNoResults(true);
       }
     }, 500); //(500ms)
@@ -51,36 +49,34 @@ const ProductSearchDropdown = ({
     return () => clearTimeout(timeoutId);
   }, [searchTerm, filteredProducts]);
 
-
   const handleSearch = (searchQuery: string) => {
     if (!searchQuery.trim()) return;
 
-    const hasResults = filteredProducts.some((product) =>
+    const matchedProduct = filteredProducts.find((product) =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     toggleDropdown(); // Close the dropdown
 
-    if (hasResults) {
-
-      //router.push(`/products/${searchQuery}`);
-      
+    if (matchedProduct) {
+      const route = matchedProduct.category.toLowerCase();
+      router.push(`/${route}/${matchedProduct._id}`);
     } else {
       // Navigate to search page if no searchword is matching
       router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
 
-      }
-    
     setSearchTerm(searchQuery);
     const updatedSearches = [searchQuery, ...recentSearches].slice(0, 3); //stores last 3 searches
     localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
     setRecentSearches(updatedSearches);
   };
 
-  const handleProduct = (productId: string) => {
+  const handleProduct = (productId: string, category: string) => {
     toggleDropdown();
     setSearchTerm("");
-    router.push(`/products/${productId}`);
+    const route = category.toLowerCase();
+    router.push(`/${route}/${productId}`);
   };
 
   const handlecloseDropdown = () => {
@@ -145,13 +141,15 @@ const ProductSearchDropdown = ({
         {searchTerm && filteredProducts.length === 0 && showNoResults && (
           <div className={styles.noResultsSection}>
             <h2 className={styles.noResultsTitle}>No results found</h2>
-            <p className={styles.noResultsText}>We didnt find anything for "{searchTerm}" </p>
+            <p className={styles.noResultsText}>
+              We didnt find anything for "{searchTerm}"{" "}
+            </p>
           </div>
         )}
 
         {searchTerm &&
           filteredProducts.map((product) => (
-            <div key={product._id} onClick={() => handleProduct(product._id)}>
+            <div key={product._id} onClick={() => handleProduct(product._id, product.category)}>
               <div className={styles.productCard}>
                 <div className={styles.buttonContent}>
                   <button className={styles.wishList}>
