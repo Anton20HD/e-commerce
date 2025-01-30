@@ -31,15 +31,15 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
 
 
   const increaseAmount = (item: CartItem) => {
-    updateCartQuantity(item._id, item.size,1);
+    updateCartQuantity(item._id, item.size ?? "",1);
   };
 
 
   const decreaseAmount = (item: CartItem) =>  {
     if (item.quantity > 1) {
-        updateCartQuantity(item._id, item.size, -1);
+        updateCartQuantity(item._id, item.size ?? "", -1);
     } else {
-      removeFromCart(item._id, item.size);
+      removeFromCart(item._id, item.size ?? "");
     }
   }
 
@@ -82,7 +82,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
               <div className={styles.itemDetails}>
                 <h3 className={styles.itemName}>{item.name}</h3>
                 {item.size && <p>Size: {item.size}</p>}
-                <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.size, item.price)} kr</p>
+                <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.size ?? "", item.price)} kr</p>
                 <div className={styles.removeSection}>
                   <button className={styles.quantityButton} onClick={() => decreaseAmount(item)}><RemoveIcon className={styles.quantityIcon}/></button>
                   <span className={styles.quantityNumber}>{item.quantity}</span>
