@@ -7,6 +7,8 @@ import RelatedProducts from "@/app/components/relatedProducts/page";
 import { useCart } from "@/app/components/cartContext/page";
 import { loadStripe } from "@stripe/stripe-js";
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+
 const Checkout = () => {
   const { cart, calculateTotalPrice } = useCart();
   const [name, setName] = useState("");
@@ -15,9 +17,11 @@ const Checkout = () => {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
-  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY || "";
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (e: React.FormEvent) => {
+      e.preventDefault();
+
+
     const response = await fetch("/api/checkout", {
       method: "POST",
       headers: {
@@ -36,9 +40,13 @@ const Checkout = () => {
       }),
     });
 
-    const { sessionId } = await response.json();
+    if (!response.ok) {
+      console.error("Error creating Stripe session");
+      return;
+    }
 
-    const stripe = await loadStripe(stripePublicKey);
+    const { sessionId } = await response.json();
+    const stripe = await stripePromise;
     await stripe?.redirectToCheckout({ sessionId });
   };
 
@@ -69,7 +77,7 @@ const Checkout = () => {
         ))}
       </div>
       {cart.length > 0 && (
-        <form method="post" action="/api/checkout" className={styles.orderInfo}>
+        <form className={styles.orderInfo} onSubmit={handleCheckout}>
           <div className={styles.inputInfo}>
             <div className={styles.shippingSection}>
               <h2 className={styles.shippingTitle}>Shipping address</h2>
@@ -138,10 +146,8 @@ const Checkout = () => {
               kr
             </p>
           </div>
-          <input type="hidden"></input>
           <button
             type="submit"
-            onClick={handleCheckout}
             className={styles.paymentButton}
           >
             Pay now
