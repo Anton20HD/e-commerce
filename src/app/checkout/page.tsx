@@ -35,14 +35,14 @@ const Checkout = () => {
               <h3 className={styles.itemName}>{item.name}</h3>
               <p>Size: {item.size}</p>
               <p className={styles.itemPrice}>
-                {calculateTotalPrice(item._id, item.size, item.price)} kr
+                {calculateTotalPrice(item._id, item.size ?? "", item.price)} kr
               </p>
             </div>
           </div>
         ))}
       </div>
       {cart.length > 0 && (
-        <form method="post" action={""} className={styles.orderInfo}>
+        <form method="post" action="/api/checkout" className={styles.orderInfo}>
           <div className={styles.inputInfo}>
             <div className={styles.shippingSection}>
               <h2 className={styles.shippingTitle}>Shipping address</h2>
@@ -54,7 +54,7 @@ const Checkout = () => {
               placeholder="Name"
               value={name}
               name="name"
-              onChange={(ev) => setName(ev.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               className={styles.checkoutLabel}
@@ -62,7 +62,7 @@ const Checkout = () => {
               placeholder="Email"
               value={email}
               name="email"
-              onChange={(ev) => setEmail(ev.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className={styles.checkoutLabel}
@@ -70,7 +70,7 @@ const Checkout = () => {
               placeholder="City"
               value={city}
               name="city"
-              onChange={(ev) => setCity(ev.target.value)}
+              onChange={(e) => setCity(e.target.value)}
             />
             <div className={styles.addressLabel}>
               <input
@@ -79,7 +79,7 @@ const Checkout = () => {
                 placeholder="Postal Code"
                 value={postalCode}
                 name="postalCode"
-                onChange={(ev) => setPostalCode(ev.target.value)}
+                onChange={(e) => setPostalCode(e.target.value)}
               />
               <input
                 className={styles.checkoutLabel}
@@ -87,7 +87,7 @@ const Checkout = () => {
                 placeholder="Street Address"
                 value={streetAddress}
                 name="streetAddress"
-                onChange={(ev) => setStreetAddress(ev.target.value)}
+                onChange={(e) => setStreetAddress(e.target.value)}
               />
             </div>
             <input
@@ -96,7 +96,7 @@ const Checkout = () => {
               placeholder="Country"
               value={country}
               name="country"
-              onChange={(ev) => setCountry(ev.target.value)}
+              onChange={(e) => setCountry(e.target.value)}
             />
           </div>
           <div className={styles.totalPriceSection}>
@@ -104,12 +104,13 @@ const Checkout = () => {
             <p className={styles.totalPrice}>
               {cart.reduce(
                 (total, item) =>
-                  total + calculateTotalPrice(item._id, item.size, item.price),
+                  total + calculateTotalPrice(item._id, item.size ?? "", item.price),
                 0
               )}{" "}
               kr
             </p>
           </div>
+          <input type="hidden"></input>
           <button type="submit" className={styles.paymentButton}>Pay now</button>
         </form>
       )}
