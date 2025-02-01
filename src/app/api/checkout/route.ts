@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       },
       unit_amount: item.price * 100,
     },
-    quantity: 1,
+    quantity: item.quantity || 1,
   }));
 
   try {
