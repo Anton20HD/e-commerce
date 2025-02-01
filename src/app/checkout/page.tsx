@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import styles from "@/app/checkout/page.module.scss";
 import RelatedProducts from "@/app/components/relatedProducts/page";
 import { useCart } from "@/app/components/cartContext/page";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = () => {
   const { cart, calculateTotalPrice } = useCart();
@@ -14,6 +15,32 @@ const Checkout = () => {
   const [postalCode, setPostalCode] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
+  const stripePublicKey = process.env.STRIPE_PUBLIC_KEY || "";
+
+  const handleCheckout = async () => {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart,
+        user: {
+          name,
+          email,
+          city,
+          postalCode,
+          streetAddress,
+          country,
+        },
+      }),
+    });
+
+    const { sessionId } = await response.json();
+
+    const stripe = await loadStripe(stripePublicKey);
+    await stripe?.redirectToCheckout({ sessionId });
+  };
 
   return (
     <div className={styles.checkoutContainer}>
@@ -104,14 +131,21 @@ const Checkout = () => {
             <p className={styles.totalPrice}>
               {cart.reduce(
                 (total, item) =>
-                  total + calculateTotalPrice(item._id, item.size ?? "", item.price),
+                  total +
+                  calculateTotalPrice(item._id, item.size ?? "", item.price),
                 0
               )}{" "}
               kr
             </p>
           </div>
           <input type="hidden"></input>
-          <button type="submit" className={styles.paymentButton}>Pay now</button>
+          <button
+            type="submit"
+            onClick={handleCheckout}
+            className={styles.paymentButton}
+          >
+            Pay now
+          </button>
         </form>
       )}
     </div>
