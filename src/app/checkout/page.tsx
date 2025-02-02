@@ -46,6 +46,13 @@ const Checkout = () => {
     }
 
     const { sessionId } = await response.json();
+
+    localStorage.setItem("guestOrder", JSON.stringify({
+      sessionId,
+      cart,
+      user: {name, email, city, postalCode, streetAddress, country}
+    }));
+
     const stripe = await stripePromise;
     await stripe?.redirectToCheckout({ sessionId });
   };
