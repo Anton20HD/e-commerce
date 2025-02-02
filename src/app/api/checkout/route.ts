@@ -1,3 +1,4 @@
+import { metadata } from "@/app/login/layout";
 import connectDB from "@/libs/db/mongodb";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 import { NextResponse } from "next/server";
@@ -35,6 +36,9 @@ export async function POST(req: Request) {
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`,
       customer_email: user.email,
       locale: "en",
+      metadata : {
+        cart: JSON.stringify(cart),
+      }
     });
 
     return NextResponse.json({ sessionId: session.id }, { status: 200 });
