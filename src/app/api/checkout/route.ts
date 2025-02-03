@@ -19,13 +19,23 @@ export async function POST(req: Request) {
     price_data: {
       currency: "sek",
       product_data: {
-        name: item.name,
+        name: `${item.name} - Size: ${item.size}`,
         images: [item.image],
       },
       unit_amount: item.price * 100,
     },
     quantity: item.quantity || 1,
   }));
+
+
+  const generateOrderNumber = () => {
+
+    const timestamp = Date.now().toString().slice(-6); // Last 6 digits of the timestamp
+    const random = Math.floor(1000 + Math.random() * 9000); // 4-digit random number
+    return `#${timestamp}${random}`;
+  }
+
+  const orderNumber = generateOrderNumber();
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -35,10 +45,12 @@ export async function POST(req: Request) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout`,
       customer_email: user.email,
-      locale: "en",
       metadata : {
         cart: JSON.stringify(cart),
-      }
+        customer_name: user.name,
+        order_number: orderNumber,
+      },
+      locale: "en",
     });
 
     return NextResponse.json({ sessionId: session.id }, { status: 200 });

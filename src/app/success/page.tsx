@@ -5,9 +5,15 @@ import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import styles from "@/app/success/page.module.scss";
 import shoppingBagCheck from "@/app/assets/shoppingBagCheck.svg";
+import Link from "next/link";
 
 const Success = () => {
-    const [orderDetails, setOrderDetails] = useState<any>({ items: [], totalAmount: 0 });
+  const [orderDetails, setOrderDetails] = useState<any>({
+    items: [],
+    totalAmount: 0,
+    customerName: "",
+  });
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -35,15 +41,20 @@ const Success = () => {
       }
 
       const order = session.customer_email
-      ? cart
-      : JSON.parse(localStorage.getItem("guestOrder") || "[]");
+        ? cart
+        : JSON.parse(localStorage.getItem("guestOrder") || "[]");
 
       console.log("Order for user:", order);
 
       setOrderDetails({
         items: order,
         totalAmount: session.amount_total / 100,
+        customerName: session.metadata.customer_name || "",
+        orderNumber: session.metadata.order_number || "N/A",
       });
+      setLoading(false);
+
+      localStorage.removeItem("cartItems");
     };
 
     fetchSessionAndStoreOrder();
@@ -51,32 +62,90 @@ const Success = () => {
 
   console.log("orderDetails", orderDetails);
 
+  if (loading) {
+    return (
+      <div className={styles.loadingOverlay}>
+        <div className={styles.loadingSpinner}></div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.successPageContainer}>
       <div className={styles.cartImageSection}>
-        <img src={shoppingBagCheck.src} alt="" />
+        <img
+          src={shoppingBagCheck.src}
+          className={styles.shoppingBagCheck}
+          alt=""
+        />
       </div>
       <div className={styles.successMessageSection}>
-        <h1>Thank you for your order Anton!</h1>
-        <p>Your order has been successfully placed.</p>
+        <h1 className={styles.successMessageTitle}>
+          Thank you {orderDetails.customerName}!
+        </h1>
+        <p className={styles.successMessageInfoText}>
+          Your order has been successfully placed
+        </p>
+        <div>
+          <p className={styles.orderNumberText}>
+            Order number: <strong>{orderDetails.orderNumber}</strong>
+          </p>
+        </div>
+      </div>
+      <div className={styles.continueShoppingButtonSection}>
+        <Link href="/" passHref>
+          <button className={styles.shopMoreButton}>Shop more</button>
+        </Link>
+      </div>
+      <div className={styles.orderDetailsTitleSection}>
+        <h2 className={styles.orderDetailsText}>Your order details:</h2>
       </div>
       <div className={styles.orderDetailsSection}>
-        <h2>Your order details:</h2>
         {orderDetails.items.length > 0 ? (
-            <ul>
-                {orderDetails.items.map((item:any) => (
-                   <li key={`${item._id}-${item.quantity}`}>
-                  <p><strong>{item.name}</strong></p>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>Price {item.price}</p>
-                  </li>
-                ))}
-            </ul>
+          <ul className={styles.orderDetailsList}>
+            {orderDetails.items.map((item: any) => (
+              <li
+                key={`${item._id}-${item.quantity}`}
+                className={styles.orderItem}
+              >
+                <div className={styles.itemImageSection}>
+                  <img
+                    className={styles.itemImage}
+                    src={item.image}
+                    alt={item.name}
+                  />
+                </div>
+                <div className={styles.itemDetails}>
+                  <div className={styles.itemNameAndPriceSection}>
+                    <p className={styles.itemName}>
+                      <strong>{item.name}</strong>
+                    </p>
+                    <p>
+                      <strong>{item.price} SEK</strong>
+                    </p>
+                  </div>
+                  <div className={styles.itemDetailsText}>
+                    <p>Size: {item.size}</p>
+                    <p>Quantity: {item.quantity}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         ) : (
-            <p>It seems there was an issue with retrieving your order details. Please contact support</p>
+          <p>
+            It seems there was an issue with retrieving your order details.
+            Please contact support
+          </p>
         )}
-        <div>
-            <h3> Total Amount: {orderDetails.totalAmount} kr</h3>
+        <div className={styles.totalAmountSection}>
+          <h3>
+            {" "}
+            Total:{" "}
+            <span className={styles.totalAmountText}>
+              {orderDetails.totalAmount} SEK
+            </span>
+          </h3>
         </div>
       </div>
     </div>

@@ -59,7 +59,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
           <div className={styles.emptyCartSection}>
             <h4 className={styles.emptyCartTitle}>Your Cart is empty</h4>
             <div className={styles.buttonSection}>
-              <Link href="/products">
+              <Link href="/apparel">
                 <button className={styles.navigateButton} onClick={toggleMenu}>
                   Shop Products
                 </button>
