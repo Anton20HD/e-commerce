@@ -14,6 +14,8 @@ This is a full-stack e-commerce website built using **Next.js**, **TypeScript**,
 - **User Authentication**: Users can log in and sign up using **NextAuth.js**, and JWT tokens are used for managing sessions.
 - **Local Storage Support**: For guest users, product data is stored in localStorage, so they can still browse without logging in.
 - **Image Optimization**: Cloudinary handles all images to ensure quick loading times and high-quality images.
+- **Cart Functionality**: Add products to the cart and proceed to checkout.
+- **Stripe Integration**: Complete the payment process securely using Stripe (Test mode) and receive order confirmation.
 ## Getting Started
 To get the project up and running locally, follow these steps:
 ### 1. Clone the repository
