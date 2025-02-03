@@ -38,8 +38,13 @@ const Footer = () => {
           </div>
           <div className={styles.accountSection}>
             <h2 className={styles.title}>My account</h2>
+
+            <Link className={styles.footerText} href="/login">
             <p>Login</p>
+            </Link>
+            <Link className={styles.footerText} href="/register">
             <p>Register</p>
+            </Link>
           </div>
         </div>
        

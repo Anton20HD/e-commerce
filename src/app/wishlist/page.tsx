@@ -13,7 +13,7 @@ const WishListPage = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
   const [open, setOpen] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Record provides a clean way to define an object type with key-value pairs,especially a dynamic structure like sizes.
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>(
@@ -27,7 +27,11 @@ const WishListPage = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if(dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        open &&
+        dropdownRefs.current[open] &&
+        !dropdownRefs.current[open]!.contains(event.target as Node)
+      ) {
         setOpen(null);
       }
     }
@@ -37,7 +41,7 @@ const WishListPage = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [])
+  }, [open])
 
   return (
     <div className={styles.wishlistContainer}>
@@ -69,7 +73,12 @@ const WishListPage = () => {
                     <p className={styles.itemPrice}>{item.price} kr</p>
                   </div>
                   <div className={styles.sizeAndAddProductSection}>
-                    <div className={styles.sizeDetails}>
+                    <div 
+                    className={styles.sizeDetails} 
+                    ref={(el) => {
+                      if (el) dropdownRefs.current[item._id] = el;
+                    }}
+                    >
                       <div
                         className={styles.chooseSizeSection}
                         onClick={() => {
@@ -87,8 +96,7 @@ const WishListPage = () => {
                       </div>
 
                       {open === item._id && (
-                        <div className={styles.dropdownMenu}
-                        ref={dropdownRef}>
+                        <div className={styles.dropdownMenu}>
                           <ul>
                             {["S", "M", "L"].map((size) => (
                               <DropdownItem

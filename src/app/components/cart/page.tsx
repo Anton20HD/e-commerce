@@ -31,15 +31,15 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
 
 
   const increaseAmount = (item: CartItem) => {
-    updateCartQuantity(item._id, item.size,1);
+    updateCartQuantity(item._id, item.size ?? "",1);
   };
 
 
   const decreaseAmount = (item: CartItem) =>  {
     if (item.quantity > 1) {
-        updateCartQuantity(item._id, item.size, -1);
+        updateCartQuantity(item._id, item.size ?? "", -1);
     } else {
-      removeFromCart(item._id, item.size);
+      removeFromCart(item._id, item.size ?? "");
     }
   }
 
@@ -59,7 +59,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
           <div className={styles.emptyCartSection}>
             <h4 className={styles.emptyCartTitle}>Your Cart is empty</h4>
             <div className={styles.buttonSection}>
-              <Link href="/products">
+              <Link href="/apparel">
                 <button className={styles.navigateButton} onClick={toggleMenu}>
                   Shop Products
                 </button>
@@ -81,8 +81,8 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
               />
               <div className={styles.itemDetails}>
                 <h3 className={styles.itemName}>{item.name}</h3>
-                <p>Size: {item.size}</p>
-                <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.size, item.price)} kr</p>
+                {item.size && <p>Size: {item.size}</p>}
+                <p className={styles.itemPrice}>{calculateTotalPrice(item._id, item.size ?? "", item.price)} kr</p>
                 <div className={styles.removeSection}>
                   <button className={styles.quantityButton} onClick={() => decreaseAmount(item)}><RemoveIcon className={styles.quantityIcon}/></button>
                   <span className={styles.quantityNumber}>{item.quantity}</span>
@@ -96,7 +96,7 @@ const Cart = ({ toggleMenu, isVisible }: CartProps) => {
         <div className={styles.orderInfo}>
           <div className={styles.totalPriceSection}>
           <p className={styles.totalLabel}>Total </p>
-          <p className={styles.totalPrice}>{cart.reduce((total, item) => total + calculateTotalPrice(item._id, item.size, item.price), 0)}kr</p>
+          <p className={styles.totalPrice}>{cart.reduce((total, item) => total + calculateTotalPrice(item._id, item.size ?? "", item.price), 0)}kr</p>
           </div>
           <button className={styles.paymentButton} onClick={handleCheckout}>Continue to payment</button>
         </div>
