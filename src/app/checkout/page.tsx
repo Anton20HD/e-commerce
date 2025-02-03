@@ -6,6 +6,7 @@ import styles from "@/app/checkout/page.module.scss";
 import RelatedProducts from "@/app/components/relatedProducts/page";
 import { useCart } from "@/app/components/cartContext/page";
 import { loadStripe } from "@stripe/stripe-js";
+import ErrorIcon from '@mui/icons-material/Error';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -18,9 +19,53 @@ const Checkout = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [country, setCountry] = useState("");
 
-  const handleCheckout = async (e: React.FormEvent) => {
-      e.preventDefault();
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [cityError, setCityError] = useState<string | null>(null);
+  const [postalCodeError, setPostalCodeError] = useState<string | null>(null);
+  const [streetAddressError, setStreetAddressError] = useState<string | null>(
+    null
+  );
+  const [countryError, setCountryError] = useState<string | null>(null);
 
+  const handleCheckout = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setNameError(null);
+    setEmailError(null);
+    setPostalCodeError(null);
+    setStreetAddressError(null);
+    setCountryError(null);
+    setCityError(null);
+
+    let valid = true;
+
+    if (!name) {
+      setNameError("Name is required");
+      valid = false;
+    }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Valid email is required");
+      valid = false;
+    }
+    if (!city) {
+      setCityError("City is required");
+      valid = false;
+    }
+    if (!postalCode) {
+      setPostalCodeError("Postal code is required");
+      valid = false;
+    }
+    if (!streetAddress) {
+      setStreetAddressError("Street address is required");
+      valid = false;
+    }
+    if (!country) {
+      setCountryError("Country is required");
+      valid = false;
+    }
+
+    if (!valid) return;
 
     const response = await fetch("/api/checkout", {
       method: "POST",
@@ -47,11 +92,14 @@ const Checkout = () => {
 
     const { sessionId } = await response.json();
 
-    localStorage.setItem("guestOrder", JSON.stringify({
-      sessionId,
-      cart,
-      user: {name, email, city, postalCode, streetAddress, country}
-    }));
+    localStorage.setItem(
+      "guestOrder",
+      JSON.stringify({
+        sessionId,
+        cart,
+        user: { name, email, city, postalCode, streetAddress, country },
+      })
+    );
 
     const stripe = await stripePromise;
     await stripe?.redirectToCheckout({ sessionId });
@@ -98,6 +146,11 @@ const Checkout = () => {
               name="name"
               onChange={(e) => setName(e.target.value)}
             />
+
+            <div className={styles.errorSection}>
+            {nameError && <p className={styles.errorText}><ErrorIcon/>{nameError}</p>}
+            </div>
+       
             <input
               className={styles.checkoutLabel}
               type="text"
@@ -106,6 +159,11 @@ const Checkout = () => {
               name="email"
               onChange={(e) => setEmail(e.target.value)}
             />
+
+            <div className={styles.errorSection}>
+            {emailError && <p className={styles.errorText}><ErrorIcon/>{emailError}</p>}
+            </div>
+
             <input
               className={styles.checkoutLabel}
               type="text"
@@ -114,6 +172,12 @@ const Checkout = () => {
               name="city"
               onChange={(e) => setCity(e.target.value)}
             />
+
+        
+            <div className={styles.errorSection}>
+            {cityError && <p className={styles.errorText}><ErrorIcon/>{cityError}</p>}
+            </div>
+
             <div className={styles.addressLabel}>
               <input
                 className={styles.checkoutLabel}
@@ -123,6 +187,12 @@ const Checkout = () => {
                 name="postalCode"
                 onChange={(e) => setPostalCode(e.target.value)}
               />
+
+            <div className={styles.errorSection}>
+            {postalCodeError && <p className={styles.errorText}><ErrorIcon/>{postalCodeError}</p>}
+            </div>
+
+            
               <input
                 className={styles.checkoutLabel}
                 type="text"
@@ -131,6 +201,12 @@ const Checkout = () => {
                 name="streetAddress"
                 onChange={(e) => setStreetAddress(e.target.value)}
               />
+
+            <div className={styles.errorSection}>
+            {streetAddressError && <p className={styles.errorText}><ErrorIcon/>{streetAddressError}</p>}
+            </div>
+
+          
             </div>
             <input
               className={styles.checkoutLabel}
@@ -140,6 +216,11 @@ const Checkout = () => {
               name="country"
               onChange={(e) => setCountry(e.target.value)}
             />
+
+            <div className={styles.errorSection}>
+            {countryError && <p className={styles.errorText}><ErrorIcon/>{countryError}</p>}
+            </div>
+
           </div>
           <div className={styles.totalPriceSection}>
             <p className={styles.totalLabel}>Total</p>
@@ -153,10 +234,7 @@ const Checkout = () => {
               kr
             </p>
           </div>
-          <button
-            type="submit"
-            className={styles.paymentButton}
-          >
+          <button type="submit" className={styles.paymentButton}>
             Pay now
           </button>
         </form>

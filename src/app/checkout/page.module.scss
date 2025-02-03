@@ -168,3 +168,23 @@
 }
 
 .shippingSection {}
+
+
+.errorText {
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    color: darkred;
+    font-family: $secondfont;
+    gap: 10px;
+    font-size: 13px;
+}
+
+
+.errorSection {
+
+    display: flex;
+   
+}
