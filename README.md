@@ -1,5 +1,5 @@
 #  Full-Stack E-Commerce Website
-This is a full-stack e-commerce website built using **Next.js**, **TypeScript**, and **React**. It’s designed for gym enthusiasts, with a variety of training gear and apparel. While the website is still under construction, it currently includes basic functionalities for product browsing, user authentication, and image optimization.
+This is a full-stack e-commerce website built using **Next.js**, **TypeScript**, and **React**. It’s designed for gym enthusiasts, with a variety of training gear and apparel. While the website is still under construction, it currently includes basic functionalities for product browsing, user authentication, payment processing and image optimization.
 ## Technologies Used
 - **Next.js**: A React framework for building fast and scalable web applications. Used for both front-end and API routes.
 - **TypeScript**: A statically typed superset of JavaScript that improves code quality and developer experience.
@@ -8,7 +8,7 @@ This is a full-stack e-commerce website built using **Next.js**, **TypeScript**,
 - **Cloudinary**: Used for image optimization and handling image uploads.
 - **NextAuth.js**: For implementing authentication with JWT tokens.
 - **LocalStorage**: For managing guest users when not logged in.
-- **Stripe**: For payment processing(Test mode)
+- **Stripe**: For payment processing (Test mode).
 ## Features
 - **Product Display**: View a wide range of gym-related products with images stored on Cloudinary.
 - **User Authentication**: Users can log in and sign up using **NextAuth.js**, and JWT tokens are used for managing sessions.
