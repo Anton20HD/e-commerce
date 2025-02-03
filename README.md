@@ -8,6 +8,7 @@ This is a full-stack e-commerce website built using **Next.js**, **TypeScript**,
 - **Cloudinary**: Used for image optimization and handling image uploads.
 - **NextAuth.js**: For implementing authentication with JWT tokens.
 - **LocalStorage**: For managing guest users when not logged in.
+- **Stripe**: For payment processing(Test mode)
 ## Features
 - **Product Display**: View a wide range of gym-related products with images stored on Cloudinary.
 - **User Authentication**: Users can log in and sign up using **NextAuth.js**, and JWT tokens are used for managing sessions.
@@ -42,7 +43,6 @@ Then, open your browser and go to http://localhost:3000 to see the app in action
 ```
 ### Roadmap
 The project is under construction, so here’s what’s on the way:
-- **Finalizing the user checkout flow and integrating payment processing.**
 - **Completing the admin dashboard for product and user management.**
 - **Improving the user interface and mobile responsiveness.**
 - **Completing the accessories page**
