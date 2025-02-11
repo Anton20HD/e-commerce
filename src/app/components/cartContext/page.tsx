@@ -174,11 +174,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const calculateTotalPrice = (
     itemId: string,
-    itemSize: string,
+    itemSize: string | undefined,
     itemPrice: number
   ) => {
     const totalQuantity = cart
-      .filter((item) => item._id === itemId && item.size === itemSize)
+      .filter((item) => item._id === itemId && item.size === itemSize || item.size === "onesize")
       .reduce((acc, item) => acc + item.quantity, 0);
     return totalQuantity * itemPrice;
   };

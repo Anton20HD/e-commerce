@@ -56,9 +56,12 @@ const WishListPage = () => {
             </h4>
           </div>
         ) : (
-          wishlist.map((item) => (
+          wishlist.map((item) => {
+            const isAccessory = item.category === "accessory";
+
+            return (
             <div
-              key={`${item._id}-${item.size}`}
+              key={`${item._id}-${item.size || "onesize"}`}
               className={styles.wishlistItem}
             >
               <div className={styles.wishlistWrapper}>
@@ -85,9 +88,10 @@ const WishListPage = () => {
                           setOpen(open === item._id ? null : item._id);
                         }}
                       >
-                        <span className={styles.chooseSize}>
-                          {selectedSizes[item._id] || "Choose size"}
-                        </span>
+                          <span className={styles.chooseSize}>
+                            {selectedSizes[item._id] ||
+                              (isAccessory ? "One Size" : "Choose size")}
+                          </span>
                         {open === item._id ? (
                           <ExpandMoreIcon />
                         ) : (
@@ -98,7 +102,7 @@ const WishListPage = () => {
                       {open === item._id && (
                         <div className={styles.dropdownMenu}>
                           <ul>
-                            {["S", "M", "L"].map((size) => (
+                          {(isAccessory ? ["One Size"] : ["S", "M", "L"]).map((size) => (
                               <DropdownItem
                                 key={size}
                                 size={size}
@@ -117,11 +121,11 @@ const WishListPage = () => {
                           name: item.name,
                           image: item.image,
                           price: item.price,
-                          size: selectedSizes[item._id],
+                          size: selectedSizes[item._id] || (isAccessory ? "One Size" : ""),
                           quantity: 1,
                         })
                       }
-                      disabled={!selectedSizes[item._id]}
+                      disabled={!selectedSizes[item._id] && !isAccessory}
                     >
                       Add to cart
                     </button>
@@ -135,8 +139,9 @@ const WishListPage = () => {
                 ></CloseIcon>
               </div>
             </div>
-          ))
-        )}
+          )
+        })
+      )}
       </div>
     </div>
   );

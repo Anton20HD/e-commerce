@@ -26,7 +26,7 @@ interface Product {
 const AccessoryPage = () => {
   const { id } = useParams(); // Access to the specific id for the product
   const [product, setProduct] = useState<Product | null>(null); // Single product initialization. Is either null or an object
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState("onesize");
   const { addToCart, cart } = useCart();
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlist();
   const { data: session } = useSession();
@@ -47,17 +47,17 @@ const AccessoryPage = () => {
         _id: product._id,
         name: product.name,
         price: product.price,
-        size: selectedSize || undefined,
+        size: "onesize", 
         image: product.image[0],
         quantity: 1,
       };
 
       const existingItem = cart.find(
-        (item) =>
-          item._id === product._id && item.size === selectedSize || undefined);
-
+        (item) => item._id === product._id && item.size === "onesize"
+      );
+  
       if (existingItem) {
-        return;
+        return; // Prevent adding the same item again
       }
 
       try {
@@ -93,8 +93,9 @@ const AccessoryPage = () => {
           _id: product._id,
           name: product.name,
           price: product.price,
-          size: selectedSize || undefined,
           image: product.image[0],
+          size: "One Size",
+          category: "accessory",
         });
         setIsWishlisted(true);
       }
@@ -111,15 +112,6 @@ const AccessoryPage = () => {
           }
           const data = await response.json();
           setProduct(data);
-
-          //set default size if product has sizes
-          if (data.sizes && data.sizes.length > 0) {
-            setSelectedSize(data.sizes[0]);
-          } else {
-            setSelectedSize(null);
-          }
-
-
 
           // check if the product is already in the wishlist
           if (wishlist.some((item) => item._id === id)) {
@@ -150,24 +142,24 @@ const AccessoryPage = () => {
           <h2 className={styles.productName}>{product.name}</h2>
 
           {product.sizes && product.sizes.length > 0 && (
-          <div className={styles.sizeSection}>
-            <p className={styles.size}>
-              Size <span className={styles.selectedSize}>{selectedSize}</span>
-            </p>
-            <div className={styles.buttonsContainer}>
-              {product.sizes.map((size, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleSizeChange(size)}
-                  className={`${styles.sizeButton} ${
-                    selectedSize === size ? styles.selectedSizeButton : ""
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
+            <div className={styles.sizeSection}>
+              <p className={styles.size}>
+                Size <span className={styles.selectedSize}>{selectedSize}</span>
+              </p>
+              <div className={styles.buttonsContainer}>
+                {product.sizes.map((size, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSizeChange(size)}
+                    className={`${styles.sizeButton} ${
+                      selectedSize === size ? styles.selectedSizeButton : ""
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
           )}
 
           <p className={styles.productPrice}>{product.price} kr</p>
@@ -186,7 +178,7 @@ const AccessoryPage = () => {
               {iswishlisted ? (
                 <HeartFilledIcon sx={{ color: "black", fontSize: 20 }} />
               ) : (
-                <HeartOutlinedIcon sx={{fontSize: 20}} />
+                <HeartOutlinedIcon sx={{ fontSize: 20 }} />
               )}
             </button>
           </div>

@@ -97,6 +97,7 @@ const ApparelPage = () => {
           price: product.price,
           size: selectedSize,
           image: product.image[0],
+          category: "apparel",
         });
         setIsWishlisted(true);
       }

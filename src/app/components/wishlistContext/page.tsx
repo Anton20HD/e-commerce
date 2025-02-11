@@ -15,6 +15,7 @@ export interface WishlistItem {
   image: string;
   price: number;
   size?: string;
+  category: string;
 }
 
 // functions go here
