@@ -1,5 +1,6 @@
 "use client";
 
+
 // Good way to manage global state(especially where you need access to multiple components)
 import React, {
   createContext,
@@ -26,7 +27,6 @@ interface CartContextType {
   removeFromCart: (itemId: string, size: string) => void;
   calculateTotalPrice: (itemId: string, itemSize: string, itemPrice: number) => number;
   updateCartQuantity: (itemId: string, size: string, quantity: number) => void;
-  syncCartWithBackend: () => Promise<void>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -35,7 +35,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
   const { data: session, status } = useSession();
   const [cart, setCart] = useState<CartItem[]>([]);
-  const localStoragekey = "cartItems";
+  const localStorageKey = "cartItems";
+
+  const mergeCarts = (userCart: CartItem[], guestCart: CartItem[]) => {
+    const mergedCart = [...userCart];
+  
+    guestCart.forEach((guestItem) => {
+      const existingItem = mergedCart.find(
+        (item) => item._id === guestItem._id && item.size === guestItem.size
+      );
+  
+      if (existingItem) {
+        existingItem.quantity += guestItem.quantity; // Add quantity
+      } else {
+        mergedCart.push(guestItem); // Add new item
+      }
+    });
+  
+    return mergedCart;
+  };
+  
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -44,33 +63,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           const response = await fetch("/api/cart", { method: "GET" });
           if (response.ok) {
             const data = await response.json();
-            //setCart(data.cart);
-            //syncCartWithBackend();
-            if(JSON.stringify(data.cart) !== JSON.stringify(cart))
-            setCart((prevCart) => {
-              const mergedCart = [...prevCart];
-              data.cart.forEach((item: CartItem) => {
-                const existingItem = mergedCart.find(
-                  (cartItem) => cartItem._id === item._id && cartItem.size === item.size
-                );
-                if (existingItem) {
-                    // update quantity if item exist in cart
-                  existingItem.quantity += item.quantity;
-                } else {
-
-                  mergedCart.push(item);
-                }
-              });
-              return mergedCart;
-            });
+            if (JSON.stringify(data.cart) !== JSON.stringify(cart)) {
+              setCart(data.cart); // Overwrite instead of merging
+            }
           } else {
-            console.error("Failed to fetch cart from backend:",response.status );
+            console.error("Failed to fetch cart:", response.status);
           }
         } catch (error) {
-          console.error("Failed to fetch cart from backend:", error);
+          console.error("Error fetching cart:", error);
         }
-      } else if (ls) {
-        const storedCart = ls.getItem(localStoragekey);
+      } else if (status === "unauthenticated" && ls) {
+        const storedCart = ls.getItem(localStorageKey);
         if (storedCart) {
           setCart(JSON.parse(storedCart));
         }
@@ -78,52 +81,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
 
     if (status === "authenticated" || status === "unauthenticated") {
-    fetchCart();
+      fetchCart();
     }
   }, [status]);
 
-  // sync after cart is updated
+  // Sync guest cart with localStorage
   useEffect(() => {
     if (status === "unauthenticated" && ls) {
-      const storedCart = ls.getItem(localStoragekey);
-      if (storedCart !== JSON.stringify(cart)) {
-        ls.setItem(localStoragekey, JSON.stringify(cart));
-      }
+      ls.setItem(localStorageKey, JSON.stringify(cart));
     }
-  }, [cart, status, ls]);
-
- 
-
-  // Automatically sync with backend with useeffect and we dont need to call the method in every function
-  useEffect(() => {
-    let isSyncing = false;
-
-
-    const syncCartWithBackend = async () => {
-      if (status === "authenticated" && session?.user?.id && !isSyncing) {
-        isSyncing = true;
-        try {
-          const response = await fetch("/api/cart", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: session.user.id, cartItems: cart }),
-          });
-
-          if (!response.ok) {
-            console.error("Failed to sync cart with backend:", response.status);
-          }
-        } catch (error) {
-          console.error("Error syncing cart:", error);
-        } finally {
-          isSyncing = false;
-        }
-      }
-    };
-
-    if(status === "authenticated") {
-      syncCartWithBackend();
-    }
-  }, [cart, status, session]);
+  }, [cart, status]);
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
@@ -131,45 +98,59 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         (cartItem) => cartItem._id === item._id && cartItem.size === item.size
       );
 
+      let updatedCart;
       if (existingItem) {
-        //update quantity if item is already in cart with same size
-        return prevCart.map((cartItem) =>
+        updatedCart = prevCart.map((cartItem) =>
           cartItem._id === item._id && cartItem.size === item.size
-            ? { ...cartItem, quantity: Math.max(1,cartItem.quantity + 1) } // prevent quantity being below 1
+            ? { ...cartItem, quantity: Math.max(1, cartItem.quantity + 1) }
             : cartItem
         );
       } else {
-        //add new item to cart
         return [...prevCart, { ...item, quantity: 1 }];
       }
+
+
+      // save guest cart to ls
+      if(status === "unauthenticated" && ls) {
+        ls.setItem(localStorageKey, JSON.stringify(updatedCart));
+    }
+      return updatedCart;
     });
   };
 
   const removeFromCart = (itemId: string, size: string) => {
-    setCart((prevCart) =>
-      prevCart.filter(
+    setCart((prevCart) => {
+      const updatedCart = prevCart.filter(
         (cartItem) => !(cartItem._id === itemId && cartItem.size === size)
-      )
-    );
+      );
+
+       // save guest cart to ls
+       if(status === "unauthenticated" && ls) {
+        ls.setItem(localStorageKey, JSON.stringify(updatedCart));
+    }
+      return updatedCart;
+    });
   };
 
-  const updateCartQuantity = (
-    itemId: string,
-    size: string,
-    quantity: number
-  ) => {
-    setCart((prevCart) =>
-      prevCart
+  const updateCartQuantity = (itemId: string,size: string,quantity: number) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart
         .map((cartItem) =>
           cartItem._id === itemId && cartItem.size === size
             ? {
                 ...cartItem,
-                quantity: Math.max(0, cartItem.quantity + quantity),
+                quantity: Math.max(1, cartItem.quantity + quantity),
               }
             : cartItem
         )
         .filter((cartItem) => cartItem.quantity > 0)
-    );
+
+         // save guest cart to ls
+      if(status === "unauthenticated" && ls) {
+        ls.setItem(localStorageKey, JSON.stringify(updatedCart));
+    }
+      return updatedCart;
+    });
   };
 
   const calculateTotalPrice = (
@@ -178,7 +159,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     itemPrice: number
   ) => {
     const totalQuantity = cart
-      .filter((item) => item._id === itemId && item.size === itemSize || item.size === "onesize")
+      .filter(
+        (item) => item._id === itemId && (item.size === itemSize || item.size === "onesize")
+      )
       .reduce((acc, item) => acc + item.quantity, 0);
     return totalQuantity * itemPrice;
   };
@@ -191,7 +174,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         removeFromCart,
         calculateTotalPrice,
         updateCartQuantity,
-        syncCartWithBackend: async () => {},
       }}
     >
       {children}
@@ -199,7 +181,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-//Function to use the cart
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) {
