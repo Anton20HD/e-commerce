@@ -5,69 +5,61 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
-   
-
     try {
         const body = await req.json();
-        console.log("Request Body:", body)
+        console.log("Request Body:", body);
         const { cartItems } = body;
 
-
         const session = await getServerSession(authOptions);
-        console.log("Session:", session);  // Log the session
+        console.log("Session:", session); 
 
-        if(!session) {
+        if (!session) {
             return NextResponse.json(
-                { message: "Unauthorized. Please login"},
+                { message: "Unauthorized. Please login" },
                 { status: 401 }
-            )
+            );
         }
 
         const userId = session.user?.id;
-
-        if(!userId) {
+        if (!userId) {
             return NextResponse.json(
-                {message: "Missing userid in session "},
-                { status: 400}
-            )
-
-        }if(!cartItems) {
+                { message: "Missing userId in session" },
+                { status: 400 }
+            );
+        }
+        if (!cartItems) {
             return NextResponse.json(
-                {message: "Missing cartitems"},
-                { status: 400}
-            )
-
+                { message: "Missing cartItems" },
+                { status: 400 }
+            );
         }
 
         const user = await User.findById(userId);
-        if(!user) {
-            return NextResponse.json({ message: "User not found"}, { status: 404})
+        if (!user) {
+            return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
-
 
         cartItems.forEach((localItem: CartItem) => {
             const existingItem = user.cartData.find(
                 (dbItem: CartItem) =>
-                    dbItem._id === localItem._id && dbItem.size === localItem.size
+                    dbItem._id.toString() === localItem._id.toString() && dbItem.size === localItem.size
             );
 
-            if(existingItem) {
-                // update quantity if item already exists
+            if (existingItem) {
                 existingItem.quantity = Math.max(1, existingItem.quantity + localItem.quantity);
             } else {
-    
-                // Add new item to the cart
-                user.cartData.push(localItem)
+                user.cartData.push({ ...localItem, quantity: Math.max(1, localItem.quantity) });
             }
         });
 
-        await user.save()
-        return NextResponse.json({ message: "Item added to cart", cart: user.cartData})
-    } catch(error) {
-        console.error(error)
-        return NextResponse.json({ message: "Error adding item to cart"}, { status: 500 })
-    }
+        user.markModified("cartData");
+        await user.save();
 
+        return NextResponse.json({ message: "Cart updated", cart: user.cartData });
+    } catch (error) {
+        console.error("Error updating cart:", error);
+        return NextResponse.json({ message: "Error updating cart" }, { status: 500 });
+    }
 }
 
 export async function GET(req:Request) {
