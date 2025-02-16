@@ -27,7 +27,8 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }
-        if (!cartItems) {
+
+        if (!cartItems || !Array.isArray(cartItems)) {
             return NextResponse.json(
                 { message: "Missing cartItems" },
                 { status: 400 }

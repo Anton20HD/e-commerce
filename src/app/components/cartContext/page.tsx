@@ -57,7 +57,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           if (response.ok) {
             const userCart = await response.json();
 
-            // Check if a guest cart exists
+            
             const storedCart = ls ? JSON.parse(ls.getItem(localStorageKey) || "[]") : [];
 
             if (storedCart.length > 0) {
@@ -68,12 +68,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
               await fetch("/api/cart", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ cart: mergedCart }),
+                body: JSON.stringify({ cartItems: mergedCart }),
               });
 
-              if (ls) {
-                ls.removeItem(localStorageKey);
-              }
+              // if (ls) {
+              //   //ls.removeItem(localStorageKey);
+              // }
               setCart(mergedCart);
             } else {
               setCart(userCart.cart);
